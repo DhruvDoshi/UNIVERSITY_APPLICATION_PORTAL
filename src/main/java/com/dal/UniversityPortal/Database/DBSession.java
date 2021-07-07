@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 public class DBSession implements AutoCloseable{
-    private final Connection connection;
+    private Connection connection;
 
-    public DBSession() throws SQLException {
-        connection = DriverManager.getConnection(getConnectionString());
-        connection.setAutoCommit(true);
+    public DBSession() {
+        try {
+            connection = DriverManager.getConnection(getConnectionString());
+            connection.setAutoCommit(true);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
-    public DBSession(Boolean autoCommit) throws SQLException {
-        connection = DriverManager.getConnection(getConnectionString());
+    public void setAutoCommit(Boolean autoCommit) throws SQLException {
         connection.setAutoCommit(autoCommit);
     }
 
