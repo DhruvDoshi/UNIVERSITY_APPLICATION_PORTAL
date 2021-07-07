@@ -9,19 +9,16 @@ import java.util.Map;
 public class DBSession implements AutoCloseable{
     private Connection connection;
 
-    public DBSession() {
-        try {
-            connection = DriverManager.getConnection(getConnectionString());
-            connection.setAutoCommit(true);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+    public DBSession() throws SQLException {
+        connection = DriverManager.getConnection(getConnectionString());
+        connection.setAutoCommit(true);
     }
 
     public void setAutoCommit(Boolean autoCommit) throws SQLException {
         connection.setAutoCommit(autoCommit);
     }
 
+    //TODO: Move this to constants.
     private String getConnectionString() {
         return "jdbc:mysql://localhost:3306/test?user=root&password=password";
     }
