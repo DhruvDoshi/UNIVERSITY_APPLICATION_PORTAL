@@ -1,4 +1,4 @@
-package com.dal.UniversityPortal;
+package com.dal.UniversityPortal.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
