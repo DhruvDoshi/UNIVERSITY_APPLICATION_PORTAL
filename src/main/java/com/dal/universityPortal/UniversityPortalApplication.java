@@ -14,7 +14,7 @@ public class UniversityPortalApplication {
 	}
 	@GetMapping("/health_check")
 	public String healthCheck() {
-		return "test";
+		return "health_check";
 	}
 
 }
