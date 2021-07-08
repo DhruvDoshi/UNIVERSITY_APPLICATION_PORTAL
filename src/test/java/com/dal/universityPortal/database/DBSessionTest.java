@@ -1,4 +1,4 @@
-package com.dal.UniversityPortal.Database;
+package com.dal.universityPortal.database;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
