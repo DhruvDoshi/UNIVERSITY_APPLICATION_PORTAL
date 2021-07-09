@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>University Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">University Portal</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="text-center">
+        <br>
+        <h2>University Profile</h2>
+        <br>
+        <form action="#" th:action="@{/saveUniversityProfile}" th:object="${university_profile}" method="POST">
+            <input type="text" th:field="*{universityName}" placeholder="University Name" class="mb-4 col-4">
+            <br>
+            <textarea rows="5" th:field="*{universityDescription}"  placeholder="Description" class="mb-4 col-4"></textarea>
+            <br>
+            <input type="text" th:field="*{universityDepartmentName}" placeholder="Department" class="mb-4 col-4">
+            <br>
+
+            <div class="form-check" style="text-align: left; margin-left: 32%;">
+                <input type="text" th:field="*{courseName1}" placeholder="Course-1" class="mb-4 col-4" style="width: 16.5%;">
+                <input type="checkbox" class="form-check-input" th:field="*{winterTermCourse1}" id="cs1_c1" style="margin-left: 2%;">
+                <label class="form-check-label" for="cs1_c1"  style="margin-left: 4%;">Summer</label>
+                <input type="checkbox" class="form-check-input"  th:field="*{summerTermCourse1}" id="cs1_c2" style="margin-left: 1%;">
+                <label class="form-check-label" for="cs1_c2"  style="margin-left: 3%;">Winter</label>
+                <input type="checkbox" class="form-check-input" th:field="*{fallTermCourse1}" id="cs1_c3"  style="margin-left: 1%;">
+                <label class="form-check-label" for="cs1_c3"  style="margin-left: 3%;">Fall</label>
+            </div>
+            <br>
+            <div class="form-check" style="text-align: left; margin-left: 32%;">
+                <input type="text" th:field="*{courseName2}" placeholder="Course-2" class="mb-4 col-4" style="width: 16.5%;">
+                <input type="checkbox" class="form-check-input" th:field="*{winterTermCourse2}" id="cs2_c1" style="margin-left: 2%;">
+                <label class="form-check-label" for="cs2_c1"   style="margin-left: 4%;">Summer</label>
+                <input type="checkbox" class="form-check-input" th:field="*{summerTermCourse2}"id="cs2_c2" style="margin-left: 1%;">
+                <label class="form-check-label" for="cs2_c2"  style="margin-left: 3%;">Winter</label>
+                <input type="checkbox" class="form-check-input" th:field="*{fallTermCourse2}" id="cs2_c3" style="margin-left: 1%;">
+                <label class="form-check-label" for="cs2_c3" style="margin-left: 3%;">Fall</label>
+            </div>
+            <br>
+
+            <button type="submit" class="btn col-2" style="background-color: white; border: 1px solid gray; ">Cancel</button>
+            <button type="submit" class="btn btn-info col-2">Submit</button>
+        </form>
+        <br>
+        <hr>
+    </div>
+</div>
+</body>
+
+</html>
