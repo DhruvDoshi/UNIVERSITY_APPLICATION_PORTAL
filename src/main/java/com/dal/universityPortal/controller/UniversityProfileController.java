@@ -19,7 +19,7 @@ public class UniversityProfileController {
 
     @GetMapping("/loadUniversityProfile")
     public String loadUniversityProfile(Model model) throws SQLException {
-        UniversityProfile universityProfile= new UniversityProfile(0,0,"","","",0,"","",false,false,false,false,false,false);
+        UniversityProfile universityProfile= universityProfileService.readProfile();
         model.addAttribute("university_profile", universityProfile);
         return "university_profile";
     }

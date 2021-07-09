@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface UniversityProfileService {
     void saveProfile(UniversityProfile universityProfile) throws SQLException;
-
+    UniversityProfile readProfile() throws SQLException;
 }
