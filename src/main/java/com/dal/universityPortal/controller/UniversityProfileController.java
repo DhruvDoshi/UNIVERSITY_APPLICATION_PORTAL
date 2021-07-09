@@ -25,7 +25,7 @@ public class UniversityProfileController {
     }
 
     @PostMapping("/saveUniversityProfile")
-    public String saveUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile) throws SQLException, SQLException {
+    public String saveUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile) throws SQLException {
         universityProfileService.saveProfile(universityProfile);
         return "redirect:/";
     }
