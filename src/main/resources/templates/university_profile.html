@@ -29,7 +29,7 @@
         <br>
         <h2>University Profile</h2>
         <br>
-        <form action="#" th:action="@{/saveUniversityProfile}" th:object="${university_profile}" method="POST">
+        <form action="#" th:object="${university_profile}" method="POST">
             <input type="text" th:field="*{universityName}" placeholder="University Name" class="mb-4 col-4">
             <br>
             <textarea rows="5" th:field="*{universityDescription}"  placeholder="Description" class="mb-4 col-4"></textarea>
@@ -58,8 +58,9 @@
             </div>
             <br>
 
-            <button type="submit" class="btn col-2" style="background-color: white; border: 1px solid gray; ">Cancel</button>
-            <button type="submit" class="btn btn-info col-2">Submit</button>
+            <button type="submit" class="btn col-2" style="background-color: white; border: 1px solid gray; " th:action="@{/redirect:/}">Cancel</button>
+            <button type="submit" class="btn btn-info col-2" th:action="@{/saveUniversityProfile}">Submit</button>
+            <button type="submit" class="btn btn-info col-2" th:action="@{/deleteUniversityProfile}">Delete</button>
         </form>
         <br>
         <hr>

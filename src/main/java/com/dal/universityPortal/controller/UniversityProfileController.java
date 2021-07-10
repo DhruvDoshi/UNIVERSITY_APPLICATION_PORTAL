@@ -29,4 +29,10 @@ public class UniversityProfileController {
         universityProfileService.saveProfile(universityProfile);
         return "redirect:/";
     }
+    @PostMapping("/deleteUniversityProfile")
+    public String deleteUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile) throws SQLException {
+        universityProfileService.deleteProfile(universityProfile);
+        return "redirect:/";
+    }
+
 }
