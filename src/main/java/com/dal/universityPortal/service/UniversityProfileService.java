@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 
 public interface UniversityProfileService {
-    void saveProfile(UniversityProfile universityProfile) throws SQLException;
+    Boolean saveProfile(UniversityProfile universityProfile) throws SQLException;
     UniversityProfile readProfile() throws SQLException;
-    void deleteProfile(UniversityProfile universityProfile) throws SQLException;
+    Boolean deleteProfile(UniversityProfile universityProfile) throws SQLException;
 }

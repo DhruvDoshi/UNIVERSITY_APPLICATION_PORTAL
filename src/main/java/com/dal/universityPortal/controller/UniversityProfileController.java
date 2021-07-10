@@ -5,9 +5,7 @@ import com.dal.universityPortal.service.UniversityProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
@@ -24,15 +22,22 @@ public class UniversityProfileController {
         return "university_profile";
     }
 
-    @PostMapping("/saveUniversityProfile")
+    @RequestMapping (value="/saveUniversityProfile",method= RequestMethod.POST)
     public String saveUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile) throws SQLException {
         universityProfileService.saveProfile(universityProfile);
         return "redirect:/";
     }
-    @PostMapping("/deleteUniversityProfile")
+
+    @RequestMapping (value="/deleteUniversityProfile",method= RequestMethod.POST)
     public String deleteUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile) throws SQLException {
         universityProfileService.deleteProfile(universityProfile);
         return "redirect:/";
     }
+
+    @RequestMapping (value="/cancelUniversityProfile",method= RequestMethod.POST)
+    public String cancelUniversityProfile(@ModelAttribute("university_profile") UniversityProfile universityProfile){
+        return "redirect:/";
+    }
+
 
 }
