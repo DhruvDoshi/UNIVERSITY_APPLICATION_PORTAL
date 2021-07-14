@@ -1,5 +1,6 @@
 package com.dal.universityPortal.controller;
 
+import com.dal.universityPortal.model.AdminPanel;
 import com.dal.universityPortal.service.AdminPanelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,15 +23,19 @@ public class AdminPanelController {
     }
 
     @GetMapping("/allowUniversity/{id}")
-    public String allowUniversity(@PathVariable (value = "id") int id, Model model) throws SQLException {
-        this.adminPanelService.allowUniversityById(id);
+    public String allowUniversity(@PathVariable(value = "id") int id, Model model) throws SQLException {
+        AdminPanel adminPanel = new AdminPanel();
+        adminPanel.setUserId(id);
+        this.adminPanelService.allowUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
         return "admin_panel";
     }
 
     @GetMapping("/denyUniversity/{id}")
     public String denyUniversity(@PathVariable (value = "id") int id, Model model) throws SQLException {
-        this.adminPanelService.denyUniversityById(id);
+        AdminPanel adminPanel = new AdminPanel();
+        adminPanel.setUserId(id);
+        this.adminPanelService.denyUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
         return "admin_panel";
     }
