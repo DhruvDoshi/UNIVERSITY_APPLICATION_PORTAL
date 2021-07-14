@@ -29,16 +29,16 @@
         <thead>
         <tr>
             <th>University</th>
-            <th>Admin</th>
+            <th>Email</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="university : ${listUniversities}">
-            <td th:text="${university.username}"></td>
-            <td th:text="${university.email}"></td>
-            <td><a th:href="@{/allowUniversity/{id}(id=${university.authentication_id})}" class="btn btn-info">Allow</a>
-                <a th:href="@{/denyUniversity/{id}(id=${university.authentication_id})}"class="btn btn-danger">Deny</a>
+            <td th:text="${university.getUsername()}"></td>
+            <td th:text="${university.getEmail()}"></td>
+            <td><a th:href="@{/allowUniversity/{id}(id=${university.userId})}" class="btn btn-info">Allow</a>
+                <a th:href="@{/denyUniversity/{id}(id=${university.userId})}"class="btn btn-danger">Deny</a>
             </td>
         </tr>
         </tbody>
