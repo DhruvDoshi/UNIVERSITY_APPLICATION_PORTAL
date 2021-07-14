@@ -27,16 +27,29 @@
 <div class="container-fluid">
     <div class="text-center">
         <br>
-        <h2>University - Basic details</h2>
+        <h2>University - Program details</h2>
         <br>
-        <form action="#" th:object="${university}" th:action="@{/saveUniversityProfile/{id}(id=${university.userId})}" method="POST">
-            <input type="text" th:field="*{universityName}" placeholder="University Name" class="mb-4 col-4">
+        <form action="#" th:object="${program}" th:action="@{/saveUniversityProgram/{id}(id=${program.universityId})}" method="POST">
+            <input type="text" th:field="*{name}" placeholder="Program" class="mb-4 col-4">
             <br>
-            <textarea rows="5" th:field="*{universityDescription}"  placeholder="Description" class="mb-4 col-4"></textarea>
-            <br>
-            <button type="submit" class="btn btn-info col-1" >Next</button>
+            <button type="submit" class="btn btn-info col-1" >Add</button>
         </form>
         <br>
+        <table border="0" class="table">
+            <thead>
+            <tr>
+                <th>Program Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${programList}">
+                <td th:text="${p.name}"></td>
+                <td><a th:href="@{/deleteProgram/{id}/{name}(id=${p.universityId},name=${p.name})}" class="btn btn-info">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <hr>
     </div>
 </div>
