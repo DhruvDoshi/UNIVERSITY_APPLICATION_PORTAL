@@ -6,14 +6,29 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static com.dal.universityPortal.database.query.UserQuery.*;
+import static java.util.Objects.isNull;
 
 @Component
 public class UserDao implements Dao<User> {
     @Override
     public List<User> fetchAll() {
         return null; //TODO: Implement
+    }
+
+    public User fetchOne(String username) throws SQLException {
+        Map<String, Object> row;
+        User user = null;
+        try(DBSession dbSession = new DBSession()) {
+            List<Map<String, Object>> rows = dbSession.fetch(FETCH_USER_USING_USERNAME, Arrays.asList(username));
+            row = rows.get(0);
+            if(!isNull(row)) {
+                user = new User(row);
+            }
+        }
+        return user;
     }
 
     @Override

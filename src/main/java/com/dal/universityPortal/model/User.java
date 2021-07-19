@@ -4,7 +4,6 @@ import com.dal.universityPortal.service.ModelValidatorService;
 import com.dal.universityPortal.validator.*;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static com.dal.universityPortal.constant.UserConstant.*;
@@ -30,6 +29,15 @@ public class User extends ValidatedModel{
         this.type = type;
     }
 
+    public User(Map<String, Object> userRow) {
+        super(new ModelValidatorService());
+        this.username = (String) userRow.get("username");
+        this.email = (String) userRow.get("email");
+        this.password = (String) userRow.get("password");
+        this.type = UserType.valueOf((String) userRow.get("type"));
+        this.status = UserStatus.valueOf((String) userRow.get("status"));
+    }
+
     public String getUsername() {
         return username;
     }
@@ -52,6 +60,10 @@ public class User extends ValidatedModel{
 
     public String getStatusString() {
         return status == null ? null : status.toString();
+    }
+
+    public UserStatus getStatus() {
+        return status;
     }
 
     public void setUsername(String username) {

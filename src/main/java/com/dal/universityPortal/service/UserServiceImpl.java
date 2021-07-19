@@ -17,7 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Override
     public void addUser(User user) throws SQLException, ValidationException {
