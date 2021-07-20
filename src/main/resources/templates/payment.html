@@ -16,8 +16,8 @@
         <p style="text-align: left; margin-left: 33%;">Amount</p>
         <p style="text-align: left; margin-left: 33%;">Email: </p>
         <br>
-        <form action="#" th:action="@{/savePayment}" th:object="${Payment}" method="POST">
-            <input type="text" th:field="*{cardholderName}" placeholder="Name" class="mb-4 col-4">
+        <form action="#" th:action="@{/savePayment}" th:object="${payment_info}" method="POST">
+            <input type="text" th:field="*{payName}" placeholder="Name" class="mb-4 col-4">
             <br>
             <input type="number" th:field="*{cardNumber}" placeholder="Card Number" class="mb-4 col-4">
             <br>
