@@ -1,5 +1,21 @@
 package com.dal.universityPortal.model;
 
 public enum UserType {
-    ADMIN, STUDENT, UNIVERSITY
+    UNIVERSITY("/university"),
+    STUDENT("/student"),
+    ADMIN("/admin");
+    UserType(String allowedRoute) {
+        this.allowedRoute = allowedRoute;
+    }
+    private static final String ESCAPE = "/";
+    private static final String ALL_CHAR = "//.*";
+
+    private final String allowedRoute;
+
+    public boolean isRouteAllowed(String route) {
+        String regexForRoute = ESCAPE + allowedRoute + ALL_CHAR;
+        return route.matches(regexForRoute);
+    }
+
+
 }

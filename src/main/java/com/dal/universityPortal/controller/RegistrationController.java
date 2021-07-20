@@ -34,6 +34,6 @@ public class RegistrationController {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return "health_check";
+        return "redirect:/login";
     }
 }
