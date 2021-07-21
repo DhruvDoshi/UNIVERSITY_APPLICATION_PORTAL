@@ -1,11 +1,12 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.model.UniversityProfile;
+import com.dal.universityPortal.model.Program;
+import com.dal.universityPortal.model.University;
 
 import java.sql.SQLException;
 
 
 public interface UniversityProfileService {
-    void saveProfile(UniversityProfile universityProfile) throws SQLException;
-
+    Boolean saveProfile(University university) throws SQLException;
+    University readProfile(int id) throws SQLException;
 }
