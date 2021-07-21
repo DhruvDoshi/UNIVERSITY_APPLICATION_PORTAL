@@ -12,7 +12,20 @@ import java.util.Map;
 public class UniversityDao implements Dao<University> {
     @Override
     public List<University> fetchAll() throws SQLException {
-        return null;
+        List<Map<String, Object>> uniList;
+        List<University> universityList = new ArrayList<>();
+        try(DBSession dbSession = new DBSession()) {
+            uniList=dbSession.fetch("SELECT * from university");
+            dbSession.setAutoCommit(true);
+            for (Map<String, Object> mapUni : uniList) {
+                University university = new University();
+                university.setUserId(Integer.parseInt(String.valueOf(mapUni.get("user_id"))));
+                university.setUniversityName(String.valueOf(mapUni.get("university_name")));
+                university.setUniversityDescription(String.valueOf(mapUni.get("university_description")));
+                universityList.add(university);
+            }
+        }
+        return universityList;
     }
 
 

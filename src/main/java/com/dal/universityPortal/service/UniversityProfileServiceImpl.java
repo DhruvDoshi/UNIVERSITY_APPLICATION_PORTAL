@@ -28,5 +28,18 @@ public class UniversityProfileServiceImpl implements UniversityProfileService{
         }
         return true;
     }
-
+    @Override
+    public University readProfile(int id) throws SQLException {
+        University university = new University();
+        List<University> universityList = universityDao.fetchAll();
+        for (int i=0;i<universityList.size();i++){
+            if(universityList.get(i).getUserId()==id){
+                university.setUserId(universityList.get(i).getUserId());
+                university.setUniversityName(universityList.get(i).getUniversityName());
+                university.setUniversityDescription(universityList.get(i).getUniversityDescription());
+            }
+        }
+        return university;
+    }
+    
 }
