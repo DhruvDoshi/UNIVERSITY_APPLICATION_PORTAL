@@ -17,14 +17,16 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-//    @GetMapping("/savePayment")
-//    public String savePayment(Model model){
-//        model.addAttribute("payment", new Payment());
-//        return "savePayment";
-//    }
+    @GetMapping("/loadPayment")
+    public String loadPayment(Model model) throws SQLException {
+        Payment payment1 = new Payment();
+        model.addAttribute("payment", payment1);
+        return "payment";
+    }
 
     @PostMapping("/savePayment")
-    public String savePayment(@ModelAttribute("payment_info") Payment payment) throws SQLException {
-        paymentService.savePayment(payment);
+    public String savePayment(@ModelAttribute("payment") Payment payment1) throws SQLException{
+        paymentService.savePayment(payment1);
         return "redirect:/";
-    }}
+    }
+}

@@ -3,27 +3,27 @@ package com.dal.universityPortal.model;
 import java.util.Date;
 
 public class Payment {
-    private int payment_id;
+    private String application_id;
     private String name;
     private String cardNumber;
     private Date expiryDate;
     private String CVV;
 
     public Payment(){}
-    public Payment (int payment_id, String name, String cardNumber, Date expiryDate, String CVV){
-        this.payment_id = payment_id;
+    public Payment (String application_id, String name, String cardNumber, Date expiryDate, String CVV){
+        this.application_id = application_id;
         this.name = name;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.CVV = CVV;
     }
 
-    public int getPayment_id() {
-        return payment_id;
+    public String getApplication_id() {
+        return application_id;
     }
 
-    public void setPayment_id(int payment_id) {
-        this.payment_id = payment_id;
+    public void setApplication_id(String application_id) {
+        this.application_id = application_id;
     }
 
     public String getName() {
