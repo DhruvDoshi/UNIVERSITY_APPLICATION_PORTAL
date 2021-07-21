@@ -21,7 +21,7 @@ public class UniversityProfileServiceImpl implements UniversityProfileService{
             if(university.getUniversityName().isEmpty()){
                 universityDao.insert(university);
             }else{
-                // Update
+                universityDao.update(university);
             }
         } catch (Exception exception) {
             System.out.println(exception);
