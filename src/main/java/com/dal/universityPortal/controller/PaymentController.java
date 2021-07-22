@@ -1,7 +1,6 @@
 package com.dal.universityPortal.controller;
 
 import com.dal.universityPortal.model.Payment;
-import com.dal.universityPortal.model.UniversityProfile;
 import com.dal.universityPortal.service.CardValidatorService;
 import com.dal.universityPortal.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
