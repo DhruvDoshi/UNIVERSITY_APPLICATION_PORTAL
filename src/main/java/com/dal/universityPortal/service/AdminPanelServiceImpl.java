@@ -1,35 +1,41 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.DBSession;
+import com.dal.universityPortal.database.AdminDao;
+import com.dal.universityPortal.model.AdminPanel;
+import com.dal.universityPortal.model.UserStatus;
 import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AdminPanelServiceImpl implements AdminPanelService{
 
+    AdminDao adminDao = new AdminDao();
     @Override
-    public List< Map<String, Object> > getPendingStatusUniversities() throws SQLException {
-        try(DBSession dbSession = new DBSession();) {
-            List<Map<String, Object>> universities = dbSession.fetch("SELECT * from authentication WHERE type = ? AND status Is Null OR status = ''", Arrays.asList("university"));
-        return universities;
-        }
+    public List<AdminPanel> getPendingStatusUniversities() throws SQLException {
+        List<AdminPanel> listUniversities = adminDao.fetchAll();
+        return listUniversities;
     }
 
     @Override
-    public boolean allowUniversityById(int id) throws SQLException {
-        try(DBSession dbSession = new DBSession();) {
-            dbSession.execute("UPDATE authentication SET status = ? WHERE authentication_id = ?;", Arrays.asList("allow", id));
+    public boolean allowUniversityById(AdminPanel adminPanel) throws SQLException {
+        try {
+            adminPanel.setStatus(UserStatus.ACTIVE.toString());
+            adminDao.update(adminPanel);
+        } catch (Exception exception) {
+            System.out.println(exception);
         }
         return true;
     }
 
     @Override
-    public boolean denyUniversityById(int id) throws SQLException {
-        try(DBSession dbSession = new DBSession();) {
-            dbSession.execute("UPDATE authentication SET status = ? WHERE authentication_id = ?;", Arrays.asList("deny", id));
+    public boolean denyUniversityById(AdminPanel adminPanel) throws SQLException {
+        try {
+            adminPanel.setStatus(UserStatus.BLOCKED.toString());
+            adminDao.update(adminPanel);
+        } catch (Exception exception) {
+            System.out.println(exception);
         }
         return true;
     }
