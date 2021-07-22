@@ -36,4 +36,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     public void logout(HttpSession session) {
         session.removeAttribute("user");
     }
+
+    @Override
+    public User getCurrentUser(HttpSession session) {
+        return (User) session.getAttribute("user"); //TODO: Write Test
+    }
 }

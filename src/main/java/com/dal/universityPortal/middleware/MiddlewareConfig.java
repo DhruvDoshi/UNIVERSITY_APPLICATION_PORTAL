@@ -9,7 +9,9 @@ import java.util.List;
 
 @Configuration
 public class MiddlewareConfig implements WebMvcConfigurer {
-    private final List<String> excludedPaths = Arrays.asList("/registration", "/login", "/logout", "/loadPayment", "/savePayment");
+
+    private final List<String> excludedPaths = Arrays.asList("/registration", "/login", "/logout", "/error/*", "/loadPayment", "/savePayment");
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationMiddleware()).excludePathPatterns(excludedPaths);
