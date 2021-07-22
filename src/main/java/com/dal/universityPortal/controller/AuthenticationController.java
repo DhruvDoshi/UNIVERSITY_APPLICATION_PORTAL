@@ -37,7 +37,7 @@ public class AuthenticationController {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return "redirect:health_check"; //TODO: implement dashboard logic
+        return "redirect:admin/dashboard"; //TODO: implement dashboard logic
     }
 
     @GetMapping("/logout")
