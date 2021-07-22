@@ -15,7 +15,6 @@ public class SearchUniversityDao implements Dao<Program>{
     List<Program> universityDetails = new ArrayList<>();
     try (DBSession dbSession = new DBSession()) {
       universityDetail = dbSession.fetch("SELECT * FROM university");
-      dbSession.setAutoCommit(true);
       for (Map<String, Object> mapUniversity : universityDetail) {
         Program universityData = new Program();
         universityData.setUserId(Integer.parseInt(String.valueOf(mapUniversity.get("user_id"))));
@@ -32,7 +31,6 @@ public class SearchUniversityDao implements Dao<Program>{
     List<Program> programDetails = new ArrayList<>();
     try (DBSession dbSession = new DBSession()) {
       programDetail = dbSession.fetch("SELECT * FROM program WHERE university_id = ?", Arrays.asList(id));
-      dbSession.setAutoCommit(true);
       for (Map<String, Object> mapProgram : programDetail) {
         Program program = new Program();
         program.setName(String.valueOf(mapProgram.get("name")));
