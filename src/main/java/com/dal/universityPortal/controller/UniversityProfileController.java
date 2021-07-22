@@ -1,16 +1,19 @@
 package com.dal.universityPortal.controller;
 
-import com.dal.universityPortal.model.Program;
 import com.dal.universityPortal.model.University;
 import com.dal.universityPortal.service.UniversityProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.SQLException;
 
 @Controller
+@RequestMapping("/university")
 public class UniversityProfileController {
 
     @Autowired

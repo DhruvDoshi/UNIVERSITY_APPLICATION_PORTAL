@@ -10,6 +10,7 @@ import static com.dal.universityPortal.constant.UserConstant.*;
 
 @Component
 public class User extends ValidatedModel{
+    private Integer id;
     private String username;
     private String email;
     private String password;
@@ -31,11 +32,16 @@ public class User extends ValidatedModel{
 
     public User(Map<String, Object> userRow) {
         super(new ModelValidatorService());
+        this.id = (Integer) userRow.get("id");
         this.username = (String) userRow.get("username");
         this.email = (String) userRow.get("email");
         this.password = (String) userRow.get("password");
         this.type = UserType.valueOf((String) userRow.get("type"));
         this.status = UserStatus.valueOf((String) userRow.get("status"));
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getUsername() {
