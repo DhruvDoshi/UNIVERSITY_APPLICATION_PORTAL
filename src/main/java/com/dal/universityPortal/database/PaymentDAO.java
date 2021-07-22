@@ -19,14 +19,11 @@ public class PaymentDAO implements Dao<Payment>{
         return null;
     }
     public static String fetchStatus(String application_id) throws SQLException{
-        List<Map<String, Object>> status;
+        List<Map<String, Object>> row;
         try(DBSession dbSession = new DBSession()) {
-            status = dbSession.fetch(FETCH_STATUS_APPLICATION_ID, Arrays.asList(application_id));
-            if(status.contains("PENDING")){
-                return "PENDING";
-            }
+            row = dbSession.fetch(FETCH_STATUS_APPLICATION_ID, Arrays.asList(application_id));
+            return (String) row.get(0).get("status");
         }
-        return "";
     }
 
     public static void foreignKeysSet() throws SQLException {

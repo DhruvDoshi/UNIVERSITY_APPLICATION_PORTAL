@@ -3,6 +3,8 @@ package com.dal.universityPortal.service;
 import com.dal.universityPortal.database.PaymentDAO;
 import com.dal.universityPortal.model.Payment;
 import com.dal.universityPortal.database.DBSession;
+import com.dal.universityPortal.model.UserStatus;
+import com.dal.universityPortal.model.UserType;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -14,10 +16,10 @@ public class PaymentServiceImpl implements PaymentService{
     public Boolean savePayment(Payment payment) throws SQLException {
         try {
             String status = "";
-            PaymentDAO.foreignKeysSet();
-            PaymentDAO.insertCards(payment);
+//            PaymentDAO.foreignKeysSet();
+//            PaymentDAO.insertCards(payment);
             status = PaymentDAO.fetchStatus(payment.getApplication_id());
-            if (status == "PENDING"){
+            if (status.equals("PENDING")){
                 PaymentDAO.updateStatus(payment);
                 PaymentDAO.insertPayment(payment);
             }

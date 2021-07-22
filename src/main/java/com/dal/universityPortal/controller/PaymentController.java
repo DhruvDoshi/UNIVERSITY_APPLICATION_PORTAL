@@ -2,6 +2,7 @@ package com.dal.universityPortal.controller;
 
 import com.dal.universityPortal.model.Payment;
 import com.dal.universityPortal.model.UniversityProfile;
+import com.dal.universityPortal.service.CardValidatorService;
 import com.dal.universityPortal.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
+    private CardValidatorService cardValidatorService;
 
     @GetMapping("/loadPayment")
     public String loadPayment(Model model) throws SQLException {
@@ -25,8 +27,10 @@ public class PaymentController {
     }
 
     @PostMapping("/savePayment")
-    public String savePayment(@ModelAttribute("payment") Payment payment1) throws SQLException{
-        paymentService.savePayment(payment1);
+    public String savePayment(@ModelAttribute("payment") Payment payment1) throws SQLException {
+        if (cardValidatorService.isValid(payment1)) {
+            paymentService.savePayment(payment1);
+        }
         return "redirect:/";
     }
 }

@@ -6,11 +6,11 @@ public class Payment {
     private String application_id;
     private String name;
     private String cardNumber;
-    private Date expiryDate;
+    private String expiryDate;
     private String CVV;
 
     public Payment(){}
-    public Payment (String application_id, String name, String cardNumber, Date expiryDate, String CVV){
+    public Payment (String application_id, String name, String cardNumber, String expiryDate, String CVV){
         this.application_id = application_id;
         this.name = name;
         this.cardNumber = cardNumber;
@@ -50,11 +50,11 @@ public class Payment {
         this.CVV = CVV;
     }
 
-    public Date getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 }
