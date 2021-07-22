@@ -1,16 +1,13 @@
-package com.dal.universityPortal.service;
+package com.dal.universityPortal.validator;
 
-import com.dal.universityPortal.model.Payment;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CardValidatorServiceImpl implements CardValidatorService {
+public class CardValidator implements Validator<String>{
     @Override
-    public Boolean isValid(Payment payment) throws SQLException {
+    public boolean isValid(String cardNumber) {
         /*
         *   Visa : 13 or 16 digits, starting with 4.
             MasterCard : 16 digits, starting with 51 through 55.
@@ -18,8 +15,10 @@ public class CardValidatorServiceImpl implements CardValidatorService {
             American Express : 15 digits, starting with 34 or 37.
             Diners Club : 14 digits, starting with 300 through 305, 36, or 38.
             JCB : 15 digits, starting with 2131 or 1800, or 16 digits starting with 35.
+            *
+            * Used Luhn algorithm
+            * Algorithm: https://en.wikipedia.org/wiki/Luhn_algorithm
         * */
-        String cardNumber = payment.getCardNumber();
         List<String> cardNumberList = new ArrayList<String>();
         cardNumberList.add(cardNumber);
         String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
@@ -55,5 +54,11 @@ public class CardValidatorServiceImpl implements CardValidatorService {
             }
         }
         return false;
+
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "Not valid card!";
     }
 }
