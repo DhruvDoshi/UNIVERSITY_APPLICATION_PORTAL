@@ -1,21 +1,19 @@
 package com.dal.universityPortal.middleware;
 
 import com.dal.universityPortal.model.User;
+import com.dal.universityPortal.model.UserType;
 import com.dal.universityPortal.service.AuthenticationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 @Component
-public class AuthorizationMiddleware implements HandlerInterceptor {
+public class UniversityAuthorizationMiddleware implements HandlerInterceptor {
 
     @Autowired
     AuthenticationServiceImpl authenticationService;
@@ -23,7 +21,7 @@ public class AuthorizationMiddleware implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
-        boolean isAuthorized = currentUser.getTypeEnum().isRouteAllowed(request.getRequestURI());
+        boolean isAuthorized = currentUser.getTypeEnum().equals(UserType.UNIVERSITY);
         if (isAuthorized) {
             return true;
         }

@@ -3,7 +3,8 @@ package com.dal.universityPortal.model;
 public enum UserType {
     UNIVERSITY("/university/"),
     STUDENT("/student/"),
-    ADMIN("/admin/");
+    ADMIN("/admin/"),
+    STAFF("/university/");
     UserType(String allowedRoute) {
         this.allowedRoute = allowedRoute;
     }

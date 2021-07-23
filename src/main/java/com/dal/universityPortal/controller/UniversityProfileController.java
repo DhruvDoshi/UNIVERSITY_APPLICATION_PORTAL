@@ -1,7 +1,13 @@
 package com.dal.universityPortal.controller;
 
+import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.University;
+import com.dal.universityPortal.model.User;
+import com.dal.universityPortal.model.UserType;
+import com.dal.universityPortal.service.AuthenticationServiceImpl;
+import com.dal.universityPortal.service.StaffServiceImpl;
 import com.dal.universityPortal.service.UniversityProfileService;
+import com.dal.universityPortal.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @Controller
@@ -18,6 +25,15 @@ public class UniversityProfileController {
 
     @Autowired
     private UniversityProfileService universityProfileService;
+
+    @Autowired
+    private AuthenticationServiceImpl authenticationService;
+
+    @Autowired
+    private UserServiceImpl userService;
+
+    @Autowired
+    private StaffServiceImpl staffService;
 
     @GetMapping("/loadUniversityProfile/{id}")
     public String loadUniversityProfile(@PathVariable (value = "id") int id,Model model) throws SQLException {
@@ -32,5 +48,29 @@ public class UniversityProfileController {
         university.setUserId(id);
         universityProfileService.saveProfile(university);
         return "redirect:/loadProgram/"+id;
+    }
+
+    @GetMapping("/add_staff")
+    public String addStaffPage(Model model, HttpServletRequest request) {
+        User staff = new User();
+        model.addAttribute("staff", staff);
+        return "add_staff";
+    }
+
+    @PostMapping("/add_staff")
+    public String addStaff(@ModelAttribute User staff, Model model, HttpServletRequest request) throws ValidationException, SQLException {
+        User currentUniversity = authenticationService.getCurrentUser(request.getSession());
+        model.addAttribute("staff", staff);
+        staff.setTypeEnum(UserType.STAFF);
+        try {
+            userService.addUser(staff);
+            staffService.addStaffUniversityMapping(staff, currentUniversity.getId());
+            return "redirect:health_check";
+        } catch (ValidationException exception) {
+            model.addAttribute("errors", exception.getErrors());
+        } catch (SQLException exception) {
+            model.addAttribute("errors", "Something went wrong, Please try again.");
+        }
+        return "add_staff";
     }
 }
