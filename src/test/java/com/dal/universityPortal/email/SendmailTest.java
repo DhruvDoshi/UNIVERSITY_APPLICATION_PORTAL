@@ -50,7 +50,7 @@ class SendmailTest {
         String email="arunkumargauda1997@gmail.com";
         String subject = "Hello mail";
         String body = "Hello, This is message body";
-        String path = "G:\\ASD\\hello.txt";
+        String path = "src/main/java/com/dal/universityPortal/email/hello.txt";
         Sendmail sendmail = new Sendmail(email,subject,body,path);
         assertTrue(true,"Return False");
         sendmail.mail();
