@@ -27,7 +27,7 @@
         <br>
         <h2>Search University</h2>
         <br>
-        <form th:action="@{/getUniversityDetails}" th:object="${universityDetail}" method="POST" onsubmit="return displayError();">
+        <form th:action="@{/student/get_university_details}" th:object="${universityDetail}" method="POST" onsubmit="return displayError();">
             <input th:field="*{universityName}" type="text" placeholder="Search University" class="mb-4 col-4">
             <br>
             <button type="submit" class="btn btn-info col-2" onclick="errorMessage()">Search</button>
