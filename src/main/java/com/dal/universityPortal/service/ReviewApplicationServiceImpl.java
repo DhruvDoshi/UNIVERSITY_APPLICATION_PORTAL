@@ -25,7 +25,6 @@ public class ReviewApplicationServiceImpl implements ReviewApplicationService{
     @Override
     public Boolean saveReviewApplication(Application application){
         try{
-            System.out.println("Lock");
             reviewApplicationDao.update(application);
         }catch (Exception e){
             System.out.println(e);

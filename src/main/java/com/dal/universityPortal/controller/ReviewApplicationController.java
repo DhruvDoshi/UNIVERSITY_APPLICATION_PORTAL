@@ -39,6 +39,7 @@ public class ReviewApplicationController {
         application.setProcessed_by(1);  // get current user
         if(!application1.getStatus().equals("In-process")){
             reviewApplicationService.saveReviewApplication(application);
+            redirectAttributes.addFlashAttribute("error", "Application is locked by you");
             return "redirect:/load_application_page/"+id;
         }
         else{
@@ -48,32 +49,36 @@ public class ReviewApplicationController {
     }
 
     @GetMapping("/rejectApplication/{id}")
-    public String rejectApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application) throws SQLException {
+    public String rejectApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException {
         Application application1= reviewApplicationService.oneApplication(id);
         application.setApplication_id(application1.getApplication_id());
         application.setStatus("Reject");
         application.setProcessed_by(application1.getProcessed_by());
         if(!application1.getStatus().equals("New")){
             reviewApplicationService.saveReviewApplication(application);
+            return "redirect:/load_list_application";
         }
         else{
             System.out.println("New application");
+            redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
+            return "redirect:/load_application_page/"+id;
         }
-        return "redirect:/load_list_application";
     }
 
     @RequestMapping(value="/saveReviewApplication/{id}",method= RequestMethod.POST)
-    public String saveReviewApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application) throws SQLException {
+    public String saveReviewApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException {
         Application application1= reviewApplicationService.oneApplication(id);
         application.setApplication_id(application1.getApplication_id());
         application.setStatus("Accept");
         application.setProcessed_by(application1.getProcessed_by());
         if(!application1.getStatus().equals("New")){
             reviewApplicationService.saveReviewApplication(application);
+            return "redirect:/load_list_application";
         }
         else{
-            System.out.println("New application");
+            redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
+            return "redirect:/load_application_page/"+id;
         }
-        return "redirect:/load_list_application";
+
     }
 }
