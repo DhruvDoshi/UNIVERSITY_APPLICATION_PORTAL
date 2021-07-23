@@ -10,7 +10,7 @@ public class MinLengthValidator implements Validator<String> {
 
     @Override
     public boolean isValid(String string) {
-        return minLength < string.length();
+        return minLength <= string.length();
     }
 
     @Override
