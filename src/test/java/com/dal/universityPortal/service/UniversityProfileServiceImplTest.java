@@ -16,6 +16,4 @@ public class UniversityProfileServiceImplTest {
     void readProfileTest() throws SQLException {
 
     }
-
-
 }
