@@ -30,7 +30,7 @@ public class AdminPanelController {
         adminPanel.setUserId(id);
         this.adminPanelService.allowUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return "redirect:admin/dashboard";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/deny_university/{id}")
@@ -39,6 +39,6 @@ public class AdminPanelController {
         adminPanel.setUserId(id);
         this.adminPanelService.denyUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return "redirect:admin/dashboard";
+        return "redirect:/admin/dashboard";
     }
 }
