@@ -67,6 +67,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public String getRedirectLink(UserType type) {
-        return String.format("/%s/dashboard", type.toString().toLowerCase());
+        String handle = type.equals(UserType.STAFF) ? UserType.UNIVERSITY.toString() : type.toString();
+        return String.format("/%s/dashboard", handle.toLowerCase());
+        //return String.format("/%s/dashboard", type.toString().toLowerCase());
     }
 }
