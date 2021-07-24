@@ -3,10 +3,7 @@ package com.dal.universityPortal.service;
 import com.dal.universityPortal.database.UserDao;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
-import com.dal.universityPortal.model.Credential;
-import com.dal.universityPortal.model.ResetCredential;
-import com.dal.universityPortal.model.User;
-import com.dal.universityPortal.model.UserStatus;
+import com.dal.universityPortal.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -133,4 +130,16 @@ class AuthenticationServiceImplTest {
         Mockito.verify(userDao).update(any(User.class));
     }
     //TODO: passwordReset test
+
+    @Test
+    void getRedirectLinkForStaffReturnsUniversityDashboard() {
+        String handle = authenticationService.getRedirectLink(UserType.STAFF);
+        assertEquals("/university/dashboard", handle);
+    }
+
+    @Test
+    void getRedirectLinkForAdminReturnsAdminDashboard() {
+        String handle = authenticationService.getRedirectLink(UserType.ADMIN);
+        assertEquals("/admin/dashboard", handle);
+    }
 }
