@@ -29,7 +29,7 @@
         <br>
         <h2>University - Program details</h2>
         <br>
-        <form action="#" th:object="${program}" th:action="@{/saveUniversityProgram/{id}(id=${program.universityId})}" method="POST">
+        <form action="#" th:object="${program}" th:action="@{/university/save_university_program/{id}(id=${program.universityId})}" method="POST">
             <input type="text" th:field="*{name}" placeholder="Program" class="mb-4 col-4">
             <br>
             <button type="submit" class="btn btn-info col-1" >Add</button>
@@ -45,7 +45,7 @@
             <tbody>
             <tr th:each="p : ${programList}">
                 <td th:text="${p.name}"></td>
-                <td><a th:href="@{/deleteProgram/{id}/{name}(id=${p.universityId},name=${p.name})}" class="btn btn-info">Delete</a>
+                <td><a th:href="@{/university/delete_program/{id}/{name}(id=${p.universityId},name=${p.name})}" class="btn btn-info">Delete</a>
                 </td>
             </tr>
             </tbody>
