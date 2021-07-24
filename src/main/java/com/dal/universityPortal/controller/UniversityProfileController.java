@@ -18,7 +18,7 @@ public class UniversityProfileController {
 
     @GetMapping("/loadUniversityProfile/{id}")
     public String loadUniversityProfile(@PathVariable (value = "id") int id,Model model) throws SQLException {
-        University university = new University();
+        University university = universityProfileService.readProfile(id);
         university.setUserId(id);
         model.addAttribute("university", university);
         return "university_profile";
@@ -27,7 +27,13 @@ public class UniversityProfileController {
     @RequestMapping (value="/saveUniversityProfile/{id}",method= RequestMethod.POST)
     public String saveUniversityProfile(@PathVariable (value = "id") int id,@ModelAttribute("university") University university,Model model) throws SQLException {
         university.setUserId(id);
-        universityProfileService.saveProfile(university);
+        University universityCheck =universityProfileService.readProfile(id);
+        if(universityCheck.getUniversityName()==null){
+            universityProfileService.saveProfile(university);
+        }else{
+            universityProfileService.updateProfile(university);
+        }
+
         return "redirect:/loadProgram/"+id;
     }
 }
