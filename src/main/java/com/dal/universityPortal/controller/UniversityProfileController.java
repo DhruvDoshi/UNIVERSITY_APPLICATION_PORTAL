@@ -35,8 +35,10 @@ public class UniversityProfileController {
     @Autowired
     private StaffServiceImpl staffService;
 
-    @GetMapping("/loadUniversityProfile/{id}")
-    public String loadUniversityProfile(@PathVariable (value = "id") int id,Model model) throws SQLException {
+    @GetMapping("/dashboard")
+    public String loadUniversityProfile(Model model, HttpServletRequest request) throws SQLException {
+        User currentUser = authenticationService.getCurrentUser(request.getSession());
+        int id = currentUser.getId();
         University university = universityProfileService.readProfile(id);
         university.setUserId(id);
         model.addAttribute("university", university);
