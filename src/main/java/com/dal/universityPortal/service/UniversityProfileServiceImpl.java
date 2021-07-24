@@ -13,27 +13,25 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UniversityProfileServiceImpl implements UniversityProfileService{
-    UniversityDao universityDao= new UniversityDao();
+public class UniversityProfileServiceImpl implements UniversityProfileService {
+    UniversityDao universityDao = new UniversityDao();
+
     @Override
     public Boolean saveProfile(University university) throws SQLException {
         try {
-            if(university.getUniversityName().isEmpty()){
-                universityDao.insert(university);
-            }else{
-                // Update
-            }
+            universityDao.insert(university);
         } catch (Exception exception) {
-            System.out.println(exception);
+            exception.printStackTrace();
         }
         return true;
     }
+
     @Override
     public University readProfile(int id) throws SQLException {
         University university = new University();
         List<University> universityList = universityDao.fetchAll();
-        for (int i=0;i<universityList.size();i++){
-            if(universityList.get(i).getUserId()==id){
+        for (int i = 0; i < universityList.size(); i++) {
+            if (universityList.get(i).getUserId() == id) {
                 university.setUserId(universityList.get(i).getUserId());
                 university.setUniversityName(universityList.get(i).getUniversityName());
                 university.setUniversityDescription(universityList.get(i).getUniversityDescription());
@@ -41,5 +39,11 @@ public class UniversityProfileServiceImpl implements UniversityProfileService{
         }
         return university;
     }
-    
+
+    @Override
+    public Boolean updateProfile(University university) throws SQLException {
+        universityDao.update(university);
+        return true;
+    }
+
 }
