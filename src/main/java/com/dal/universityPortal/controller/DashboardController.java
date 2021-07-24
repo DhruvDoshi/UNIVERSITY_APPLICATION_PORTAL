@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -29,7 +28,7 @@ public class DashboardController {
     private AuthenticationService authenticationService;
 
 
-    @GetMapping("/student/loadDashboard")
+    @GetMapping("/student/dashboard")
     public String loadDashboard(Model model, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         int student_id = currentUser.getId();
