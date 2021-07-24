@@ -41,11 +41,20 @@ public class UserDao implements Dao<User> {
 
     @Override
     public void update(User user) throws SQLException {
-
+        try(DBSession dbSession = new DBSession()) {
+            dbSession.execute(UPDATE_USER_QUERY, Arrays.asList(user.getUsername(), user.getEmail(),
+                    user.getPassword(), user.getType(), user.getStatusString(), user.getId()));
+        }
     }
 
     @Override
     public void delete(User user) throws SQLException {
 
+    }
+
+    public void setResetCode(User user, Integer resetCode) throws SQLException {
+        try(DBSession dbSession = new DBSession()) {
+            dbSession.execute(SET_USER_RESET_CODE, Arrays.asList(resetCode, user.getId()));
+        }
     }
 }

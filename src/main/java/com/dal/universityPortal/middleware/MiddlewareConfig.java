@@ -10,7 +10,7 @@ import java.util.List;
 
 @Configuration
 public class MiddlewareConfig implements WebMvcConfigurer {
-    private final List<String> excludedPaths = Arrays.asList("/registration", "/login", "/logout", "/error/*");
+    private final List<String> excludedPaths = Arrays.asList("/registration", "/login", "/logout", "/error/*", "/reset_password", "/reset_password/*");
     private final String universityAuthorizedOnlyPaths = "/university/add_staff";
 
     @Autowired
