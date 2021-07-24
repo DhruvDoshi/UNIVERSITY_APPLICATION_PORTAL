@@ -1,7 +1,9 @@
 package com.dal.universityPortal.controller;
 
 import com.dal.universityPortal.exceptions.UnsupportedUser;
+import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.Credential;
+import com.dal.universityPortal.model.ResetCredential;
 import com.dal.universityPortal.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,5 +46,45 @@ public class AuthenticationController {
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authenticationService.logout(request.getSession());
         response.sendRedirect("/login");
+    }
+
+    @GetMapping("/reset_password/send_code")
+    public String sendUniqueCodePage(Model model) {
+        model.addAttribute("credential", new ResetCredential());
+        return "get_reset_code";
+    }
+
+    @PostMapping("/reset_password/send_code")
+    public String sendUniqueCode(@ModelAttribute ResetCredential resetCredential, Model model) {
+        try {
+            authenticationService.sendPasswordCode(resetCredential.getUsername());
+            return "redirect:/reset_password";
+        } catch (UnsupportedUser exception) {
+            model.addAttribute("error", "Not FOund");
+        } catch (SQLException exception) {
+            model.addAttribute("error", "Unexpected Error");
+        }
+
+        return "get_reset_code";
+    }
+
+    @GetMapping("/reset_password")
+    public String resetPasswordPage(Model model) {
+        model.addAttribute("credentials", new ResetCredential());
+        return "reset_password";
+    }
+
+    @PostMapping("/reset_password")
+    public String resetPassword(@ModelAttribute ResetCredential resetCredential, Model model) {
+        model.addAttribute("credentials", resetCredential);
+        try {
+            authenticationService.resetPassword(resetCredential);
+            return "redirect:/login";
+        } catch (ValidationException exception) {
+            model.addAttribute("validationErrors", exception.getErrors());
+        } catch (SQLException exception) {
+            model.addAttribute("error",  "Something went wrong. Please try after sometime");
+        }
+        return "reset_password";
     }
 }

@@ -16,6 +16,7 @@ public class User extends ValidatedModel{
     private String password;
     private UserType type;
     private UserStatus status;
+    private Integer resetCode;
     private Map<Object, Validator> fieldValueMapping= new HashMap<>();
 
     public User() {
@@ -38,6 +39,7 @@ public class User extends ValidatedModel{
         this.password = (String) userRow.get("password");
         this.type = UserType.valueOf((String) userRow.get("type"));
         this.status = UserStatus.valueOf((String) userRow.get("status"));
+        this.resetCode = (Integer) userRow.get("reset_code");
     }
 
     public Integer getId() {
@@ -72,6 +74,10 @@ public class User extends ValidatedModel{
         return status;
     }
 
+    public Integer getResetCode() {
+        return resetCode;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -94,14 +100,19 @@ public class User extends ValidatedModel{
     }
 
     @Override
-    public Map<Object, Validator> getFieldValidatorMapping() {
+    public List<FieldValidator> getFieldValidatorMapping() {
+        List<FieldValidator> fieldValidators = new ArrayList<>();
         List<Validator<String>> passwordValidators = new ArrayList<>();
         passwordValidators.add(new MinLengthValidator(PASSWORD_MIN_LENGTH));
         passwordValidators.add(new UpperCasePresent());
         passwordValidators.add(new SpecialCharacterPresentValidator());
+        fieldValidators.add(new FieldValidator<>("username",
+                username, new MinLengthValidator(USERNAME_MIN_LENGTH)));
+        fieldValidators.add(new FieldValidator<>("password",
+                password, new ChainedValidator<>(passwordValidators)));
         fieldValueMapping.put(username, new MinLengthValidator(USERNAME_MIN_LENGTH));
         fieldValueMapping.put(password, new ChainedValidator<>(passwordValidators));
-        return fieldValueMapping;
+        return fieldValidators;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class DBSession implements AutoCloseable{
 
     //TODO: Move this to constants.
     private String getConnectionString() {
-        return "jdbc:mysql://db-5308.cs.Dal.ca:3306/CSCI5308_4_DEVINT?user=CSCI5308_4_DEVINT_USER&password=95YLEbVmPKR";
+        return "jdbc:mysql://openvpn.aasif.dev:3306/asdproject?user=root&password=Dal@1029";
     }
 
 

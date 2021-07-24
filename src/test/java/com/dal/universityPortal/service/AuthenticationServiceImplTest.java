@@ -2,7 +2,9 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.UserDao;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
+import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.Credential;
+import com.dal.universityPortal.model.ResetCredential;
 import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.model.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.matchers.Null;
 
 
 import javax.servlet.http.HttpSession;
@@ -18,14 +21,19 @@ import java.sql.SQLException;
 
 import static com.dal.universityPortal.model.UserType.STUDENT;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 
 
 class AuthenticationServiceImplTest {
 
     @Mock
     UserDao userDao;
+
+    @Mock
+    User user;
+
+    @Mock
+    ResetCredential resetCredential;
 
     @Mock
     HttpSession httpSession;
@@ -94,4 +102,28 @@ class AuthenticationServiceImplTest {
 
         Mockito.verify(httpSession).removeAttribute("user");
     }
+
+    @Test
+    void sendPasswordCode() throws SQLException, UnsupportedUser {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(user);
+        authenticationService.sendPasswordCode("testUser");
+        Mockito.verify(userDao).setResetCode(any(User.class), anyInt());
+    }
+
+    @Test
+    void sendPasswordCodeThrowsExceptionWhenWrongUsername() throws SQLException, UnsupportedUser {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(null);
+        assertThrows(UnsupportedUser.class, () -> authenticationService.sendPasswordCode("testUser"));
+    }
+
+    @Test
+    void resetPassword() throws SQLException, ValidationException {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(user);
+        Mockito.when(user.isValid()).thenReturn(true);
+        Mockito.when(user.getResetCode()).thenReturn(1);
+        Mockito.when(resetCredential.getResetCode()).thenReturn(1);
+        authenticationService.resetPassword(resetCredential);
+        Mockito.verify(userDao).update(any(User.class));
+    }
+    //TODO: passwordReset test
 }
