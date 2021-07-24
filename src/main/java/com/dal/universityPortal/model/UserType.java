@@ -4,7 +4,7 @@ public enum UserType {
     UNIVERSITY("/university/"),
     STUDENT("/student/"),
     ADMIN("/admin/"),
-    STAFF("/staff/");
+    STAFF("/university/");
     UserType(String allowedRoute) {
         this.allowedRoute = allowedRoute;
     }

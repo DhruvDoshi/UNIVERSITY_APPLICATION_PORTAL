@@ -73,7 +73,7 @@ public class UniversityProfileController {
         try {
             userService.addUser(staff);
             staffService.addStaffUniversityMapping(staff, currentUniversity.getId());
-            return "redirect:health_check";
+            return "redirect:/university/dashboard";
         } catch (ValidationException exception) {
             model.addAttribute("errors", exception.getErrors());
         } catch (SQLException exception) {
