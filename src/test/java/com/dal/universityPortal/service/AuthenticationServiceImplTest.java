@@ -132,8 +132,15 @@ class AuthenticationServiceImplTest {
     //TODO: passwordReset test
 
     @Test
-    void getRedirectLink() {
+    void getRedirectLinkForStaffReturnsUniversityDashboard() {
+        //void getRedirectLink() {
         String handle = authenticationService.getRedirectLink(UserType.STAFF);
-        assertEquals("/staff/dashboard", handle);
+        assertEquals("/university/dashboard", handle);
+    }
+
+    @Test
+    void getRedirectLinkForAdminReturnsAdminDashboard() {
+        String handle = authenticationService.getRedirectLink(UserType.ADMIN);
+        assertEquals("/admin/dashboard", handle);
     }
 }
