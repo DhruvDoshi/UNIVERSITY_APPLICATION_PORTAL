@@ -142,6 +142,5 @@ class AuthenticationServiceImplTest {
     void getRedirectLinkForAdminReturnsAdminDashboard() {
         String handle = authenticationService.getRedirectLink(UserType.ADMIN);
         assertEquals("/admin/dashboard", handle);
-        assertEquals("/staff/dashboard", handle);
     }
 }
