@@ -30,6 +30,13 @@ public class Sendmail{
         this.filename=filename;
     }
 
+    public Sendmail(String to_address,String subject, String message_body){
+        this.to_address = to_address;
+        this.subject = subject;
+        this.message_body=message_body;
+        this.filename=filename;
+    }
+
     public static boolean isValid(String email)
     {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" +  //part before @
@@ -60,16 +67,41 @@ public class Sendmail{
         }
     }
 
+    private Properties getMailproperties() {
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.ssl.trust", host);
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.user", user);
+        properties.put("mail.smtp.password", password);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.auth", "true");
+        return properties;
+    }
+
+    public void sendMail() throws MessagingException {
+        Properties properties = getMailproperties();
+        Authenticator authenticator  = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
+            }
+        };
+        Session session = Session.getDefaultInstance(properties,authenticator);
+        MimeMessage message=new MimeMessage(session);
+        message.setFrom(new InternetAddress(user));
+        message.addRecipient(Message.RecipientType.TO,new InternetAddress(to_address));
+        message.setSubject(subject);
+        message.setText(message_body);
+        Transport transport = session.getTransport("smtp");
+        transport.connect(host,587,user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+    }
+
     public boolean mail() throws MessagingException {
         //1) get the session object
-        Properties props = System.getProperties();
-        props.put("mail.smtp.ssl.trust", host);
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", user);
-        props.put("mail.smtp.password", password);
-        props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.auth", "true");
+        Properties props = getMailproperties();
 
         Authenticator authenticator  = new Authenticator() {
             @Override
