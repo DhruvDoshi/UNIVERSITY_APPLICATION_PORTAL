@@ -14,6 +14,9 @@
             <a class="nav-link" href="#">University Portal</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/university/load_list_application">Review Application</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/logout">Log out</a>
         </li>
     </ul>
@@ -23,11 +26,11 @@
         <br>
         <h2>Application Details</h2>
         <br>
-        <a th:href="@{/lockApplication/{id}(id=${app.application_id})}" class="btn btn-info col-2"> Lock </a>
+        <a th:href="@{/university/lockApplication/{id}(id=${app.application_id})}" class="btn btn-info col-2"> Lock </a>
         <div style="color:red;" th:if="${error}" th:text="${error}"/>
         <br>
         <br>
-        <form action="#" th:object="${app}" th:action="@{/saveReviewApplication/{id}(id=${app.application_id})}" method="POST">
+        <form action="#" th:object="${app}" th:action="@{/university/saveReviewApplication/{id}(id=${app.application_id})}" method="POST">
             <div class="personal_details" style="border-style: solid;">
                 <br>
                 <h5>Personal Details</h5>
@@ -70,7 +73,7 @@
             </div>
             <br>
             <button type="submit" class="btn col-1" style="background-color: white; border: 1px solid gray; ">Cancel</button>
-            <a th:href="@{/rejectApplication/{id}(id=${app.application_id})}" class="btn btn-info col-1"> Reject </a>
+            <a th:href="@{/university/rejectApplication/{id}(id=${app.application_id})}" class="btn btn-info col-1"> Reject </a>
             <button type="submit" class="btn btn-info col-1" >Accepted</button>
         </form>
         <div style="color:red;" th:if="${error1}" th:text="${error1}"/>
