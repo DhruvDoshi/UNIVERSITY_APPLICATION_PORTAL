@@ -40,7 +40,6 @@ public class PaymentDAO implements Dao<Payment>{
     public static void insertPayment(Payment payment) throws SQLException{
         try (DBSession dbSession = new DBSession()){
             dbSession.execute(INSERT_INTO_PAYMENTS, Arrays.asList(payment.getApplication_id(),payment.getCardNumber()));
-            dbSession.execute(UPDATE_STATUS_PAYMENTS, Arrays.asList(payment.getApplication_id()));
         }
     }
 
