@@ -110,8 +110,6 @@ public class User extends ValidatedModel{
                 username, new MinLengthValidator(USERNAME_MIN_LENGTH)));
         fieldValidators.add(new FieldValidator<>("password",
                 password, new ChainedValidator<>(passwordValidators)));
-        fieldValueMapping.put(username, new MinLengthValidator(USERNAME_MIN_LENGTH));
-        fieldValueMapping.put(password, new ChainedValidator<>(passwordValidators));
         return fieldValidators;
     }
 
