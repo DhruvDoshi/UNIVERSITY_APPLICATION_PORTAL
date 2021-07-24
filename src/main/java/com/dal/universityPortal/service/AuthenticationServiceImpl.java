@@ -3,17 +3,13 @@ package com.dal.universityPortal.service;
 import com.dal.universityPortal.database.UserDao;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
-import com.dal.universityPortal.model.Credential;
-import com.dal.universityPortal.model.ResetCredential;
-import com.dal.universityPortal.model.User;
-import com.dal.universityPortal.model.UserStatus;
+import com.dal.universityPortal.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.Random;
-import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
@@ -67,5 +63,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             throw new ValidationException(user.getErrorMessages());
         }
         userDao.update(user);
+    }
+
+    @Override
+    public String getRedirectLink(UserType type) {
+        String handle = type.equals(UserType.STAFF) ? UserType.UNIVERSITY.toString() : type.toString();
+        return String.format("/%s/dashboard", handle.toLowerCase());
     }
 }

@@ -4,6 +4,7 @@ import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.Credential;
 import com.dal.universityPortal.model.ResetCredential;
+import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,8 @@ public class AuthenticationController {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return "redirect:admin/dashboard"; //TODO: implement dashboard logic
+        User currentUser = authenticationService.getCurrentUser(request.getSession());
+        return "redirect:"+authenticationService.getRedirectLink(currentUser.getTypeEnum());
     }
 
     @GetMapping("/logout")
