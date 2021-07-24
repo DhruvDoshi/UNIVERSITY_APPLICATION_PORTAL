@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
+@RequestMapping("/university")
 public class ReviewApplicationController {
 
     @Autowired
@@ -44,11 +45,11 @@ public class ReviewApplicationController {
         if(!application1.getStatus().equals("In-process")){
             reviewApplicationService.saveReviewApplication(application);
             redirectAttributes.addFlashAttribute("error", "Application is locked by you");
-            return "redirect:/load_application_page/"+id;
+            return "redirect:/university/load_application_page/"+id;
         }
         else{
             redirectAttributes.addFlashAttribute("error", "Already Locked by you");
-            return "redirect:/load_application_page/"+id;
+            return "redirect:/university/load_application_page/"+id;
         }
     }
 
@@ -62,12 +63,12 @@ public class ReviewApplicationController {
             reviewApplicationService.saveReviewApplication(application);
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are not selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/reject.txt");
             sendmail.mail();
-            return "redirect:/load_list_application";
+            return "redirect:/university/load_list_application";
         }
         else{
             System.out.println("New application");
             redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
-            return "redirect:/load_application_page/"+id;
+            return "redirect:/university/load_application_page/"+id;
         }
     }
 
@@ -81,11 +82,11 @@ public class ReviewApplicationController {
             reviewApplicationService.saveReviewApplication(application);
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/accept.txt");
             sendmail.mail();
-            return "redirect:/load_list_application";
+            return "redirect:/university/load_list_application";
         }
         else{
             redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
-            return "redirect:/load_application_page/"+id;
+            return "redirect:/university/load_application_page/"+id;
         }
 
     }

@@ -15,6 +15,9 @@
       <a class="nav-link" href="/student/search_university">Search University</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="/university/load_list_application">Review Application</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="/logout">Log out</a>
     </li>
   </ul>
@@ -33,7 +36,7 @@
     <tbody>
     <tr th:each="app : ${listApplication}">
       <td th:text="${app.application_id}"></td>
-      <td><a th:text="${app.status}" th:href="@{/load_application_page/{id}(id=${app.application_id})}"></a></td>
+      <td><a th:text="${app.status}" th:href="@{/university/load_application_page/{id}(id=${app.application_id})}"></a></td>
     </tr>
     </tbody>
   </table>
