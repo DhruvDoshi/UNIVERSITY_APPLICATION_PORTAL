@@ -29,7 +29,7 @@
         <br>
         <h2>Application Form</h2>
         <br>
-        <form action="#" th:object="${application}" th:action="@{/saveApplication}" method="POST">
+        <form action="#" th:object="${application}" th:action="@{/student/save_application/{id}(id=${application.program_id})}" method="POST">
             <div class="personal_details" style="border-style: solid;">
                 <br>
                 <h5>Personal Details</h5>
