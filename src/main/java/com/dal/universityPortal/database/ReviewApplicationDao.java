@@ -33,7 +33,9 @@ public class ReviewApplicationDao implements Dao<Application>{
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
             applicationlist=dbSession.fetch("SELECT * FROM application where id=?",Arrays.asList(id));
+
             for (Map<String, Object> applist: applicationlist){
+                System.out.println(applist.get("student_id"));
                 List<Map<String, Object>> student = dbSession.fetch("SELECT * FROM student WHERE " +
                         "user_id = "+applist.get("student_id"));
                 List<Map<String, Object>> user = dbSession.fetch("SELECT * FROM user WHERE " +
@@ -51,6 +53,9 @@ public class ReviewApplicationDao implements Dao<Application>{
                 application.setComment(String.valueOf(applist.get("comment")));
 
                 //From Student and User Table
+                if(student.isEmpty()){
+                    System.out.println("111");
+                }
                 application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
                 application.setLast_name(String.valueOf(student.get(0).get("last_name")));
                 application.setAddress(String.valueOf(student.get(0).get("address")));
