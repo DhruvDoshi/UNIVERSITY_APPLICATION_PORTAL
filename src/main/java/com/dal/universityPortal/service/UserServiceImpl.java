@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     public void addUser(User user) throws SQLException, ValidationException {
         List<String> errorMessages = new ArrayList<>();
         if(user.isValid()) {
-            UserStatus userStatus = user.getTypeEnum().equals(UserType.STUDENT) ? UserStatus.ACTIVE : UserStatus.PENDING;
+            UserStatus userStatus = user.getTypeEnum().equals(UserType.UNIVERSITY) ? UserStatus.PENDING : UserStatus.ACTIVE;
             user.setStatus(userStatus);
             try {
                 userDao.insert(user);

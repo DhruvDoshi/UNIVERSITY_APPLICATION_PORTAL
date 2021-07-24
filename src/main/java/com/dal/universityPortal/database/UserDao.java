@@ -23,7 +23,7 @@ public class UserDao implements Dao<User> {
         User user = null;
         try(DBSession dbSession = new DBSession()) {
             List<Map<String, Object>> rows = dbSession.fetch(FETCH_USER_USING_USERNAME, Arrays.asList(username));
-            if(!isNull(rows)) {
+            if(rows.size() > 0) {
                 row = rows.get(0);
                 user = new User(row);
             }

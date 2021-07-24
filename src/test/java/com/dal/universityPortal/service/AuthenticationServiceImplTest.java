@@ -104,6 +104,13 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
+    void getCurrentUser() {
+        authenticationService.getCurrentUser(httpSession);
+
+        Mockito.verify(httpSession).getAttribute("user");
+    }
+
+    @Test
     void sendPasswordCode() throws SQLException, UnsupportedUser {
         Mockito.when(userDao.fetchOne(any())).thenReturn(user);
         authenticationService.sendPasswordCode("testUser");

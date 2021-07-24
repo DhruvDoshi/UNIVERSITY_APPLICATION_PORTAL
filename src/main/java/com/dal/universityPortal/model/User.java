@@ -82,9 +82,12 @@ public class User extends ValidatedModel{
         this.username = username;
     }
 
-    public void setType(String userType) {
+    public void setType(String type) {
+        this.type = UserType.valueOf(type.toUpperCase());
+    }
 
-        this.type = UserType.valueOf(userType.toUpperCase());
+    public void setTypeEnum(UserType type) {
+        this.type = type;
     }
 
     public void setEmail(String email) {

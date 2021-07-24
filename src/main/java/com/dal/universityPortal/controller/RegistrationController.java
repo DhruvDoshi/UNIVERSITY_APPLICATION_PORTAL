@@ -25,15 +25,15 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String saveRegistration(@ModelAttribute User user, Model model) {
+        model.addAttribute("user", user);
         try {
             userService.addUser(user);
+            return "redirect:/login";
         } catch (ValidationException exception) {
-            model.addAttribute("user", user);
             model.addAttribute("errors", exception.getErrors());
-            return "registration";
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            model.addAttribute("errors", "Something went wrong, Please try again.");
         }
-        return "redirect:/login";
+        return "registration";
     }
 }

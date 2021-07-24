@@ -17,6 +17,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
+	implementation 'javax.activation:javax.activation-api:1.2.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
 }
 
 test {
