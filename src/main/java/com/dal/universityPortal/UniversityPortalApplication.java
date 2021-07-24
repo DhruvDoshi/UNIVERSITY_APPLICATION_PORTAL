@@ -1,12 +1,12 @@
-package com.dal.UniversityPortal;
+package com.dal.universityPortal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
+@Controller
 public class UniversityPortalApplication {
 
 	public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class UniversityPortalApplication {
 	}
 	@GetMapping("/health_check")
 	public String healthCheck() {
-		return "OK";
+		return "health_check";
 	}
 
 }
