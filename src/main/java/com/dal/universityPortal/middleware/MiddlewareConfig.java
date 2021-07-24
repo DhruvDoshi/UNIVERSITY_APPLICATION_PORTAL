@@ -22,10 +22,12 @@ public class MiddlewareConfig implements WebMvcConfigurer {
     @Autowired
     UniversityAuthorizationMiddleware universityAuthorizationMiddleware;
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationMiddleware).excludePathPatterns(excludedPaths);
         registry.addInterceptor(authorizationMiddleware).excludePathPatterns(excludedPaths);
         registry.addInterceptor(universityAuthorizationMiddleware).addPathPatterns(universityAuthorizedOnlyPaths);
+
     }
 }
