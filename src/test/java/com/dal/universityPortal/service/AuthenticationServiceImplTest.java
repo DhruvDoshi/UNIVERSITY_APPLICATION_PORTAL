@@ -94,4 +94,11 @@ class AuthenticationServiceImplTest {
 
         Mockito.verify(httpSession).removeAttribute("user");
     }
+
+    @Test
+    void getCurrentUser() {
+        authenticationService.getCurrentUser(httpSession);
+
+        Mockito.verify(httpSession).getAttribute("user");
+    }
 }
