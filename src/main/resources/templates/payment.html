@@ -19,6 +19,10 @@
         <form action="#" th:action="@{/savePayment}" th:object="${payment}" method="POST">
             <input type="text" th:field="*{application_id}" placeholder="Application ID" class="mb-4 col-4">
             <br>
+            <input type="text" th:field="*{email}" placeholder="Email Address" class="mb-4 col-4">
+            <br>
+            <input type="text" th:field="*{amount}" placeholder="Payment Amount" class="mb-4 col-4">
+            <br>
             <input type="text" th:field="*{name}" placeholder="Name" class="mb-4 col-4">
             <br>
             <input type="number" th:field="*{cardNumber}" placeholder="Card Number" class="mb-4 col-4" maxlength="16">

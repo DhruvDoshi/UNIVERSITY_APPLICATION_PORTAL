@@ -10,6 +10,10 @@ public class ValidationException extends Exception {
         this.errors = errors;
     }
 
+    public ValidationException() {
+        super();
+    }
+
     public List<String> getErrors(){
         return errors;
     }
