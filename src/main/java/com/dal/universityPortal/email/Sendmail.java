@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-class Sendmail{
+public class Sendmail{
     static String host="smtp.gmail.com";//Mail sending server
     static final String user="university.mail666@gmail.com";//Sender mailid
     static final String password="Pass@word";//Sender mailid's password
