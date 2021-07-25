@@ -46,7 +46,7 @@
                 <tbody>
                 <tr th:each="program : ${programList}">
                     <td th:text="${program.name}"></td>
-                    <td><a class="btn btn-info">Apply</a></td>
+                    <td><a th:href="@{/student/load_application/{id}(id=${program.id})}" class="btn btn-info">Apply</a></td>
                 </tr>
                 </tbody>
 

@@ -45,7 +45,7 @@ public class UniversityProfileController {
         return "university_profile";
     }
 
-    @RequestMapping (value="/saveUniversityProfile/{id}",method= RequestMethod.POST)
+    @RequestMapping (value="/save_university_profile/{id}",method= RequestMethod.POST)
     public String saveUniversityProfile(@PathVariable (value = "id") int id,@ModelAttribute("university") University university,Model model) throws SQLException {
         university.setUserId(id);
         University universityCheck =universityProfileService.readProfile(id);
@@ -55,7 +55,7 @@ public class UniversityProfileController {
             universityProfileService.updateProfile(university);
         }
 
-        return "redirect:/loadProgram/"+id;
+        return "redirect:/university/load_program/"+id;
     }
 
     @GetMapping("/add_staff")

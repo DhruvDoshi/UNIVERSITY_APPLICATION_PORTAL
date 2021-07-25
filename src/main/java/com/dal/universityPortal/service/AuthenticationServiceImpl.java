@@ -1,12 +1,14 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.UserDao;
+import com.dal.universityPortal.email.Sendmail;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.Random;
@@ -49,6 +51,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             throw new UnsupportedUser();
         }
         Integer randomCode = new Random().nextInt(999999);
+        Sendmail mailClient = new Sendmail(user.getEmail(), "Reset Password Code", String.format("The password reset code is: %s", randomCode));
+        try{
+            mailClient.sendMail();
+        } catch (MessagingException exception) {
+            System.out.println("Mail Exception");
+        }
         userDao.setResetCode(user, randomCode);
     }
 
