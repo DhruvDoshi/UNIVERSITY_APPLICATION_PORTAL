@@ -33,6 +33,7 @@ public class SearchUniversityDao implements Dao<Program>{
       programDetail = dbSession.fetch("SELECT * FROM program WHERE university_id = ?", Arrays.asList(id));
       for (Map<String, Object> mapProgram : programDetail) {
         Program program = new Program();
+        program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
         program.setName(String.valueOf(mapProgram.get("name")));
         programDetails.add(program);
       }
