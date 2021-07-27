@@ -16,18 +16,27 @@ public class DashboardServiceImpl implements DashboardService {
     DashboardDao dashboardDao;
 
     @Override
-    public void displayInformation(Dashboard dashboard) throws SQLException {
-
+    public List<Application> readListApplication(int studentId) throws SQLException {
+        return dashboardDao.fetchApplication(studentId);
     }
 
     @Override
-    public List<Application> readListApplication(int student_id) throws SQLException {
-        return dashboardDao.fetchApplication(student_id);
-
+    public List<Payment> readListPayment(int studentId) throws SQLException {
+        return dashboardDao.fetchPayment(studentId);
     }
 
     @Override
-    public List<Payment> readListPayment(int student_id) throws SQLException {
-        return dashboardDao.fetchPayment(student_id);
+    public Dashboard populateAttributes(List<Application> applicationList) {
+        Dashboard dashboard = new Dashboard();
+        for (Application application : applicationList) {
+            if (application.getStatus().equals("New") || application.getStatus().equals("In-process")) {
+                dashboard.incrementInProcessApplications();
+            } else if (application.getStatus().equals("Accept")) {
+                dashboard.incrementSucessfulApplications();
+            } else if (application.getStatus().equals("Reject")) {
+                dashboard.incrementRejectedApplications();
+            }
+        }
+        return dashboard;
     }
 }
