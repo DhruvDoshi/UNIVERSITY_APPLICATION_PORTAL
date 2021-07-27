@@ -5,16 +5,24 @@ import com.dal.universityPortal.email.Sendmail;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.Random;
+
+import static com.dal.universityPortal.constant.CommonConstant.*;
+import static com.dal.universityPortal.constant.ErrorConstant.CREDENTIALS_MISMATCH_ERROR;
 import static java.util.Objects.isNull;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService{
+
+    Logger logger = LogManager.getLogger(AuthenticationServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
@@ -39,7 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Override
     public User getCurrentUser(HttpSession session) {
-        return (User) session.getAttribute("user"); //TODO: Write Test
+        return (User) session.getAttribute("user");
     }
 
     @Override
@@ -48,12 +56,13 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         if (isNull(user)) {
             throw new UnsupportedUser();
         }
-        Integer randomCode = new Random().nextInt(999999);
-        Sendmail mailClient = new Sendmail(user.getEmail(), "Reset Password Code", String.format("The password reset code is: %s", randomCode));
-        try {
+        Integer randomCode = new Random().nextInt(RESET_CODE_RANGE);
+        Sendmail mailClient = new Sendmail(user.getEmail(), RESET_PASSWORD_MAIL_SUBJECT, String.format(RESET_PASSWORD_MAIL_FORMAT, randomCode));
+
+        try{
             mailClient.sendMail();
         } catch (MessagingException exception) {
-            System.out.println("Mail Exception");
+            logger.error(String.format("Email sending error: %s", exception));
         }
         userDao.setResetCode(user, randomCode);
     }
@@ -61,8 +70,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public void resetPassword(ResetCredential resetCredential) throws SQLException, ValidationException {
         User user = userDao.fetchOne(resetCredential.getUsername());
-        if (isNull(user) || !user.getResetCode().equals(resetCredential.getResetCode())) {
-            throw new ValidationException("The credentials doesn't match");
+        if(isNull(user) || !user.getResetCode().equals(resetCredential.getResetCode())) {
+            throw new ValidationException(CREDENTIALS_MISMATCH_ERROR);
         }
         user.setPassword(resetCredential.getPassword());
         if (!user.isValid()) {

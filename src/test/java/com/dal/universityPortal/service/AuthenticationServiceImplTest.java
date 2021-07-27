@@ -119,7 +119,23 @@ class AuthenticationServiceImplTest {
         authenticationService.resetPassword(resetCredential);
         Mockito.verify(userDao).update(any(User.class));
     }
-    //TODO: passwordReset test
+
+    @Test
+    void resetPasswordWithValidationExceptionWhenNoUser() throws SQLException, ValidationException {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(null);
+        assertThrows(ValidationException.class, () -> authenticationService.resetPassword(resetCredential));
+        Mockito.verify(userDao, Mockito.times(0)).update(any(User.class));
+    }
+
+    @Test
+    void resetPasswordWithValidationExceptionWhenInvalidUser() throws SQLException, ValidationException {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(null);
+        Mockito.when(user.isValid()).thenReturn(false);
+        Mockito.when(user.getResetCode()).thenReturn(1);
+        Mockito.when(resetCredential.getResetCode()).thenReturn(1);
+        assertThrows(ValidationException.class, () -> authenticationService.resetPassword(resetCredential));
+        Mockito.verify(userDao, Mockito.times(0)).update(any(User.class));
+    }
 
     @Test
     void getRedirectLinkForStaffReturnsUniversityDashboard() {
