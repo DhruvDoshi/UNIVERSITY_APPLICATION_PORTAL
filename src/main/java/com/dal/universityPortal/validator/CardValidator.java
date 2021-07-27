@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CardValidator implements Validator<String> {
+
     @Override
     public boolean isValid(String cardNumber) {
         /*
@@ -62,9 +63,7 @@ public class CardValidator implements Validator<String> {
                 return true;
             }
         }
-        //}
         return false;
-
     }
 
     @Override

@@ -9,13 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.sql.SQLException;
 
 import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
 
 @Controller
 public class RegistrationController {
+
     @Autowired
     UserServiceImpl userService;
 

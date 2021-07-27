@@ -1,15 +1,14 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ReviewApplicationDao implements Dao<Application>{
+public class ReviewApplicationDao implements Dao<Application> {
+
     @Override
     public List<Application> fetchAll() throws SQLException {
         List<Map<String, Object>> applicationList;
@@ -17,7 +16,7 @@ public class ReviewApplicationDao implements Dao<Application>{
         try (DBSession dbSession = new DBSession()) {
             applicationList = dbSession.fetch("SELECT * from application");
             for (Map<String, Object> mapApplication : applicationList) {
-                if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")){
+                if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")) {
                     Application application = new Application();
                     application.setApplication_id(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
                     application.setStatus(String.valueOf(mapApplication.get("status")));
@@ -31,7 +30,7 @@ public class ReviewApplicationDao implements Dao<Application>{
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
-        try(DBSession dbSession = new DBSession()){
+        try (DBSession dbSession = new DBSession()) {
             applicationlist=dbSession.fetch("SELECT * FROM application where id=?",Arrays.asList(id));
 
             for (Map<String, Object> applist: applicationlist){

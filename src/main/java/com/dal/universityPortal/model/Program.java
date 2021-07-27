@@ -1,6 +1,7 @@
 package com.dal.universityPortal.model;
 
-public class Program extends University{
+public class Program extends University {
+
     private int id;
     private String name;
     private int universityId;

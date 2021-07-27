@@ -3,6 +3,7 @@ package com.dal.universityPortal.model;
 import com.dal.universityPortal.validator.Validator;
 
 public class FieldValidator<T> {
+
     private String field;
     private T value;
     private Validator<T> validator;

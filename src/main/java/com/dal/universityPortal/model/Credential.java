@@ -1,6 +1,7 @@
 package com.dal.universityPortal.model;
 
 public class Credential {
+
     private String username;
     private String password;
 

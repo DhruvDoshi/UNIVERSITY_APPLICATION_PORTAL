@@ -7,12 +7,10 @@ import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.Random;
-
 import static java.util.Objects.isNull;
 
 @Service
@@ -24,7 +22,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public void login(HttpSession session, Credential credential) throws SQLException, UnsupportedUser {
         User user = userDao.fetchOne(credential.getUsername());
-        if(isNull(user) || !isSupportedUser(credential.getPassword(), user)) {
+        if (isNull(user) || !isSupportedUser(credential.getPassword(), user)) {
             throw new UnsupportedUser();
         }
         session.setAttribute("user", user);
@@ -47,12 +45,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public void sendPasswordCode(String username) throws SQLException, UnsupportedUser {
         User user = userDao.fetchOne(username);
-        if(isNull(user)){
+        if (isNull(user)) {
             throw new UnsupportedUser();
         }
         Integer randomCode = new Random().nextInt(999999);
         Sendmail mailClient = new Sendmail(user.getEmail(), "Reset Password Code", String.format("The password reset code is: %s", randomCode));
-        try{
+        try {
             mailClient.sendMail();
         } catch (MessagingException exception) {
             System.out.println("Mail Exception");
@@ -63,11 +61,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @Override
     public void resetPassword(ResetCredential resetCredential) throws SQLException, ValidationException {
         User user = userDao.fetchOne(resetCredential.getUsername());
-        if(isNull(user) || !user.getResetCode().equals(resetCredential.getResetCode())) {
+        if (isNull(user) || !user.getResetCode().equals(resetCredential.getResetCode())) {
             throw new ValidationException("The credentials doesn't match");
         }
         user.setPassword(resetCredential.getPassword());
-        if(!user.isValid()) {
+        if (!user.isValid()) {
             throw new ValidationException(user.getErrorMessages());
         }
         userDao.update(user);
@@ -77,6 +75,5 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     public String getRedirectLink(UserType type) {
         String handle = type.equals(UserType.STAFF) ? UserType.UNIVERSITY.toString() : type.toString();
         return String.format("/%s/dashboard", handle.toLowerCase());
-        //return String.format("/%s/dashboard", type.toString().toLowerCase());
     }
 }

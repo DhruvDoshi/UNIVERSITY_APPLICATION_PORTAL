@@ -7,13 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-
-
 import java.util.Arrays;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class ChainedValidatorTest {
@@ -34,7 +31,6 @@ public class ChainedValidatorTest {
     @BeforeEach
     public void setUp()  {
         MockitoAnnotations.openMocks(this);
-
     }
 
     @Test

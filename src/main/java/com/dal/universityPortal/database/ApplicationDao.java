@@ -1,11 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +11,14 @@ public class ApplicationDao implements Dao<Application> {
     public List<Application> fetchAll() throws SQLException {
         return null;
     }
+
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
-        try(DBSession dbSession = new DBSession()){
+        try (DBSession dbSession = new DBSession()) {
             applicationlist=dbSession.fetch("SELECT * FROM application WHERE " +
                     "student_id = "+id);
-            for (Map<String, Object> applist: applicationlist){
+            for (Map<String, Object> applist: applicationlist) {
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
             }
         }
@@ -37,7 +34,7 @@ public class ApplicationDao implements Dao<Application> {
         String outcome_type="Grade";
         String query1;
         String query2;
-        try(DBSession dbSession = new DBSession()){
+        try (DBSession dbSession = new DBSession()) {
             dbSession.execute("SET FOREIGN_KEY_CHECKS=OFF;");
             query1 = "INSERT INTO application (program_id, student_id, sop, status, processed_by, comment) VALUE ("+
                     program_id+","+student_id+",\""+application.getSop()+"\",\""+status+"\","+processed_by+",\""+comment+"\");";
@@ -49,7 +46,6 @@ public class ApplicationDao implements Dao<Application> {
             System.out.println(query2);
             dbSession.execute(query2);
         }
-
     }
 
     @Override

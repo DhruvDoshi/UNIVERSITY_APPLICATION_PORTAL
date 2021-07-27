@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,6 +21,7 @@ import static com.dal.universityPortal.constant.ErrorConstant.*;
 
 @Controller
 public class AuthenticationController {
+
     @Autowired
     AuthenticationService authenticationService;
 
@@ -68,7 +68,6 @@ public class AuthenticationController {
         } catch (SQLException exception) {
             model.addAttribute("error", UNEXPECTED_ERROR);
         }
-
         return "get_reset_code";
     }
 
