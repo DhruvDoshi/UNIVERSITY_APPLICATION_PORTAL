@@ -6,13 +6,11 @@ import com.dal.universityPortal.model.Dashboard;
 import com.dal.universityPortal.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.List;
 
-
 @Service
-public class DashboardServiceImpl implements DashboardService{
+public class DashboardServiceImpl implements DashboardService {
 
     @Autowired
     DashboardDao dashboardDao;
@@ -32,10 +30,4 @@ public class DashboardServiceImpl implements DashboardService{
     public List<Payment> readListPayment(int student_id) throws SQLException {
         return dashboardDao.fetchPayment(student_id);
     }
-
-//    @Override
-//    public List<Payment> readList() throws SQLException {
-//        return DashboardDao.fetchAll();
-//
-//    }
 }

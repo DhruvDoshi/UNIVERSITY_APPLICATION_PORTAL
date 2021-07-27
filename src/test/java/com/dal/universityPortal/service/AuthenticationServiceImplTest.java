@@ -11,17 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Null;
-
-
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-
 import static com.dal.universityPortal.model.UserType.STUDENT;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 class AuthenticationServiceImplTest {
 
@@ -57,7 +53,6 @@ class AuthenticationServiceImplTest {
         credential.setUsername("user");
         credential.setPassword("pass");
         authenticationService.login(httpSession, credential);
-
         Mockito.verify(httpSession).setAttribute("user", user);
     }
 
@@ -70,7 +65,6 @@ class AuthenticationServiceImplTest {
         credential.setUsername("user");
         credential.setPassword("pass");
         assertThrows(UnsupportedUser.class, () -> authenticationService.login(httpSession, credential));
-
         Mockito.verify(httpSession, Mockito.times(0)).setAttribute("user", user);
     }
 
@@ -83,7 +77,6 @@ class AuthenticationServiceImplTest {
         credential.setUsername("user");
         credential.setPassword("passsssssss");
         assertThrows(UnsupportedUser.class, () -> authenticationService.login(httpSession, credential));
-
         Mockito.verify(httpSession, Mockito.times(0)).setAttribute(anyString(), any());
     }
 
@@ -94,21 +87,18 @@ class AuthenticationServiceImplTest {
         credential.setUsername("user");
         credential.setPassword("pass");
         assertThrows(UnsupportedUser.class, () -> authenticationService.login(httpSession, credential));
-
         Mockito.verify(httpSession, Mockito.times(0)).setAttribute(anyString(), any());
     }
 
     @Test
     void shouldLogout() {
         authenticationService.logout(httpSession);
-
         Mockito.verify(httpSession).removeAttribute("user");
     }
 
     @Test
     void getCurrentUser() {
         authenticationService.getCurrentUser(httpSession);
-
         Mockito.verify(httpSession).getAttribute("user");
     }
 
@@ -129,7 +119,23 @@ class AuthenticationServiceImplTest {
         authenticationService.resetPassword(resetCredential);
         Mockito.verify(userDao).update(any(User.class));
     }
-    //TODO: passwordReset test
+
+    @Test
+    void resetPasswordWithValidationExceptionWhenNoUser() throws SQLException, ValidationException {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(null);
+        assertThrows(ValidationException.class, () -> authenticationService.resetPassword(resetCredential));
+        Mockito.verify(userDao, Mockito.times(0)).update(any(User.class));
+    }
+
+    @Test
+    void resetPasswordWithValidationExceptionWhenInvalidUser() throws SQLException, ValidationException {
+        Mockito.when(userDao.fetchOne(any())).thenReturn(null);
+        Mockito.when(user.isValid()).thenReturn(false);
+        Mockito.when(user.getResetCode()).thenReturn(1);
+        Mockito.when(resetCredential.getResetCode()).thenReturn(1);
+        assertThrows(ValidationException.class, () -> authenticationService.resetPassword(resetCredential));
+        Mockito.verify(userDao, Mockito.times(0)).update(any(User.class));
+    }
 
     @Test
     void getRedirectLinkForStaffReturnsUniversityDashboard() {
