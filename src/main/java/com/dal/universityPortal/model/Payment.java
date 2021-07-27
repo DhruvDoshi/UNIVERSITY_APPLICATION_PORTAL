@@ -7,15 +7,17 @@ public class Payment {
     private String cardNumber;
     private String expiryDate;
     private String CVV;
+    private Integer student_id;
 
     public Payment(){}
-    public Payment (Integer application_id, Integer amount, String name, String cardNumber, String expiryDate, String CVV){
+    public Payment (Integer application_id, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer student_id){
         this.application_id = application_id;
         this.amount = amount;
         this.name = name;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.CVV = CVV;
+        this.student_id=student_id;
     }
 
     public Integer getApplication_id() {
@@ -67,5 +69,13 @@ public class Payment {
     }
 
     public void setStatus(String status) {
+    }
+
+    public Integer getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(Integer student_id) {
+        this.student_id = student_id;
     }
 }
