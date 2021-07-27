@@ -3,58 +3,56 @@ package com.dal.universityPortal.model;
 public class Dashboard {
 
     private int userId;
-    private int successful_Application;
-    private int in_progress_Application;
-    private int rejected_Application;
-    private int total_Payment;
+    private int successfulApplication;
+    private int inProgressApplication;
+    private int rejectedApplication;
+    private int totalPayment;
 
     public Dashboard(){}
 
-    public Dashboard(int userId, int successful_Application, int in_progress_Application, int rejected_Application, int total_Payment) {
+    public Dashboard(int userId, int successfulApplication, int inProgressApplication, int rejectedApplication, int totalPayment) {
         this.userId = userId;
-        this.successful_Application = successful_Application;
-        this.in_progress_Application = in_progress_Application;
-        this.rejected_Application =rejected_Application;
-        this.total_Payment = total_Payment;
+        this.successfulApplication = successfulApplication;
+        this.inProgressApplication = inProgressApplication;
+        this.rejectedApplication =rejectedApplication;
+        this.totalPayment = totalPayment;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public int getSuccessful_Application() {
-        return successful_Application;
+    public int getSuccessfulApplication() {
+        return successfulApplication;
     }
 
-    public int getIn_progress_Application() {
-        return in_progress_Application;
+    public int getInProgressApplication() {
+        return inProgressApplication;
     }
 
-    public int getRejected_Application() {
-        return rejected_Application;
+    public int getRejectedApplication() {
+        return rejectedApplication;
     }
 
-    public int getTotal_Payment() {
-        return total_Payment;
+    public int getTotalPayment() {
+        return totalPayment;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public void setSuccessful_Application(int successful_Application) {
-        this.successful_Application = successful_Application;
+    public void incrementSucessfulApplications () {
+        successfulApplication++ ;
+    }
+    public void  incrementInProcessApplications () {
+        inProgressApplication++;
+    }
+    public void incrementRejectedApplications () {
+        rejectedApplication++;
     }
 
-    public void setIn_progress_Application(int in_progress_Application) {
-        this.in_progress_Application = in_progress_Application;
-    }
-
-    public void setRejected_Application(int rejected_Application) {
-        this.rejected_Application = rejected_Application;
-    }
-
-    public void setTotal_Payment(int total_Payment) {
-        this.total_Payment = total_Payment;
+    public void appPayment(Integer amount) {
+        totalPayment = totalPayment + amount;
     }
 }
