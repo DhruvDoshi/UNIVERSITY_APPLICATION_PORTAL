@@ -11,7 +11,8 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-public class Sendmail{
+public class Sendmail {
+
     static String host="smtp.gmail.com";//Mail sending server
     static final String user="university.mail666@gmail.com";//Sender mailid
     static final String password="Pass@word";//Sender mailid's password
@@ -23,14 +24,14 @@ public class Sendmail{
     public Sendmail() {
     }
 
-    public Sendmail(String to_address,String subject, String message_body, String filename){
+    public Sendmail(String to_address,String subject, String message_body, String filename) {
         this.to_address = to_address;
         this.subject = subject;
         this.message_body=message_body;
         this.filename=filename;
     }
 
-    public Sendmail(String to_address,String subject, String message_body){
+    public Sendmail(String to_address,String subject, String message_body) {
         this.to_address = to_address;
         this.subject = subject;
         this.message_body=message_body;
@@ -56,7 +57,7 @@ public class Sendmail{
         this.message_body=message_Body;
     }
 
-    public String Set_to_Address(String str){
+    public String Set_to_Address(String str) {
         if(isValid(str)) {
             this.to_address = str;
             return to_address;
@@ -142,9 +143,6 @@ public class Sendmail{
         transport.connect(host,587,user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
         transport.close();
-
-        System.out.println("message sent....");
-
         return true;
     }
 }

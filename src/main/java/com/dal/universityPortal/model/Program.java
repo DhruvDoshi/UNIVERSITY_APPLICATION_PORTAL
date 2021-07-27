@@ -1,9 +1,11 @@
 package com.dal.universityPortal.model;
 
-public class Program extends University{
+public class Program extends University {
+
     private int id;
     private String name;
     private int universityId;
+    private int amount;
 
     public Program() {
         super();
@@ -42,5 +44,13 @@ public class Program extends University{
 
     public void setUniversityId(int universityId) {
         this.universityId = universityId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
