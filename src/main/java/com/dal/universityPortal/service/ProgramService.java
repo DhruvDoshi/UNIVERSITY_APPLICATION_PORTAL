@@ -8,5 +8,5 @@ public interface ProgramService {
 
     Boolean saveProgram(Program program) throws SQLException;
     List<Program> readProgram(int id) throws SQLException;
-    void deleteProgram(int id,String name) throws SQLException;
+    void deleteProgram(Program program) throws SQLException;
 }

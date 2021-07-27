@@ -35,7 +35,8 @@ public class ProgramController {
 
     @RequestMapping(value="/delete_program/{id}/{name}",method= RequestMethod.GET)
     public String deleteUniversityProgram(@PathVariable(value = "id") int id,@PathVariable(value = "name") String name) throws SQLException {
-        programService.deleteProgram(id,name);
+        Program program = new Program(name,id);
+        programService.deleteProgram(program);
         return "redirect:/university/load_program/"+id;
     }
 }

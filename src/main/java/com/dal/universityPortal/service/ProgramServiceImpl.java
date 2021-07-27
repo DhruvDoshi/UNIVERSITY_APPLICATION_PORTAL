@@ -27,8 +27,7 @@ public class ProgramServiceImpl implements ProgramService{
     }
 
     @Override
-    public void deleteProgram(int id,String name) throws SQLException {
-        Program program = new Program(name,id);
+    public void deleteProgram(Program program) throws SQLException {
         programDao.delete(program);
     }
 }

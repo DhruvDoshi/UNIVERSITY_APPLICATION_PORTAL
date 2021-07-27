@@ -1,7 +1,6 @@
 package com.dal.universityPortal.model;
 
 public class Payment {
-
     private Integer application_id;
     private Integer amount;
     private String name;
@@ -11,8 +10,7 @@ public class Payment {
     private Integer student_id;
 
     public Payment(){}
-
-    public Payment (Integer application_id, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer student_id) {
+    public Payment (Integer application_id, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer student_id){
         this.application_id = application_id;
         this.amount = amount;
         this.name = name;

@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CardValidator implements Validator<String> {
-
     @Override
     public boolean isValid(String cardNumber) {
         /*
@@ -31,7 +30,7 @@ public class CardValidator implements Validator<String> {
                 "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$";
         Pattern pattern = Pattern.compile(regex);
         System.out.println("lisy" + cardNumberList);
-        //for (String cardNum : cardNumberList){
+        for (String cardNum : cardNumberList){
         cardNumber = cardNumber.replace("-", "");
         System.out.println("no" + cardNumber);
         Matcher match = pattern.matcher(cardNumber);
@@ -63,7 +62,9 @@ public class CardValidator implements Validator<String> {
                 return true;
             }
         }
+        }
         return false;
+
     }
 
     @Override

@@ -8,21 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/student")
 public class PaymentController {
-
     @Autowired
     private PaymentService paymentService;
 
     @Autowired
     AuthenticationService authenticationService;
 
+
     @GetMapping("/load_payment/{id}")
-    public String loadPayment(@PathVariable (value = "id") int id,Model model) {
+    public String loadPayment(@PathVariable (value = "id") int id,Model model){
         Payment payment = new Payment();
         payment.setApplication_id(id);
         payment.setAmount(200);
