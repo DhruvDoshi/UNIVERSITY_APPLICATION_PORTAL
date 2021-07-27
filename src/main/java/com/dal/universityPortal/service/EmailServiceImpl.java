@@ -15,13 +15,13 @@ import java.util.Properties;
 @Service
 public class EmailServiceImpl implements EmailService{
     @Value("${email.host}")
-    private String host;
+    private String host="smtp.gmail.com";
 
     @Value("{email.user}")
-    private String user;
+    private String user="university.mail666@gmail.com";
 
     @Value("{email.password}")
-    private String password;
+    private String password="Pass@word";
 
     @Override
     public Properties getMailproperties() {

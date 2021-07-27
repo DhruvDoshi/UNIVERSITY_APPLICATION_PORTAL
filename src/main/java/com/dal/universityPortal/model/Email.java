@@ -29,7 +29,7 @@ public class Email {
     }
 
     public void setToAddress(String toAddress) {
-        this.setToAddress(toAddress);
+        this.toAddress=toAddress;
     }
 
     public static String getSubject() {
