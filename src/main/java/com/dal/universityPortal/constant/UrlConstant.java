@@ -13,7 +13,7 @@ public class UrlConstant {
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String RESET_PASSWORD = "/reset_password";
-    public static final String SEND_CODE = "/send_code";
+    public static final String RESET_PASSWORD_SEND_CODE = "/reset_password/send_code";
     public static final String ERROR = "/error";
     public static final String UNAUTHORIZED = "/unauthorized";
     public static final String LOAD_PAYMENT = "/load_payment";

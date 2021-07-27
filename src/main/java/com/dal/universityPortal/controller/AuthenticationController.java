@@ -52,13 +52,13 @@ public class AuthenticationController {
         response.sendRedirect("/login");
     }
 
-    @GetMapping(RESET_PASSWORD + SEND_CODE)
+    @GetMapping(RESET_PASSWORD_SEND_CODE)
     public String sendUniqueCodePage(Model model) {
         model.addAttribute("credential", new ResetCredential());
         return "get_reset_code";
     }
 
-    @PostMapping(RESET_PASSWORD + SEND_CODE)
+    @PostMapping(RESET_PASSWORD_SEND_CODE)
     public String sendUniqueCode(@ModelAttribute ResetCredential resetCredential, Model model) {
         try {
             authenticationService.sendPasswordCode(resetCredential.getUsername());
