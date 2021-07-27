@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
 
-
 public class UniversityProfileServiceImplTest {
     @Mock
     UniversityDao universityDao;

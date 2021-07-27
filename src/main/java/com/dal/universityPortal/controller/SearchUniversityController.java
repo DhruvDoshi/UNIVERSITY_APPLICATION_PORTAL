@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.SQLException;
 
+import static com.dal.universityPortal.constant.ErrorConstant.UNIVERSITY_NOT_FOUND_ERROR;
+
 @Controller
 @RequestMapping("/student")
 public class SearchUniversityController {
@@ -32,11 +34,11 @@ public class SearchUniversityController {
         Program universityDetails = searchUniversityService.getUniversityDetails(program);
         model.addAttribute("universityDetail", universityDetails);
         model.addAttribute("programList", searchUniversityService.getProgramDetails(universityDetails.getUserId()));
-        if (universityDetails.getUniversityName() != "") {
+        if (universityDetails.getUniversityName().length() > 0) {
             model.addAttribute("universityDetail", universityDetails);
             return "university_details";
         } else {
-            redirectAttributes.addFlashAttribute("error", "University Not Found!!!");
+            redirectAttributes.addFlashAttribute("error", UNIVERSITY_NOT_FOUND_ERROR);
             return "redirect:/student/search_university";
         }
     }

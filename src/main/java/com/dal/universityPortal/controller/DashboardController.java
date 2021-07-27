@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
 
 @Controller
 public class DashboardController {
+
     @Autowired
     private DashboardService dashboardService;
 
@@ -26,7 +26,6 @@ public class DashboardController {
 
     @Autowired
     private AuthenticationService authenticationService;
-
 
     @GetMapping("/student/dashboard")
     public String loadDashboard(Model model, HttpServletRequest request) throws SQLException {
@@ -40,24 +39,18 @@ public class DashboardController {
         int in_process_applications = 0;
         int rejected_applications = 0;
 
-        for (Application application : applicationList){
+        for (Application application : applicationList) {
             if (application.getStatus().equals("New") || application.getStatus().equals("In-process")){
                 in_process_applications++;
-            }
-            else if (application.getStatus().equals("Accept")){
+            } else if (application.getStatus().equals("Accept")){
                 successful_applications++;
-            }
-            else {
+            } else {
                 rejected_applications ++;
             }
         }
         model.addAttribute("successful", successful_applications);
         model.addAttribute("rejected", rejected_applications);
         model.addAttribute("in_process", in_process_applications);
-
-
-
-
         List<Payment> paymentList=dashboardService.readListPayment(student_id);
         int total_payment = 0;
         for (Payment payment : paymentList){
@@ -67,5 +60,4 @@ public class DashboardController {
         model.addAttribute("listPayment",paymentList);
         return "dashboard";
     }
-
 }

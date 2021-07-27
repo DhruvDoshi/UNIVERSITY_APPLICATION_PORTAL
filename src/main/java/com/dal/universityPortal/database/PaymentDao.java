@@ -11,13 +11,9 @@ import java.util.Map;
 import static com.dal.universityPortal.database.query.PaymentQuery.*;
 
 @Component
-public class PaymentDAO implements Dao<Payment>{
+public class PaymentDao implements InsertDao<Payment>,UpdateDao<Payment>{
 
 
-    @Override
-    public List<Payment> fetchAll() throws SQLException {
-        return null;
-    }
     public static String fetchStatus(int application_id) throws SQLException{
         List<Map<String, Object>> row;
         try(DBSession dbSession = new DBSession()) {
@@ -26,36 +22,18 @@ public class PaymentDAO implements Dao<Payment>{
         }
     }
 
-    public static void foreignKeysSet() throws SQLException {
+    @Override
+    public void update(Payment payment) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            dbSession.execute(FOREIGN_KEY_CHECKS);
+            dbSession.execute(UPDATE_STATUS_APPLICATION_ID, Arrays.asList(payment.getApplication_id()));
         }
     }
 
     @Override
     public void insert(Payment payment) throws SQLException {
-
-    }
-
-    public static void insertPayment(Payment payment) throws SQLException{
         try (DBSession dbSession = new DBSession()){
-            dbSession.execute(INSERT_INTO_PAYMENTS, Arrays.asList(payment.getApplication_id(),payment.getCardNumber(), payment.getAmount()));
+            dbSession.execute(INSERT_INTO_PAYMENTS, Arrays.asList(payment.getApplication_id(),payment.getCardNumber(), payment.getAmount(), "Paid", payment.getStudent_id()));
             dbSession.execute(UPDATE_STATUS_PAYMENTS, Arrays.asList(payment.getApplication_id()));
         }
-    }
-
-    @Override
-    public void update(Payment payment) throws SQLException {
-
-    }
-
-    public static void updateStatus (Payment payment) throws SQLException {
-        try (DBSession dbSession = new DBSession()) {
-            dbSession.execute(UPDATE_STATUS_APPLICATION_ID, Arrays.asList(payment.getApplication_id()));
-        }
-    }
-    @Override
-    public void delete(Payment payment) throws SQLException {
-
     }
 }

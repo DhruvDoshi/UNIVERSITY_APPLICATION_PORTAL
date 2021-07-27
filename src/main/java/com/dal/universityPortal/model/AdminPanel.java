@@ -1,6 +1,7 @@
 package com.dal.universityPortal.model;
 
 public class AdminPanel {
+
     private int userId;
     private String username;
     private String email;
@@ -10,7 +11,7 @@ public class AdminPanel {
     public AdminPanel(){
     }
 
-    public AdminPanel(int userId, String username, String email, String type, String status){
+    public AdminPanel(int userId, String username, String email, String type, String status) {
         this.userId = userId;
         this.username = username;
         this.email = email;

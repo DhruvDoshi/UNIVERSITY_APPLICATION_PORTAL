@@ -1,15 +1,14 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ReviewApplicationDao implements Dao<Application>{
+public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Application> {
+
     @Override
     public List<Application> fetchAll() throws SQLException {
         List<Map<String, Object>> applicationList;
@@ -17,7 +16,7 @@ public class ReviewApplicationDao implements Dao<Application>{
         try (DBSession dbSession = new DBSession()) {
             applicationList = dbSession.fetch("SELECT * from application");
             for (Map<String, Object> mapApplication : applicationList) {
-                if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")){
+                if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")) {
                     Application application = new Application();
                     application.setApplication_id(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
                     application.setStatus(String.valueOf(mapApplication.get("status")));
@@ -31,7 +30,7 @@ public class ReviewApplicationDao implements Dao<Application>{
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
-        try(DBSession dbSession = new DBSession()){
+        try (DBSession dbSession = new DBSession()) {
             applicationlist=dbSession.fetch("SELECT * FROM application where id=?",Arrays.asList(id));
 
             for (Map<String, Object> applist: applicationlist){
@@ -53,9 +52,6 @@ public class ReviewApplicationDao implements Dao<Application>{
                 application.setComment(String.valueOf(applist.get("comment")));
 
                 //From Student and User Table
-                if(student.isEmpty()){
-                    System.out.println("111");
-                }
                 application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
                 application.setLast_name(String.valueOf(student.get(0).get("last_name")));
                 application.setAddress(String.valueOf(student.get(0).get("address")));
@@ -73,21 +69,11 @@ public class ReviewApplicationDao implements Dao<Application>{
     }
 
     @Override
-    public void insert(Application application) throws SQLException {
-
-    }
-
-    @Override
     public void update(Application application) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
             String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessed_by()+", comment = '"+application.getComment()+"' WHERE id = "+application.getApplication_id();
             System.out.println(query);
             dbSession.execute(query);
         }
-    }
-
-    @Override
-    public void delete(Application application) throws SQLException {
-
     }
 }
