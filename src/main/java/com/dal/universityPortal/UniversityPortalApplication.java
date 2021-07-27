@@ -16,4 +16,5 @@ public class UniversityPortalApplication {
 	public String healthCheck() {
 		return "health_check";
 	}
+
 }

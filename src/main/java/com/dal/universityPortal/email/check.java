@@ -3,7 +3,6 @@ package com.dal.universityPortal.email;
 import javax.mail.MessagingException;
 
 public class check {
-
     public static void main(String[] args) {
         String email="arungauda27@gmail.com";
         String subject = "Checking Sendmail";

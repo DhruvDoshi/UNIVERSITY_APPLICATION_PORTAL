@@ -14,13 +14,13 @@ import java.util.Arrays;
 @Service
 public class PaymentServiceImpl implements PaymentService{
     @Override
-    public void savePayment(Payment payment){
+    public void savePayment(Payment payment) throws SQLException {
         try {
             String status = "";
             CardValidator cardValidator = new CardValidator();
             if (cardValidator.isValid(payment.getCardNumber())) {
                 status = PaymentDAO.fetchStatus(payment.getApplication_id());
-                if (status.equals("Pending")) {
+                if (status.equals("PENDING")) {
                     PaymentDAO.updateStatus(payment);
                     PaymentDAO.insertPayment(payment);
                 }

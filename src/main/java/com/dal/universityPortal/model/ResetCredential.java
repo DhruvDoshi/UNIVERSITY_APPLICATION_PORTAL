@@ -1,7 +1,6 @@
 package com.dal.universityPortal.model;
 
-public class ResetCredential extends Credential {
-
+public class ResetCredential extends Credential{
     private Integer resetCode;
 
     public Integer getResetCode() {

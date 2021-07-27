@@ -1,7 +1,6 @@
 package com.dal.universityPortal.model;
 
 public class Dashboard {
-
     private int userId;
     private int successful_Application;
     private int in_progress_Application;
@@ -9,8 +8,7 @@ public class Dashboard {
     private int total_Payment;
 
     public Dashboard(){}
-
-    public Dashboard(int userId, int successful_Application, int in_progress_Application, int rejected_Application, int total_Payment) {
+    public Dashboard(int userId, int successful_Application, int in_progress_Application, int rejected_Application, int total_Payment){
         this.userId = userId;
         this.successful_Application = successful_Application;
         this.in_progress_Application = in_progress_Application;
@@ -58,3 +56,4 @@ public class Dashboard {
         this.total_Payment = total_Payment;
     }
 }
+

@@ -1,7 +1,6 @@
 package com.dal.universityPortal.model;
 
 public class Application {
-
     private int application_id;
     private int program_id;
     private int student_id;
@@ -20,6 +19,7 @@ public class Application {
     private String grades;
     private String start_date;
     private String end_date;
+
 
     public Application(){
     }
@@ -42,7 +42,6 @@ public class Application {
         this.end_date = end_date;
         this.sop = sop;
     }
-
     public int getApplication_id() { return application_id; }
 
     public void setApplication_id(int application_id) { this.application_id = application_id; }

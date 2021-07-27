@@ -3,12 +3,13 @@ package com.dal.universityPortal.model;
 import com.dal.universityPortal.service.ModelValidatorService;
 import com.dal.universityPortal.validator.*;
 import org.springframework.stereotype.Component;
+
 import java.util.*;
+
 import static com.dal.universityPortal.constant.UserConstant.*;
 
 @Component
 public class User extends ValidatedModel{
-
     private Integer id;
     private String username;
     private String email;
@@ -16,6 +17,7 @@ public class User extends ValidatedModel{
     private UserType type;
     private UserStatus status;
     private Integer resetCode;
+    private Map<Object, Validator> fieldValueMapping= new HashMap<>();
 
     public User() {
         super(new ModelValidatorService());
@@ -114,4 +116,8 @@ public class User extends ValidatedModel{
         return fieldValidators;
     }
 
+    @Override
+    public boolean isValid() {
+        return this.validator.isValid(getFieldValidatorMapping());
+    }
 }
