@@ -17,10 +17,8 @@ public class PaymentServiceImpl implements PaymentService{
     public void savePayment(Payment payment){
         try {
             String status = "";
-            System.out.println("1111");
             CardValidator cardValidator = new CardValidator();
             if (cardValidator.isValid(payment.getCardNumber())) {
-                System.out.println("222");
                 status = PaymentDAO.fetchStatus(payment.getApplication_id());
                 if (status.equals("Pending")) {
                     PaymentDAO.updateStatus(payment);
