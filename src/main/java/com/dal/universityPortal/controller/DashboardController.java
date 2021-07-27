@@ -11,11 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.dal.universityPortal.constant.UrlConstant.DASHBOARD;
+import static com.dal.universityPortal.constant.UrlConstant.STUDENT;
+
+
 @Controller
+@RequestMapping(STUDENT)
 public class DashboardController {
 
     @Autowired
@@ -27,7 +33,7 @@ public class DashboardController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @GetMapping("/student/dashboard")
+    @GetMapping(DASHBOARD)
     public String loadDashboard(Model model, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         int student_id = currentUser.getId();
