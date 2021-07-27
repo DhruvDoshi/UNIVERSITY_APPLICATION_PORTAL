@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-
 import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
+import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
-@RequestMapping("/university")
+@RequestMapping(UNIVERSITY)
 public class UniversityProfileController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UniversityProfileController {
     @Autowired
     private StaffServiceImpl staffService;
 
-    @GetMapping("/dashboard")
+    @GetMapping(DASHBOARD)
     public String loadUniversityProfile(Model model, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         int id = currentUser.getId();
@@ -46,7 +46,7 @@ public class UniversityProfileController {
         return "university_profile";
     }
 
-    @RequestMapping (value="/save_university_profile/{id}",method= RequestMethod.POST)
+    @PostMapping(SAVE_UNIVERSITY_PROFILE + "/{id}")
     public String saveUniversityProfile(@PathVariable (value = "id") int id,@ModelAttribute("university") University university,Model model) throws SQLException {
         university.setUserId(id);
         University universityCheck = universityProfileService.readProfile(id);
@@ -55,18 +55,17 @@ public class UniversityProfileController {
         } else{
             universityProfileService.updateProfile(university);
         }
-
-        return "redirect:/university/load_program/"+id;
+        return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_PROGRAM, id);
     }
 
-    @GetMapping("/add_staff")
+    @GetMapping(ADD_STAFF)
     public String addStaffPage(Model model) {
         User staff = new User();
         model.addAttribute("staff", staff);
         return "add_staff";
     }
 
-    @PostMapping("/add_staff")
+    @PostMapping(ADD_STAFF)
     public String addStaff(@ModelAttribute User staff, Model model, HttpServletRequest request) {
         User currentUniversity = authenticationService.getCurrentUser(request.getSession());
         model.addAttribute("staff", staff);
@@ -74,7 +73,7 @@ public class UniversityProfileController {
         try {
             userService.addUser(staff);
             staffService.addStaffUniversityMapping(staff, currentUniversity.getId());
-            return "redirect:/university/dashboard";
+            return String.format("redirect:%s%s", UNIVERSITY, DASHBOARD);
         } catch (ValidationException exception) {
             model.addAttribute("errors", exception.getErrors());
         } catch (SQLException exception) {
