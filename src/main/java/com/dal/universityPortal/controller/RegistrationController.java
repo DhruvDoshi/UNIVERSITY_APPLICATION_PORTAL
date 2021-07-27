@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.sql.SQLException;
 
+import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
+
 @Controller
 public class RegistrationController {
     @Autowired
@@ -32,7 +34,7 @@ public class RegistrationController {
         } catch (ValidationException exception) {
             model.addAttribute("errors", exception.getErrors());
         } catch (SQLException exception) {
-            model.addAttribute("errors", "Something went wrong, Please try again.");
+            model.addAttribute("errors", UNEXPECTED_ERROR);
         }
         return "registration";
     }

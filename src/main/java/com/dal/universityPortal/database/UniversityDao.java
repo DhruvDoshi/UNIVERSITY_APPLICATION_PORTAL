@@ -1,7 +1,7 @@
 package com.dal.universityPortal.database;
 
-import com.dal.universityPortal.model.Program;
 import com.dal.universityPortal.model.University;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class UniversityDao implements Dao<University> {
     @Override
     public List<University> fetchAll() throws SQLException {

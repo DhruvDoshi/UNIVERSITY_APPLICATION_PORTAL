@@ -6,15 +6,12 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static com.dal.universityPortal.constant.ErrorConstant.*;
 import static com.dal.universityPortal.constant.UserConstant.PASSWORD_MIN_LENGTH;
 import static com.dal.universityPortal.constant.UserConstant.USERNAME_MIN_LENGTH;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-
-    private static final String MIN_LENGTH_ERROR = "The min length should be ";
-    private static final String UPPERCASE_ERROR = "Uppercase is not present in the string.";
-    private static final String SPECIAL_CHAR_ERROR = "Special character is not present.";
     private static final String email = "e@e.com";
 
     @BeforeEach
@@ -41,7 +38,7 @@ class UserTest {
         final String errorMessage = user.getErrorMessages().get(0);
 
         assertFalse(valid);
-        assertTrue(errorMessage.contains(MIN_LENGTH_ERROR+USERNAME_MIN_LENGTH));
+        assertTrue(errorMessage.contains(String.format(MIN_LENGTH_ERROR, USERNAME_MIN_LENGTH)));
     }
 
     @Test
@@ -52,7 +49,7 @@ class UserTest {
         final String errorMessage = user.getErrorMessages().get(0);
 
         assertFalse(valid);
-        assertTrue(errorMessage.contains(UPPERCASE_ERROR));
+        assertTrue(errorMessage.contains(UPPERCASE_NOT_FOUND_ERROR));
     }
 
     @Test
@@ -63,7 +60,7 @@ class UserTest {
         final String errorMessage = user.getErrorMessages().get(0);
 
         assertFalse(valid);
-        assertTrue(errorMessage.contains(MIN_LENGTH_ERROR+PASSWORD_MIN_LENGTH));
+        assertTrue(errorMessage.contains(String.format(MIN_LENGTH_ERROR, PASSWORD_MIN_LENGTH)));
     }
 
     @Test
@@ -74,7 +71,7 @@ class UserTest {
         final String errorMessage = user.getErrorMessages().get(0);
 
         assertFalse(valid);
-        assertTrue(errorMessage.contains(SPECIAL_CHAR_ERROR));
+        assertTrue(errorMessage.contains(SPECIAL_CHAR_NOT_FOUND_ERROR));
     }
 
 }
