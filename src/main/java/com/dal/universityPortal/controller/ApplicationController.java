@@ -24,7 +24,7 @@ public class ApplicationController {
     @GetMapping("/load_application/{id}")
     public String loadApplication(@PathVariable (value = "id") int id, Model model) throws SQLException {
         Application application = new Application();
-        application.setProgram_id(id);
+        application.setProgramId(id);
         model.addAttribute("app", application);
         return "application_form";
     }
@@ -32,10 +32,10 @@ public class ApplicationController {
     @RequestMapping(value="/save_application/{id}",method= RequestMethod.POST)
     public String saveApplication(@PathVariable (value = "id") int id, @ModelAttribute("application") Application application, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
-        application.setProgram_id(id);
-        application.setStudent_id(currentUser.getId());
+        application.setProgramId(id);
+        application.setStudentId(currentUser.getId());
         applicationService.saveApplication(application);
         application=applicationService.readApplication(currentUser.getId());
-        return "redirect:/student/load_payment/"+application.getApplication_id();
+        return "redirect:/student/load_payment/"+application.getApplicationId();
     }
 }

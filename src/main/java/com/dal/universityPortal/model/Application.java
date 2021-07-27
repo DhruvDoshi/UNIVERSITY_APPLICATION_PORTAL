@@ -2,65 +2,65 @@ package com.dal.universityPortal.model;
 
 public class Application {
 
-    private int application_id;
-    private int program_id;
-    private int student_id;
+    private int applicationId;
+    private int programId;
+    private int studentId;
     private String status;
     private String sop;
-    private int processed_by;
+    private int processedBy;
     private String comment;
 
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String address;
-    private String mobile_number;
-    private String email_id;
+    private String mobileNumber;
+    private String emailId;
 
-    private String highest_education;
+    private String highestEducation;
     private String grades;
-    private String start_date;
-    private String end_date;
+    private String startDate;
+    private String endDate;
 
     public Application(){
     }
 
-    public Application(int application_id, int program_id, int student_id, String status, int processed_by, String comment, String first_name, String last_name, String address, String mobile_number, String email_id, String highest_education, String grades, String start_date, String end_date, String sop) {
-        this.application_id = application_id;
-        this.program_id = program_id;
-        this.student_id = student_id;
+    public Application(int applicationId, int programId, int studentId, String status, int processedBy, String comment, String firstName, String lastName, String address, String mobileNumber, String emailId, String highestEducation, String grades, String startDate, String endDate, String sop) {
+        this.applicationId = applicationId;
+        this.programId = programId;
+        this.studentId = studentId;
         this.status = status;
-        this.processed_by = processed_by;
+        this.processedBy = processedBy;
         this.comment = comment;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
-        this.mobile_number = mobile_number;
-        this.email_id = email_id;
-        this.highest_education = highest_education;
+        this.mobileNumber = mobileNumber;
+        this.emailId = emailId;
+        this.highestEducation = highestEducation;
         this.grades = grades;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.sop = sop;
     }
 
-    public int getApplication_id() { return application_id; }
+    public int getApplicationId() { return applicationId; }
 
-    public void setApplication_id(int application_id) { this.application_id = application_id; }
+    public void setApplicationId(int applicationId) { this.applicationId = applicationId; }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAddress() {
@@ -69,28 +69,28 @@ public class Application {
 
     public void setAddress(String address) { this.address = address; }
 
-    public String getMobile_number() {
-        return mobile_number;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setMobile_number(String mobile_number) {
-        this.mobile_number = mobile_number;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getEmail_id() {
-        return email_id;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmail_id(String email_id) {
-        this.email_id = email_id;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
-    public String getHighest_education() {
-        return highest_education;
+    public String getHighestEducation() {
+        return highestEducation;
     }
 
-    public void setHighest_education(String highest_education) {
-        this.highest_education = highest_education;
+    public void setHighestEducation(String highestEducation) {
+        this.highestEducation = highestEducation;
     }
 
     public String getGrades() {
@@ -101,20 +101,20 @@ public class Application {
         this.grades = grades;
     }
 
-    public String getStart_date() {
-        return start_date;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getEnd_date() {
-        return end_date;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getSop() {
@@ -125,23 +125,23 @@ public class Application {
         this.sop = sop;
     }
 
-    public int getProgram_id() { return program_id; }
+    public int getProgramId() { return programId; }
 
-    public void setProgram_id(int program_id) { this.program_id = program_id; }
+    public void setProgramId(int programId) { this.programId = programId; }
 
     public String getStatus() { return status; }
 
     public void setStatus(String status) { this.status = status; }
 
-    public int getProcessed_by() { return processed_by; }
+    public int getProcessedBy() { return processedBy; }
 
-    public void setProcessed_by(int processed_by) { this.processed_by = processed_by; }
+    public void setProcessedBy(int processedBy) { this.processedBy = processedBy; }
 
     public String getComment() { return comment; }
 
     public void setComment(String comment) { this.comment = comment; }
 
-    public int getStudent_id() { return student_id; }
+    public int getStudentId() { return studentId; }
 
-    public void setStudent_id(int student_id) { this.student_id = student_id; }
+    public void setStudentId(int studentId) { this.studentId = studentId; }
 }

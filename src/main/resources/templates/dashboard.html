@@ -79,8 +79,8 @@
         </thead>
                 <tbody>
                 <tr th:each="app : ${listApplication}">
-                    <td th:text="${app.application_id}"></td>
-                    <td><a th:text="${app.status}" th:href="@{/student/application_status/{id}(id=${app.application_id})}"></a></td>
+                    <td th:text="${app.applicationId}"></td>
+                    <td><a th:text="${app.status}" th:href="@{/student/application_status/{id}(id=${app.applicationId})}"></a></td>
                 </tr>
                 </tbody>
     </table>
@@ -97,7 +97,7 @@
         </thead>
                 <tbody>
                 <tr th:each="payment : ${listPayment}">
-                    <td th:text="${payment.application_id}"></td>
+                    <td th:text="${payment.applicationId}"></td>
                     <td th:text="${payment.amount}"> </td>
                 </tr>
                 </tbody>

@@ -1,11 +1,8 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +15,7 @@ public class ApplicationDao implements InsertDao<Application> {
             applicationlist=dbSession.fetch("SELECT * FROM application WHERE " +
                     "student_id = "+id);
             for (Map<String, Object> applist: applicationlist){
-                application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
+                application.setApplicationId(Integer.parseInt(String.valueOf(applist.get("id"))));
             }
         }
         return application;
@@ -26,8 +23,8 @@ public class ApplicationDao implements InsertDao<Application> {
 
     @Override
     public void insert(Application application) throws SQLException {
-        int program_id=application.getProgram_id();
-        int student_id=application.getStudent_id();
+        int program_id=application.getProgramId();
+        int student_id=application.getStudentId();
         String status ="Pending";
         int processed_by = 0;
         String comment="";
@@ -41,8 +38,8 @@ public class ApplicationDao implements InsertDao<Application> {
             System.out.println(query1);
             dbSession.execute(query1);
             query2 = "INSERT INTO education (student_id, name, outcome, outcome_type, start_date, end_date) VALUE ("+
-                    student_id+",\""+application.getHighest_education()+"\",\""+application.getGrades()+"\",\""+outcome_type+"\",\""+
-                    application.getStart_date()+"\",\""+application.getEnd_date()+"\");";
+                    student_id+",\""+application.getHighestEducation()+"\",\""+application.getGrades()+"\",\""+outcome_type+"\",\""+
+                    application.getStartDate()+"\",\""+application.getEndDate()+"\");";
             System.out.println(query2);
             dbSession.execute(query2);
         }

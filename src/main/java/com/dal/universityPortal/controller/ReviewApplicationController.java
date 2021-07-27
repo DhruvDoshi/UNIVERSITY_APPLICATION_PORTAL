@@ -44,10 +44,10 @@ public class ReviewApplicationController {
     @GetMapping(value="/lockApplication/{id}")
     public String lockApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes, HttpServletRequest request) throws SQLException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplication_id(application1.getApplication_id());
+        application.setApplicationId(application1.getApplicationId());
         application.setStatus("In-process");
         User currentUser = authenticationService.getCurrentUser(request.getSession());
-        application.setProcessed_by(currentUser.getId());
+        application.setProcessedBy(currentUser.getId());
         if(!application1.getStatus().equals("In-process")){
             reviewApplicationService.saveReviewApplication(application);
             redirectAttributes.addFlashAttribute("error", "Application is locked by you");
@@ -62,9 +62,9 @@ public class ReviewApplicationController {
     @GetMapping("/rejectApplication/{id}")
     public String rejectApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException, MessagingException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplication_id(application1.getApplication_id());
+        application.setApplicationId(application1.getApplicationId());
         application.setStatus("Reject");
-        application.setProcessed_by(application1.getProcessed_by());
+        application.setProcessedBy(application1.getProcessedBy());
         if(!application1.getStatus().equals("New")){
             reviewApplicationService.saveReviewApplication(application);
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are not selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/reject.txt");
@@ -81,9 +81,9 @@ public class ReviewApplicationController {
     @RequestMapping(value="/saveReviewApplication/{id}",method= RequestMethod.POST)
     public String saveReviewApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException, MessagingException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplication_id(application1.getApplication_id());
+        application.setApplicationId(application1.getApplicationId());
         application.setStatus("Accept");
-        application.setProcessed_by(application1.getProcessed_by());
+        application.setProcessedBy(application1.getProcessedBy());
         if(!application1.getStatus().equals("New")){
             reviewApplicationService.saveReviewApplication(application);
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/accept.txt");

@@ -29,24 +29,24 @@
         <br>
         <h2>Application Form</h2>
         <br>
-        <form action="#" th:object="${app}" th:action="@{/student/save_application/{id}(id=${app.program_id})}" method="POST">
+        <form action="#" th:object="${app}" th:action="@{/student/save_application/{id}(id=${app.programId})}" method="POST">
             <div class="personal_details" style="border-style: solid;">
                 <br>
                 <h5>Personal Details</h5>
                 <br>
-                <input type="text" th:field="*{first_name}" placeholder="First Name" class="mb-4 col-4" required>
-                <input type="text" th:field="*{last_name}" placeholder="Last Name" class="mb-4 col-4" required>
+                <input type="text" th:field="*{firstName}" placeholder="First Name" class="mb-4 col-4" required>
+                <input type="text" th:field="*{lastName}" placeholder="Last Name" class="mb-4 col-4" required>
                 <input type="text" th:field="*{address}" placeholder="Address" class="mb-4 col-8" required>
                 <br>
-                <input type="text" th:field="*{mobile_number}" placeholder="Mobile Number" class="mb-4 col-4" required>
-                <input type="text" th:field="*{email_id}" placeholder="Email Address" class="mb-4 col-4" required>
+                <input type="text" th:field="*{mobileNumber}" placeholder="Mobile Number" class="mb-4 col-4" required>
+                <input type="text" th:field="*{emailId}" placeholder="Email Address" class="mb-4 col-4" required>
             </div>
             <br>
             <div class="education_history" style="border-style: solid;">
                 <br>
                 <h5>Education History</h5>
                 <br>
-                <input type="text" th:field="*{highest_education}" placeholder="Highest Education" class="mb-4 col-4" required>
+                <input type="text" th:field="*{highestEducation}" placeholder="Highest Education" class="mb-4 col-4" required>
                 <select type="text" class="mb-4 col-4" th:field="*{grades}" required>
                     <option value="" disabled selected>Grade</option>
                     <option value="A+">A+</option>
@@ -54,8 +54,8 @@
                     <option value="B+">B</option>
                     <option value="B">B</option>
                 </select>
-                <input type="text" th:field="*{start_date}" placeholder="Start Date" class="mb-4 col-4" required>
-                <input type="text" th:field="*{end_date}" placeholder="End Date" class="mb-4 col-4" required>
+                <input type="text" th:field="*{startDate}" placeholder="Start Date" class="mb-4 col-4" required>
+                <input type="text" th:field="*{endDate}" placeholder="End Date" class="mb-4 col-4" required>
             </div>
             <br>
             <div class="sop" style="border-style: solid;">

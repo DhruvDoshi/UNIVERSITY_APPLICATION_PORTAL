@@ -21,11 +21,11 @@ public class ApplicationStatusServiceImplTest {
     @Test
     void getApplicationDetailsTest() throws SQLException {
         Application application = new Application();
-        application.setApplication_id(1);
+        application.setApplicationId(1);
         application.setStatus("Accepted");
-        application.setProgram_id(61);
+        application.setProgramId(61);
         Application applicationDetails = application;
-        Mockito.doReturn(applicationDetails).when(applicationStatusServiceImpl).getApplicationDetails(application.getApplication_id());
+        Mockito.doReturn(applicationDetails).when(applicationStatusServiceImpl).getApplicationDetails(application.getApplicationId());
         assertEquals(applicationDetails, application);
     }
 

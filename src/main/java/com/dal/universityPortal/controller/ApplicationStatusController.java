@@ -22,9 +22,9 @@ public class ApplicationStatusController {
     @GetMapping("/application_status/{id}")
     public String showApplicationStatus(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Application application = new Application();
-        application.setApplication_id(id);
-        application = applicationStatusService.getApplicationDetails(application.getApplication_id());
-        Program program = applicationStatusService.getProgramDetails(application.getProgram_id());
+        application.setApplicationId(id);
+        application = applicationStatusService.getApplicationDetails(application.getApplicationId());
+        Program program = applicationStatusService.getProgramDetails(application.getProgramId());
         University university = applicationStatusService.getUniversityDetails(program.getUniversityId());
         model.addAttribute("applicationStatus", application);
         model.addAttribute("program", program);

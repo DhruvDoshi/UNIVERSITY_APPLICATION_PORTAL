@@ -33,7 +33,7 @@ public class DashboardDao {
             applicationList = dbSession.fetch(APPLICATIONS_FROM_STUDENT_ID, Arrays.asList(student_id));
             for (Map<String, Object> mapApplication : applicationList) {
                 Application application = new Application();
-                application.setApplication_id(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
+                application.setApplicationId(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
                 application.setStatus(String.valueOf(mapApplication.get("status")));
                 applications.add(application);
             }

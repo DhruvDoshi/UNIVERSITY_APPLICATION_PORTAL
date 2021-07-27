@@ -35,8 +35,8 @@
     </thead>
     <tbody>
     <tr th:each="app : ${listApplication}">
-      <td th:text="${app.application_id}"></td>
-      <td><a th:text="${app.status}" th:href="@{/university/load_application_page/{id}(id=${app.application_id})}"></a></td>
+      <td th:text="${app.applicationId}"></td>
+      <td><a th:text="${app.status}" th:href="@{/university/load_application_page/{id}(id=${app.applicationId})}"></a></td>
     </tr>
     </tbody>
   </table>

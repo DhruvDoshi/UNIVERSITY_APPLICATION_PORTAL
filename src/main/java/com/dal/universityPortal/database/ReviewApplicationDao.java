@@ -18,7 +18,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
             for (Map<String, Object> mapApplication : applicationList) {
                 if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")) {
                     Application application = new Application();
-                    application.setApplication_id(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
+                    application.setApplicationId(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
                     application.setStatus(String.valueOf(mapApplication.get("status")));
                     applications.add(application);
                 }
@@ -43,26 +43,26 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
                         "student_id = "+applist.get("student_id"));
 
                 // From Application Table
-                application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
-                application.setProgram_id(Integer.parseInt(String.valueOf(applist.get("program_id"))));
-                application.setStudent_id(Integer.parseInt(String.valueOf(applist.get("student_id"))));
+                application.setApplicationId(Integer.parseInt(String.valueOf(applist.get("id"))));
+                application.setProgramId(Integer.parseInt(String.valueOf(applist.get("program_id"))));
+                application.setStudentId(Integer.parseInt(String.valueOf(applist.get("student_id"))));
                 application.setSop(String.valueOf(applist.get("sop")));
                 application.setStatus(String.valueOf(applist.get("status")));
-                application.setProcessed_by(Integer.parseInt(String.valueOf(applist.get("processed_by"))));
+                application.setProcessedBy(Integer.parseInt(String.valueOf(applist.get("processed_by"))));
                 application.setComment(String.valueOf(applist.get("comment")));
 
                 //From Student and User Table
-                application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
-                application.setLast_name(String.valueOf(student.get(0).get("last_name")));
+                application.setFirstName(String.valueOf(student.get(0).get("first_name")));
+                application.setLastName(String.valueOf(student.get(0).get("last_name")));
                 application.setAddress(String.valueOf(student.get(0).get("address")));
-                application.setMobile_number(String.valueOf(student.get(0).get("mobile_number")));
-                application.setEmail_id(String.valueOf(user.get(0).get("email")));
+                application.setMobileNumber(String.valueOf(student.get(0).get("mobile_number")));
+                application.setEmailId(String.valueOf(user.get(0).get("email")));
 
                 //From Education Table
-                application.setHighest_education(String.valueOf(education.get(0).get("name")));
+                application.setHighestEducation(String.valueOf(education.get(0).get("name")));
                 application.setGrades(String.valueOf(education.get(0).get("outcome")));
-                application.setStart_date(String.valueOf(education.get(0).get("start_date")));
-                application.setEnd_date(String.valueOf(education.get(0).get("end_date")));
+                application.setStartDate(String.valueOf(education.get(0).get("start_date")));
+                application.setEndDate(String.valueOf(education.get(0).get("end_date")));
             }
         }
         return application;
@@ -71,7 +71,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
     @Override
     public void update(Application application) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessed_by()+", comment = '"+application.getComment()+"' WHERE id = "+application.getApplication_id();
+            String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessedBy()+", comment = '"+application.getComment()+"' WHERE id = "+application.getApplicationId();
             System.out.println(query);
             dbSession.execute(query);
         }
