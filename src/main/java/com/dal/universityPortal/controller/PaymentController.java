@@ -32,7 +32,9 @@ public class PaymentController {
     }
 
     @PostMapping("/save_payment/{id}")
-    public String savePayment(@PathVariable (value = "id") int id, @ModelAttribute("payment") Payment payment) throws SQLException {
+    public String savePayment(@PathVariable (value = "id") int id, @ModelAttribute("payment") Payment payment,HttpServletRequest request) throws SQLException {
+        User currentUser = authenticationService.getCurrentUser(request.getSession());
+        payment.setStudent_id(currentUser.getId());
         payment.setAmount(200);
         payment.setApplication_id(id);
         paymentService.savePayment(payment);
