@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class SearchUniversityDao implements Dao<Program> {
+public class SearchUniversityDao implements SelectDao<Program> {
 
     @Override
     public List<Program> fetchAll() throws SQLException {
@@ -40,19 +40,5 @@ public class SearchUniversityDao implements Dao<Program> {
             }
             return programDetails;
         }
-    }
-
-    @Override
-    public void insert(Program program) {
-
-    }
-
-    @Override
-    public void update(Program program) {
-    }
-
-    @Override
-    public void delete(Program program) {
-
     }
 }

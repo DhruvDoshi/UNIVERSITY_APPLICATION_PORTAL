@@ -9,12 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ApplicationDao implements Dao<Application> {
+public class ApplicationDao implements InsertDao<Application> {
 
-    @Override
-    public List<Application> fetchAll() throws SQLException {
-        return null;
-    }
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
@@ -27,6 +23,7 @@ public class ApplicationDao implements Dao<Application> {
         }
         return application;
     }
+
     @Override
     public void insert(Application application) throws SQLException {
         int program_id=application.getProgram_id();
@@ -49,16 +46,6 @@ public class ApplicationDao implements Dao<Application> {
             System.out.println(query2);
             dbSession.execute(query2);
         }
-
-    }
-
-    @Override
-    public void update(Application application) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Application application) throws SQLException {
 
     }
 }

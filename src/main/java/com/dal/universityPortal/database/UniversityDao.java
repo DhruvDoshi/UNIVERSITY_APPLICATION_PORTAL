@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class UniversityDao implements Dao<University> {
+public class UniversityDao implements SelectDao<University>,InsertDao<University>,UpdateDao<University> {
 
     @Override
     public List<University> fetchAll() throws SQLException {
@@ -46,10 +46,5 @@ public class UniversityDao implements Dao<University> {
             System.out.println(query);
             dbSession.execute(query);
         }
-    }
-
-    @Override
-    public void delete(University university) {
-
     }
 }
