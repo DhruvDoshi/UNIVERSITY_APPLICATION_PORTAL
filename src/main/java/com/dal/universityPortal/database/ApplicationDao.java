@@ -19,49 +19,22 @@ public class ApplicationDao implements Dao<Application> {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch("SELECT * FROM application;");
-            dbSession.setAutoCommit(true);
+            applicationlist=dbSession.fetch("SELECT * FROM application WHERE " +
+                    "student_id = "+id);
             for (Map<String, Object> applist: applicationlist){
-                List<Map<String, Object>> student = dbSession.fetch("SELECT * FROM student WHERE " +
-                        "user_id = "+id);
-                List<Map<String, Object>> user = dbSession.fetch("SELECT * FROM user WHERE " +
-                        "id = "+id);
-                List<Map<String, Object>> education = dbSession.fetch("SELECT * FROM education WHERE " +
-                        "student_id = "+id);
-
-                // From Application Table
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
-                application.setProgram_id(Integer.parseInt(String.valueOf(applist.get("program_id"))));
-                application.setStudent_id(Integer.parseInt(String.valueOf(applist.get("student_id"))));
-                application.setSop(String.valueOf(applist.get("sop")));
-                application.setStatus(String.valueOf(applist.get("status")));
-                application.setProcessed_by(Integer.parseInt(String.valueOf(applist.get("processed_by"))));
-                application.setComment(String.valueOf(applist.get("comment")));
-
-                //From Student and User Table
-                application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
-                application.setLast_name(String.valueOf(student.get(0).get("last_name")));
-                application.setAddress(String.valueOf(student.get(0).get("address")));
-                application.setMobile_number(String.valueOf(student.get(0).get("mobile_number")));
-                application.setEmail_id(String.valueOf(user.get(0).get("email")));
-
-                //From Education Table
-                application.setHighest_education(String.valueOf(education.get(0).get("name")));
-                application.setGrades(String.valueOf(education.get(0).get("outcome")));
-                application.setStart_date(String.valueOf(education.get(0).get("start_date")));
-                application.setEnd_date(String.valueOf(education.get(0).get("end_date")));
             }
         }
         return application;
     }
     @Override
     public void insert(Application application) throws SQLException {
-        int program_id=1;
-        int student_id=1;
-        String status ="Under Review";
-        int processed_by = 2;
-        String comment="Bad";
-        String outcome_type="90%";
+        int program_id=application.getProgram_id();
+        int student_id=application.getStudent_id();
+        String status ="Pending";
+        int processed_by = 0;
+        String comment="";
+        String outcome_type="Grade";
         String query1;
         String query2;
         try(DBSession dbSession = new DBSession()){
