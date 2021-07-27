@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_ALL_PROGRAMS;
+
 public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
 
     @Override
@@ -14,7 +16,7 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
-            programList = dbSession.fetch("SELECT * from program");
+            programList = dbSession.fetch(FETCH_ALL_PROGRAMS);
             for (Map<String, Object> mapProgram : programList) {
                 Program program = new Program();
                 program.setAmount(Integer.parseInt(String.valueOf(mapProgram.get("amount"))));
@@ -24,6 +26,7 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
         return programs;
     }
 
+    //TODO: Rename to fetchAllByUniversityId
     public List<Program> fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();

@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Application> {
 
+    //TODO: Rename according to the function execution. Use Constants. Ditto for other functions.
     @Override
     public List<Application> fetchAll() throws SQLException {
         List<Map<String, Object>> applicationList;
@@ -26,7 +27,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
         }
         return applications;
     }
-
+    //TODO: Make the huge chunk execution to a different function
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
@@ -42,7 +43,6 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
                 List<Map<String, Object>> education = dbSession.fetch("SELECT * FROM education WHERE " +
                         "student_id = "+applist.get("student_id"));
 
-                // From Application Table
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
                 application.setProgram_id(Integer.parseInt(String.valueOf(applist.get("program_id"))));
                 application.setStudent_id(Integer.parseInt(String.valueOf(applist.get("student_id"))));
@@ -51,14 +51,12 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
                 application.setProcessed_by(Integer.parseInt(String.valueOf(applist.get("processed_by"))));
                 application.setComment(String.valueOf(applist.get("comment")));
 
-                //From Student and User Table
                 application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
                 application.setLast_name(String.valueOf(student.get(0).get("last_name")));
                 application.setAddress(String.valueOf(student.get(0).get("address")));
                 application.setMobile_number(String.valueOf(student.get(0).get("mobile_number")));
                 application.setEmail_id(String.valueOf(user.get(0).get("email")));
 
-                //From Education Table
                 application.setHighest_education(String.valueOf(education.get(0).get("name")));
                 application.setGrades(String.valueOf(education.get(0).get("outcome")));
                 application.setStart_date(String.valueOf(education.get(0).get("start_date")));

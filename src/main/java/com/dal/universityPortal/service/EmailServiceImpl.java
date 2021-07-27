@@ -14,6 +14,7 @@ import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService{
+    //TODO: remove harcoded values
     @Value("${email.host}")
     private String host="smtp.gmail.com";
 
@@ -111,6 +112,7 @@ public class EmailServiceImpl implements EmailService{
         multipart.addBodyPart(messageBodyPart1);
         multipart.addBodyPart(messageBodyPart2);
         mimeMessage.setContent(multipart);
+        //TODO: remove hardcoded values
         Transport transport = session.getTransport("smtp");
         transport.connect(host,587,user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
