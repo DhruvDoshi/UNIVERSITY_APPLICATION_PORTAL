@@ -2,7 +2,6 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.model.Email;
 import com.dal.universityPortal.validator.EmailAddressValidator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -11,26 +10,19 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.FileNotFoundException;
 import java.util.Properties;
+import com.dal.universityPortal.constant.EmailConstant;
 
 @Service
 public class EmailServiceImpl implements EmailService{
-    @Value("${email.host}")
-    private String host="smtp.gmail.com";
-
-    @Value("{email.user}")
-    private String user="university.mail666@gmail.com";
-
-    @Value("{email.password}")
-    private String password="Pass@word";
 
     @Override
     public Properties getMailproperties() {
         Properties properties = System.getProperties();
-        properties.put("mail.smtp.ssl.trust", host);
+        properties.put("mail.smtp.ssl.trust", EmailConstant.host);
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.user", user);
-        properties.put("mail.smtp.password", password);
+        properties.put("mail.smtp.host", EmailConstant.host);
+        properties.put("mail.smtp.user", EmailConstant.user);
+        properties.put("mail.smtp.password", EmailConstant.password);
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.auth", "true");
         return properties;
@@ -71,17 +63,17 @@ public class EmailServiceImpl implements EmailService{
         Authenticator authenticator  = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password);
+                return new PasswordAuthentication(EmailConstant.user, EmailConstant.password);
             }
         };
         Session session = Session.getDefaultInstance(properties,authenticator);
         MimeMessage message=new MimeMessage(session);
-        message.setFrom(new InternetAddress(user));
+        message.setFrom(new InternetAddress(EmailConstant.user));
         message.addRecipient(Message.RecipientType.TO,new InternetAddress(email.getToAddress()));
         message.setSubject(email.getSubject());
         message.setText(email.getMessageBody());
         Transport transport = session.getTransport("smtp");
-        transport.connect(host,587,user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
+        transport.connect(EmailConstant.host,587,EmailConstant.user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
         return true;
@@ -93,12 +85,12 @@ public class EmailServiceImpl implements EmailService{
         Authenticator authenticator  = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password);
+                return new PasswordAuthentication(EmailConstant.user, EmailConstant.password);
             }
         };
         Session session = Session.getDefaultInstance(props,authenticator);
         MimeMessage mimeMessage = new MimeMessage(session);
-        mimeMessage.setFrom(new InternetAddress(user));
+        mimeMessage.setFrom(new InternetAddress(EmailConstant.user));
         mimeMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(email.getToAddress()));
         mimeMessage.setSubject(email.getSubject());
         BodyPart messageBodyPart1 = new MimeBodyPart();
@@ -112,7 +104,7 @@ public class EmailServiceImpl implements EmailService{
         multipart.addBodyPart(messageBodyPart2);
         mimeMessage.setContent(multipart);
         Transport transport = session.getTransport("smtp");
-        transport.connect(host,587,user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
+        transport.connect(EmailConstant.host,587,EmailConstant.user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
         transport.close();
         return true;

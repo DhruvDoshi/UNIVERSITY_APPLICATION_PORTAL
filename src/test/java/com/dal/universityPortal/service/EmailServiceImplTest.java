@@ -11,10 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmailServiceImplTest {
 
-//    @Test
-//    void getMailproperties() {
-//    }
-
     @Test
     void addDetails() {
         Email email;
