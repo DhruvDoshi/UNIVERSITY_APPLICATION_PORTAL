@@ -9,14 +9,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ApplicationDao implements InsertDao<Application> {
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_ALL_APPLICATION;
+
+public class ApplicationDao implements Dao<Application> {
 
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch("SELECT * FROM application WHERE " +
-                    "student_id = "+id);
+            applicationlist=dbSession.fetch(FETCH_ALL_APPLICATION);
+            dbSession.setAutoCommit(true);
             for (Map<String, Object> applist: applicationlist){
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
             }
