@@ -29,7 +29,7 @@ public class ApplicationController {
         return "application_form";
     }
 
-    @RequestMapping(value="/save_application/{id}",method= RequestMethod.POST)
+    @PostMapping(value="/save_application/{id}")
     public String saveApplication(@PathVariable (value = "id") int id, @ModelAttribute("application") Application application, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         application.setProgram_id(id);

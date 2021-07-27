@@ -26,14 +26,14 @@ public class ProgramController {
         return "program";
     }
 
-    @RequestMapping(value="/save_university_program/{id}",method= RequestMethod.POST)
+    @PostMapping(value="/save_university_program/{id}")
     public String saveUniversityProgram(@PathVariable(value = "id") int id,@ModelAttribute("program") Program program) throws SQLException {
         program.setUniversityId(id);
         programService.saveProgram(program);
         return "redirect:/university/load_program/"+id;
     }
 
-    @RequestMapping(value="/delete_program/{id}/{name}",method= RequestMethod.GET)
+    @PostMapping(value="/delete_program/{id}/{name}")
     public String deleteUniversityProgram(@PathVariable(value = "id") int id,@PathVariable(value = "name") String name) throws SQLException {
         Program program = new Program(name,id);
         programService.deleteProgram(program);
