@@ -11,12 +11,13 @@ import java.util.Map;
 
 @Component
 public class UniversityDao implements Dao<University> {
+
     @Override
     public List<University> fetchAll() throws SQLException {
         List<Map<String, Object>> uniList;
         List<University> universityList = new ArrayList<>();
-        try(DBSession dbSession = new DBSession()) {
-            uniList=dbSession.fetch("SELECT * from university");
+        try (DBSession dbSession = new DBSession()) {
+            uniList = dbSession.fetch("SELECT * from university");
             dbSession.setAutoCommit(true);
             for (Map<String, Object> mapUni : uniList) {
                 University university = new University();
@@ -29,10 +30,9 @@ public class UniversityDao implements Dao<University> {
         return universityList;
     }
 
-
     @Override
     public void insert(University university) throws SQLException {
-        try(DBSession dbSession = new DBSession()) {
+        try (DBSession dbSession = new DBSession()) {
             dbSession.execute("INSERT INTO university (user_id,university_name,university_description) VALUES (?,?,?)", Arrays.asList(university.getUserId(), university.getUniversityName(),
                     university.getUniversityDescription()));
         }
@@ -40,7 +40,7 @@ public class UniversityDao implements Dao<University> {
 
     @Override
     public void update(University university) throws SQLException {
-        try(DBSession dbSession = new DBSession()) {
+        try (DBSession dbSession = new DBSession()) {
             System.out.println(university.getUniversityName());
             String query = "UPDATE university SET university_name = '"+university.getUniversityName()+"', university_description = '"+university.getUniversityDescription()+"' WHERE user_id = "+university.getUserId();
             System.out.println(query);

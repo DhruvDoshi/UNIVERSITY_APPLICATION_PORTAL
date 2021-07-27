@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -48,12 +47,11 @@ public class ReviewApplicationController {
         application.setStatus("In-process");
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         application.setProcessed_by(currentUser.getId());  // get current user
-        if(!application1.getStatus().equals("In-process")){
+        if (!application1.getStatus().equals("In-process")) {
             reviewApplicationService.saveReviewApplication(application);
             redirectAttributes.addFlashAttribute("error", "Application is locked by you");
             return "redirect:/university/load_application_page/"+id;
-        }
-        else{
+        } else {
             redirectAttributes.addFlashAttribute("error", "Already Locked by you");
             return "redirect:/university/load_application_page/"+id;
         }
@@ -65,13 +63,12 @@ public class ReviewApplicationController {
         application.setApplication_id(application1.getApplication_id());
         application.setStatus("Reject");
         application.setProcessed_by(application1.getProcessed_by());
-        if(!application1.getStatus().equals("New")){
+        if (!application1.getStatus().equals("New")) {
             reviewApplicationService.saveReviewApplication(application);
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are not selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/reject.txt");
             sendmail.mail();
             return "redirect:/university/load_list_application";
-        }
-        else{
+        } else {
             System.out.println("New application");
             redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
             return "redirect:/university/load_application_page/"+id;
@@ -89,11 +86,9 @@ public class ReviewApplicationController {
             sendmail= new Sendmail("foramgaikwad27497@gmail.com","decision made","You are selected for the course you have applied","src/main/java/com/dal/universityPortal/email/file/accept.txt");
             sendmail.mail();
             return "redirect:/university/load_list_application";
-        }
-        else{
+        } else{
             redirectAttributes.addFlashAttribute("error1", "Please lock the application to make the decision");
             return "redirect:/university/load_application_page/"+id;
         }
-
     }
 }

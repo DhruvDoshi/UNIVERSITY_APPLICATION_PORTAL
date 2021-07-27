@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
@@ -50,10 +49,10 @@ public class UniversityProfileController {
     @RequestMapping (value="/save_university_profile/{id}",method= RequestMethod.POST)
     public String saveUniversityProfile(@PathVariable (value = "id") int id,@ModelAttribute("university") University university,Model model) throws SQLException {
         university.setUserId(id);
-        University universityCheck =universityProfileService.readProfile(id);
-        if(universityCheck.getUniversityName()==null){
+        University universityCheck = universityProfileService.readProfile(id);
+        if (universityCheck.getUniversityName() == null) {
             universityProfileService.saveProfile(university);
-        }else{
+        } else{
             universityProfileService.updateProfile(university);
         }
 

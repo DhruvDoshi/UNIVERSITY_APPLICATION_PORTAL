@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DBSession implements AutoCloseable{
+public class DBSession implements AutoCloseable {
+
     private Connection connection;
 
     public DBSession() throws SQLException {
@@ -22,7 +23,6 @@ public class DBSession implements AutoCloseable{
     private String getConnectionString() {
         return "jdbc:mysql://openvpn.aasif.dev:3306/asdproject?user=root&password=Dal@1029";
     }
-
 
     @Override
     public void close() throws SQLException {
@@ -40,7 +40,7 @@ public class DBSession implements AutoCloseable{
 
     private PreparedStatement getPreparedStatement(String query, List<Object> params) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        for(int i=0; i<params.size();i++){
+        for (int i = 0; i < params.size(); i++) {
             preparedStatement.setObject(i+1, params.get(i));
         }
         return preparedStatement;
@@ -49,9 +49,9 @@ public class DBSession implements AutoCloseable{
     private List<Map<String, Object>> getFieldsMappedRows(ResultSet result) throws SQLException {
         ResultSetMetaData metaData = result.getMetaData();
         List<Map<String, Object>> rows = new ArrayList<>();
-        while (result.next()){
+        while (result.next()) {
             Map<String, Object> resultMap = new HashMap<>();
-            for(int i=1; i<=metaData.getColumnCount();i++){
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 resultMap.put(metaData.getColumnName(i), result.getObject(i));
             }
             rows.add(resultMap);
@@ -60,25 +60,25 @@ public class DBSession implements AutoCloseable{
     }
 
     public void execute(String query, List<Object> params) throws SQLException {
-        try(PreparedStatement statement = getPreparedStatement(query, params)){
+        try (PreparedStatement statement = getPreparedStatement(query, params)) {
             statement.executeUpdate();
         }
     }
 
     public void execute(String query) throws SQLException {
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
         }
     }
 
-    public List<Map<String, Object>> fetch(String query, List<Object> params) throws SQLException{
-        try(PreparedStatement statement = getPreparedStatement(query, params)){
+    public List<Map<String, Object>> fetch(String query, List<Object> params) throws SQLException {
+        try (PreparedStatement statement = getPreparedStatement(query, params)) {
             return getFieldsMappedRows(statement.executeQuery());
         }
     }
 
-    public  List<Map<String, Object>> fetch(String query) throws SQLException{
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+    public  List<Map<String, Object>> fetch(String query) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             return getFieldsMappedRows(statement.executeQuery());
         }
     }

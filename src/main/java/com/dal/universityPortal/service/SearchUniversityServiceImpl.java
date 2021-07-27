@@ -1,4 +1,3 @@
-
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.SearchUniversityDao;
@@ -16,7 +15,7 @@ public class SearchUniversityServiceImpl implements SearchUniversityService {
     public Program getUniversityDetails(Program program) throws SQLException {
         Program universityDetail = new Program();
         List<Program> universityDetails = searchUniversityDao.fetchAll();
-        for(Program detail : universityDetails) {
+        for (Program detail : universityDetails) {
             if (detail.getUniversityName().equals(program.getUniversityName())) {
                 universityDetail.setUserId(detail.getUserId());
                 universityDetail.setUniversityName(detail.getUniversityName());

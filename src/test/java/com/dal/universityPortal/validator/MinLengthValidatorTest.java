@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MinLengthValidatorTest {
+
     String shortString = "aa";
     String longString = "aaaaaa";
     String noString = "";
@@ -32,5 +34,4 @@ public class MinLengthValidatorTest {
         assertEquals(String.format(MIN_LENGTH_ERROR, minLength),
                 validator.getErrorMessage());
     }
-
 }

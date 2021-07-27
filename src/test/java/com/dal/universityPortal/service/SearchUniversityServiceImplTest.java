@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchUniversityServiceImplTest {
