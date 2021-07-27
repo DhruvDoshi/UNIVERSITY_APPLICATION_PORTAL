@@ -7,21 +7,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class SearchUniversityDao implements Dao<Program>{
+public class SearchUniversityDao implements Dao<Program> {
 
-  @Override
-  public List<Program> fetchAll() throws SQLException {
-    List<Map<String, Object>> universityDetail;
-    List<Program> universityDetails = new ArrayList<>();
-    try (DBSession dbSession = new DBSession()) {
-      universityDetail = dbSession.fetch("SELECT * FROM university");
-      for (Map<String, Object> mapUniversity : universityDetail) {
-        Program universityData = new Program();
-        universityData.setUserId(Integer.parseInt(String.valueOf(mapUniversity.get("user_id"))));
-        universityData.setUniversityName(String.valueOf(mapUniversity.get("university_name")));
-        universityData.setUniversityDescription(String.valueOf(mapUniversity.get("university_description")));
-        universityDetails.add(universityData);
-      }
+    @Override
+    public List<Program> fetchAll() throws SQLException {
+        List<Map<String, Object>> universityDetail;
+        List<Program> universityDetails = new ArrayList<>();
+        try (DBSession dbSession = new DBSession()) {
+            universityDetail = dbSession.fetch("SELECT * FROM university");
+            for (Map<String, Object> mapUniversity : universityDetail) {
+                Program universityData = new Program();
+                universityData.setUserId(Integer.parseInt(String.valueOf(mapUniversity.get("user_id"))));
+                universityData.setUniversityName(String.valueOf(mapUniversity.get("university_name")));
+                universityData.setUniversityDescription(String.valueOf(mapUniversity.get("university_description")));
+                universityDetails.add(universityData);
+            }
+        }
+        return universityDetails;
     }
     return universityDetails;
   }
@@ -38,20 +40,18 @@ public class SearchUniversityDao implements Dao<Program>{
         programDetails.add(program);
       }
     }
-    return programDetails;
-  }
 
-  @Override
-  public void insert(Program program) {
+    @Override
+    public void insert(Program program) {
 
-  }
+    }
 
-  @Override
-  public void update(Program program) {
-  }
+    @Override
+    public void update(Program program) {
+    }
 
-  @Override
-  public void delete(Program program) {
+    @Override
+    public void delete(Program program) {
 
-  }
+    }
 }
