@@ -9,7 +9,7 @@ import java.util.Map;
 import static com.dal.universityPortal.database.query.UserQuery.*;
 
 @Component
-public class UserDao implements Dao<User> {
+public class UserDao implements InsertDao<User>,UpdateDao<User>, SelectDao<User> {
 
     @Override
     public List<User> fetchAll() {
@@ -43,11 +43,6 @@ public class UserDao implements Dao<User> {
             dbSession.execute(UPDATE_USER_QUERY, Arrays.asList(user.getUsername(), user.getEmail(),
                     user.getPassword(), user.getType(), user.getStatusString(), user.getId()));
         }
-    }
-
-    @Override
-    public void delete(User user) throws SQLException {
-
     }
 
     public void setResetCode(User user, Integer resetCode) throws SQLException {

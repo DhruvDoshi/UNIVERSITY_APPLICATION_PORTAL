@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class AdminDao implements Dao<AdminPanel> {
+public class AdminDao implements SelectDao<AdminPanel>,UpdateDao<AdminPanel> {
 
     @Override
     public List<AdminPanel> fetchAll() throws SQLException {
@@ -32,11 +32,6 @@ public class AdminDao implements Dao<AdminPanel> {
     }
 
     @Override
-    public void insert(AdminPanel adminPanel) {
-
-    }
-
-    @Override
     public void update(AdminPanel adminPanel) {
         try (DBSession dbSession = new DBSession()) {
             dbSession.execute("UPDATE user SET status = ? WHERE id = ?", Arrays.asList(adminPanel.getStatus(), adminPanel.getUserId()));
@@ -45,8 +40,4 @@ public class AdminDao implements Dao<AdminPanel> {
         }
     }
 
-    @Override
-    public void delete(AdminPanel adminPanel) {
-
-    }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ProgramDao implements Dao<Program> {
+public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
 
     @Override
     public List<Program> fetchAll() throws SQLException {
@@ -49,11 +49,6 @@ public class ProgramDao implements Dao<Program> {
                     program.getUniversityId()));
             dbSession.setAutoCommit(true);
         }
-    }
-
-    @Override
-    public void update(Program program) {
-
     }
 
     @Override

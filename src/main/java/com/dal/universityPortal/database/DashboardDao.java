@@ -9,7 +9,7 @@ import static com.dal.universityPortal.database.query.DashboardQuery.APPLICATION
 import static com.dal.universityPortal.database.query.DashboardQuery.PAYMENT_FROM_STUDENT_ID;
 
 @Service
-public class DashboardDao implements Dao {
+public class DashboardDao {
 
     public List<Payment> fetchPayment(int student_id) throws SQLException {
         List<Map<String, Object>> paymentList;
@@ -41,23 +41,4 @@ public class DashboardDao implements Dao {
         return applications;
     }
 
-    @Override
-    public List fetchAll() throws SQLException {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public void insert(Object o) throws SQLException {
-
-    }
-
-    @Override
-    public void update(Object o) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Object o) throws SQLException {
-
-    }
 }
