@@ -11,7 +11,17 @@ public class ProgramDao implements Dao<Program> {
 
     @Override
     public List<Program> fetchAll() throws SQLException {
-        return null;
+        List<Map<String, Object>> programList;
+        List<Program> programs = new ArrayList<>();
+        try (DBSession dbSession = new DBSession()) {
+            programList = dbSession.fetch("SELECT * from program");
+            for (Map<String, Object> mapProgram : programList) {
+                Program program = new Program();
+                program.setAmount(Integer.parseInt(String.valueOf(mapProgram.get("amount"))));
+                programs.add(program);
+            }
+        }
+        return programs;
     }
 
     public List<Program> fetchAllByParam(int id) throws SQLException {

@@ -47,7 +47,7 @@ public class ReviewApplicationController {
         application.setApplication_id(application1.getApplication_id());
         application.setStatus("In-process");
         User currentUser = authenticationService.getCurrentUser(request.getSession());
-        application.setProcessed_by(currentUser.getId());  // get current user
+        application.setProcessed_by(currentUser.getId());
         if(!application1.getStatus().equals("In-process")){
             reviewApplicationService.saveReviewApplication(application);
             redirectAttributes.addFlashAttribute("error", "Application is locked by you");

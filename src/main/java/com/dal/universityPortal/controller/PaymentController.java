@@ -1,6 +1,8 @@
 package com.dal.universityPortal.controller;
 
+import com.dal.universityPortal.database.ProgramDao;
 import com.dal.universityPortal.model.Payment;
+import com.dal.universityPortal.model.Program;
 import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.service.AuthenticationService;
 import com.dal.universityPortal.service.PaymentService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -23,10 +26,11 @@ public class PaymentController {
 
 
     @GetMapping("/load_payment/{id}")
-    public String loadPayment(@PathVariable (value = "id") int id,Model model){
+    public String loadPayment(@PathVariable (value = "id") int id,Model model) throws SQLException {
         Payment payment = new Payment();
         payment.setApplication_id(id);
-        payment.setAmount(200);
+        List<Program> programList = new ProgramDao().fetchAll();
+        payment.setAmount(programList.get(0).getAmount());
         model.addAttribute("payment", payment);
         return "payment";
     }
@@ -35,7 +39,8 @@ public class PaymentController {
     public String savePayment(@PathVariable (value = "id") int id, @ModelAttribute("payment") Payment payment,HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         payment.setStudent_id(currentUser.getId());
-        payment.setAmount(200);
+        List<Program> programList = new ProgramDao().fetchAll();
+        payment.setAmount(programList.get(0).getAmount());
         payment.setApplication_id(id);
         paymentService.savePayment(payment);
         return "redirect:/student/dashboard";
