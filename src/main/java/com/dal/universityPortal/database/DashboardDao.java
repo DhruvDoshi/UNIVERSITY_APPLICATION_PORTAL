@@ -11,6 +11,7 @@ import static com.dal.universityPortal.database.query.DashboardQuery.PAYMENT_FRO
 @Service
 public class DashboardDao {
 
+    //TODO: Dhruv - Move this to payment
     public List<Payment> fetchPayment(int student_id) throws SQLException {
         List<Map<String, Object>> paymentList;
         List<Payment> payments = new ArrayList<>();
@@ -26,6 +27,7 @@ public class DashboardDao {
         return payments;
     }
 
+    //TODO: Dhruv - Move this to application
     public List<Application> fetchApplication(int student_id) throws SQLException {
         List<Map<String, Object>> applicationList;
         List<Application> applications = new ArrayList<>();
