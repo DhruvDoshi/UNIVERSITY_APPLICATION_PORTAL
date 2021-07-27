@@ -1,6 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Program;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,20 +26,20 @@ public class SearchUniversityDao implements Dao<Program> {
         }
         return universityDetails;
     }
-    return universityDetails;
-  }
 
-  public List<Program> fetchAllByParams(int id) throws SQLException {
-    List<Map<String, Object>> programDetail;
-    List<Program> programDetails = new ArrayList<>();
-    try (DBSession dbSession = new DBSession()) {
-      programDetail = dbSession.fetch("SELECT * FROM program WHERE university_id = ?", Arrays.asList(id));
-      for (Map<String, Object> mapProgram : programDetail) {
-        Program program = new Program();
-        program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
-        program.setName(String.valueOf(mapProgram.get("name")));
-        programDetails.add(program);
-      }
+    public List<Program> fetchAllByParams(int id) throws SQLException {
+        List<Map<String, Object>> programDetail;
+        List<Program> programDetails = new ArrayList<>();
+        try (DBSession dbSession = new DBSession()) {
+            programDetail = dbSession.fetch("SELECT * FROM program WHERE university_id = ?", Arrays.asList(id));
+            for (Map<String, Object> mapProgram : programDetail) {
+                Program program = new Program();
+                program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
+                program.setName(String.valueOf(mapProgram.get("name")));
+                programDetails.add(program);
+            }
+        }
+        return programDetails;
     }
 
     @Override
