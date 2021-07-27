@@ -4,14 +4,15 @@ import com.dal.universityPortal.model.AdminPanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminPanelServiceImplTest {
-
     private AdminPanelServiceImpl adminPanelserviceImpl;
 
     @BeforeEach
@@ -24,6 +25,7 @@ public class AdminPanelServiceImplTest {
     void getPendingStatusUniversitiesTest() throws SQLException {
         AdminPanel adminPanel1 = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
         AdminPanel adminPanel2 = new AdminPanel(2, "Concordia University", "admin@con.ca", "UNIVERSITY", "PENDING");
+
         ArrayList<AdminPanel> adminPanels = new ArrayList<>(Arrays.asList(adminPanel1, adminPanel2));
         Mockito.doReturn(adminPanels).when(adminPanelserviceImpl).getPendingStatusUniversities();
         assertEquals(2, adminPanels.size());

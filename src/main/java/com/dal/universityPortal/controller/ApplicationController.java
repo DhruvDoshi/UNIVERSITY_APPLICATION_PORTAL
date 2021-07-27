@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
-@RequestMapping(STUDENT)
+@RequestMapping("/student")
 public class ApplicationController {
 
     @Autowired
@@ -22,21 +22,19 @@ public class ApplicationController {
     @Autowired
     AuthenticationService authenticationService;
 
-    @GetMapping(LOAD_APPLICATION + "/{id}")
+    @GetMapping("/load_application/{id}")
     public String loadApplication(@PathVariable (value = "id") int id, Model model) throws SQLException {
         Application application = new Application();
-        application.setProgram_id(id);
-        model.addAttribute("app", application);
+        model.addAttribute("application", application);
         return "application_form";
     }
 
-    @PostMapping(SAVE_APPLICATION + "/{id}")
+    @RequestMapping(value="/save_application/{id}",method= RequestMethod.POST)
     public String saveApplication(@PathVariable (value = "id") int id, @ModelAttribute("application") Application application, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         application.setProgram_id(id);
         application.setStudent_id(currentUser.getId());
         applicationService.saveApplication(application);
-        application=applicationService.readApplication(currentUser.getId());
-        return String.format("redirect:%s%s/%s", STUDENT, LOAD_PAYMENT, application.getApplication_id());
+        return "redirect:/student/load_payment";
     }
 }

@@ -8,8 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+
 import java.sql.*;
 import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -36,6 +39,7 @@ class DBSessionTest {
     public void setUp()  {
         MockitoAnnotations.openMocks(this);
     }
+
 
     @Test
     void close() throws SQLException {
@@ -87,6 +91,7 @@ class DBSessionTest {
         List<Map<String, Object>> expected = getExpectedValuesForFetch();
         assertEquals(expected, fetchedObject);
     }
+
 
     private void setupMock() throws SQLException {
         Mockito.when(connection.prepareStatement(any())).thenReturn(preparedStatement);

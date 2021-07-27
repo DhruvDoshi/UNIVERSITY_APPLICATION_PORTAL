@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChainedValidator<T> implements Validator<T> {
-
     List<Validator<T>> validators;
     List<String> errorMessages;
 
@@ -13,9 +12,9 @@ public class ChainedValidator<T> implements Validator<T> {
         this.errorMessages = new ArrayList<>();
     }
 
-    public boolean isValid(T t) {
+    public boolean isValid(T t){
         for(Validator<T> validator: validators) {
-            if(!validator.isValid(t)) {
+            if(!validator.isValid(t)){
                 errorMessages.add(validator.getErrorMessage());
             }
         }

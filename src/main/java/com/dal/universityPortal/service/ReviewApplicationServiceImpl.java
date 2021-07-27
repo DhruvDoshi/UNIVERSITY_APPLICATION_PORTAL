@@ -3,11 +3,12 @@ package com.dal.universityPortal.service;
 import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.model.Application;
 import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class ReviewApplicationServiceImpl implements ReviewApplicationService {
+public class ReviewApplicationServiceImpl implements ReviewApplicationService{
 
     ReviewApplicationDao reviewApplicationDao = new ReviewApplicationDao();
 
@@ -22,10 +23,10 @@ public class ReviewApplicationServiceImpl implements ReviewApplicationService {
     }
 
     @Override
-    public Boolean saveReviewApplication(Application application) {
-        try {
+    public Boolean saveReviewApplication(Application application){
+        try{
             reviewApplicationDao.update(application);
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println(e);
         }
         return true;

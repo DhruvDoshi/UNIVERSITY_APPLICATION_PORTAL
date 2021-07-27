@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.sql.SQLException;
 import java.util.List;
-import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
-@RequestMapping(UNIVERSITY)
+@RequestMapping("/university")
 public class ProgramController {
-
     @Autowired
     private ProgramService programService;
 
-    @GetMapping(LOAD_PROGRAM + "/{id}")
+    @GetMapping("/load_program/{id}")
     public String loadUniversityProgram(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Program program = new Program();
         program.setUniversityId(id);
@@ -27,17 +26,16 @@ public class ProgramController {
         return "program";
     }
 
-    @PostMapping(SAVE_UNIVERSITY_PROGRAM + "/{id}")
+    @RequestMapping(value="/save_university_program/{id}",method= RequestMethod.POST)
     public String saveUniversityProgram(@PathVariable(value = "id") int id,@ModelAttribute("program") Program program) throws SQLException {
         program.setUniversityId(id);
         programService.saveProgram(program);
-        return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_PROGRAM, id);
+        return "redirect:/university/load_program/"+id;
     }
 
-    @GetMapping(DELETE_PROGRAM + "/{id}/{name}")
+    @RequestMapping(value="/delete_program/{id}/{name}",method= RequestMethod.GET)
     public String deleteUniversityProgram(@PathVariable(value = "id") int id,@PathVariable(value = "name") String name) throws SQLException {
-        Program program = new Program(name,id);
-        programService.deleteProgram(program);
-        return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_PROGRAM, id);
+        programService.deleteProgram(id,name);
+        return "redirect:/university/load_program/"+id;
     }
 }

@@ -8,37 +8,37 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.sql.SQLException;
-import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
-@RequestMapping(ADMIN)
+@RequestMapping("/admin")
 public class AdminPanelController {
 
     @Autowired
     private AdminPanelService adminPanelService;
 
-    @GetMapping(DASHBOARD)
+    @GetMapping("/dashboard")
     public String getUniversities(Model model) throws SQLException {
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
         return "admin_panel";
     }
 
-    @GetMapping(ALLOW_UNIVERSITY + "/{id}")
+    @GetMapping("/allow_university/{id}")
     public String allowUniversity(@PathVariable(value = "id") int id, Model model) throws SQLException {
         AdminPanel adminPanel = new AdminPanel();
         adminPanel.setUserId(id);
         this.adminPanelService.allowUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return String.format("redirect:%s%s", ADMIN, DASHBOARD);
+        return "redirect:/admin/dashboard";
     }
 
-    @GetMapping(DENY_UNIVERSITY + "/{id}")
+    @GetMapping("/deny_university/{id}")
     public String denyUniversity(@PathVariable (value = "id") int id, Model model) throws SQLException {
         AdminPanel adminPanel = new AdminPanel();
         adminPanel.setUserId(id);
         this.adminPanelService.denyUniversityById(adminPanel);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return String.format("redirect:%s%s", ADMIN, DASHBOARD);
+        return "redirect:/admin/dashboard";
     }
 }

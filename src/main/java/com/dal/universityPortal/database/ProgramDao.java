@@ -1,6 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Program;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,21 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public class ProgramDao implements Dao<Program> {
-
     @Override
     public List<Program> fetchAll() throws SQLException {
-        List<Map<String, Object>> programList;
-        List<Program> programs = new ArrayList<>();
-        try (DBSession dbSession = new DBSession()) {
-            programList = dbSession.fetch("SELECT * from program");
-            for (Map<String, Object> mapProgram : programList) {
-                Program program = new Program();
-                program.setAmount(Integer.parseInt(String.valueOf(mapProgram.get("amount"))));
-                programs.add(program);
-            }
-        }
-        return programs;
+        return null;
     }
+
 
     public List<Program> fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> programList;
@@ -59,8 +50,9 @@ public class ProgramDao implements Dao<Program> {
     @Override
     public void delete(Program program1) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "DELETE FROM program WHERE university_id="+program1.getUniversityId()+" AND name="+"'"+program1.getName()+"'";
+            String query="DELETE FROM program WHERE university_id="+program1.getUniversityId()+" AND name="+"'"+program1.getName()+"'";
             dbSession.execute(query);
         }
+
     }
 }

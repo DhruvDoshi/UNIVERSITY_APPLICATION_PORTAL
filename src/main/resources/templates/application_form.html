@@ -29,7 +29,7 @@
         <br>
         <h2>Application Form</h2>
         <br>
-        <form action="#" th:object="${app}" th:action="@{/student/save_application/{id}(id=${app.program_id})}" method="POST">
+        <form action="#" th:object="${application}" th:action="@{/student/save_application/{id}(id=${application.program_id})}" method="POST">
             <div class="personal_details" style="border-style: solid;">
                 <br>
                 <h5>Personal Details</h5>
@@ -47,6 +47,7 @@
                 <h5>Education History</h5>
                 <br>
                 <input type="text" th:field="*{highest_education}" placeholder="Highest Education" class="mb-4 col-4" required>
+<!--                <input type="text" th:field="*{grade}" placeholder="Grades" class="mb-4 col-4">-->
                 <select type="text" class="mb-4 col-4" th:field="*{grades}" required>
                     <option value="" disabled selected>Grade</option>
                     <option value="A+">A+</option>
@@ -66,6 +67,7 @@
             <br>
             <button type="submit" class="btn col-2" style="background-color: white; border: 1px solid gray; ">Cancel</button>
             <button type="submit" class="btn btn-info col-2" >Submit</button>
+<!--            <a th:href="@{/saveApplication/{id}(id=${5})}" class="btn btn-primary btn-sm mb-3"> Submit </a>-->
         </form>
         <br>
         <hr>

@@ -3,6 +3,7 @@ package com.dal.universityPortal.database;
 import com.dal.universityPortal.model.AdminPanel;
 import com.dal.universityPortal.model.UserStatus;
 import com.dal.universityPortal.model.UserType;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,4 +50,5 @@ public class AdminDao implements Dao<AdminPanel> {
     public void delete(AdminPanel adminPanel) {
 
     }
+
 }

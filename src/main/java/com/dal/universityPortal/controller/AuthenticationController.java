@@ -12,32 +12,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import static com.dal.universityPortal.constant.ErrorConstant.*;
-import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
 public class AuthenticationController {
-
     @Autowired
     AuthenticationService authenticationService;
 
-    @GetMapping(LOGIN)
+    @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("credential", new Credential());
         return "login";
     }
 
-    @PostMapping(LOGIN)
+    @PostMapping("/login")
     public String saveRegistration(@ModelAttribute Credential credential, Model model, HttpServletRequest request) {
         try {
             authenticationService.login(request.getSession(), credential);
         } catch (UnsupportedUser exception) {
             model.addAttribute("credential", credential);
-            model.addAttribute("errors", USER_UNSUPPORTED_ERROR);
+            model.addAttribute("errors", "The user is not supported.");
             return "login";
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -46,47 +44,48 @@ public class AuthenticationController {
         return "redirect:"+authenticationService.getRedirectLink(currentUser.getTypeEnum());
     }
 
-    @GetMapping(LOGOUT)
+    @GetMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authenticationService.logout(request.getSession());
-        response.sendRedirect(LOGIN);
+        response.sendRedirect("/login");
     }
 
-    @GetMapping(RESET_PASSWORD + SEND_CODE)
+    @GetMapping("/reset_password/send_code")
     public String sendUniqueCodePage(Model model) {
         model.addAttribute("credential", new ResetCredential());
         return "get_reset_code";
     }
 
-    @PostMapping(RESET_PASSWORD + SEND_CODE)
+    @PostMapping("/reset_password/send_code")
     public String sendUniqueCode(@ModelAttribute ResetCredential resetCredential, Model model) {
         try {
             authenticationService.sendPasswordCode(resetCredential.getUsername());
-            return String.format("redirect:%s", RESET_PASSWORD);
+            return "redirect:/reset_password";
         } catch (UnsupportedUser exception) {
-            model.addAttribute("error", USER_NOT_FOUND_ERROR);
+            model.addAttribute("error", "Not FOund");
         } catch (SQLException exception) {
-            model.addAttribute("error", UNEXPECTED_ERROR);
+            model.addAttribute("error", "Unexpected Error");
         }
+
         return "get_reset_code";
     }
 
-    @GetMapping(RESET_PASSWORD)
+    @GetMapping("/reset_password")
     public String resetPasswordPage(Model model) {
         model.addAttribute("credentials", new ResetCredential());
         return "reset_password";
     }
 
-    @PostMapping(RESET_PASSWORD)
+    @PostMapping("/reset_password")
     public String resetPassword(@ModelAttribute ResetCredential resetCredential, Model model) {
         model.addAttribute("credentials", resetCredential);
         try {
             authenticationService.resetPassword(resetCredential);
-            return String.format("redirect:%s", LOGIN);
+            return "redirect:/login";
         } catch (ValidationException exception) {
             model.addAttribute("validationErrors", exception.getErrors());
         } catch (SQLException exception) {
-            model.addAttribute("error",  UNEXPECTED_ERROR);
+            model.addAttribute("error",  "Something went wrong. Please try after sometime");
         }
         return "reset_password";
     }

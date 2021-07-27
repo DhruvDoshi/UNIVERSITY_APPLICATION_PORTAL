@@ -4,6 +4,7 @@ import com.dal.universityPortal.database.AdminDao;
 import com.dal.universityPortal.model.AdminPanel;
 import com.dal.universityPortal.model.UserStatus;
 import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import java.util.List;
 public class AdminPanelServiceImpl implements AdminPanelService{
 
     AdminDao adminDao = new AdminDao();
-
     @Override
     public List<AdminPanel> getPendingStatusUniversities() throws SQLException {
         List<AdminPanel> listUniversities = adminDao.fetchAll();

@@ -1,12 +1,14 @@
 package com.dal.universityPortal.email;
 
 import org.junit.jupiter.api.Test;
+
 import javax.mail.MessagingException;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SendmailTest {
-
     @Test
     void testIsValid() {
         Sendmail sm = new Sendmail();
@@ -36,7 +38,6 @@ class SendmailTest {
         String email="mail@gamil.com";
         assertEquals(email,sm.Set_to_Address(email),"Invalid Mail_id Error");
     }
-
     @Test
     void testSet_to_address_false() {
         Sendmail sm = new Sendmail();
