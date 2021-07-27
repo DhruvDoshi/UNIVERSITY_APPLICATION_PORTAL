@@ -16,12 +16,11 @@ public class SearchUniversityServiceImpl implements SearchUniversityService {
     public Program getUniversityDetails(Program program) throws SQLException {
         Program universityDetail = new Program();
         List<Program> universityDetails = searchUniversityDao.fetchAll();
-        for (int i = 0; i < universityDetails.size(); i++){
-            if(universityDetails.get(i).getUniversityName().equals(program.getUniversityName())) {
-                universityDetail.setUserId(universityDetails.get(i).getUserId());
-                universityDetail.setUniversityName(universityDetails.get(i).getUniversityName());
-                universityDetail.setUniversityDescription(universityDetails.get(i).getUniversityDescription());
-                break;
+        for(Program detail : universityDetails) {
+            if (detail.getUniversityName().equals(program.getUniversityName())) {
+                universityDetail.setUserId(detail.getUserId());
+                universityDetail.setUniversityName(detail.getUniversityName());
+                universityDetail.setUniversityDescription(detail.getUniversityDescription());
             } else {
                 universityDetail.setUniversityName("");
             }

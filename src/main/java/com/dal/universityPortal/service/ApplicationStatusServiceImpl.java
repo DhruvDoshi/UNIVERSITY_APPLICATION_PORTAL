@@ -32,12 +32,12 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
     @Override
     public University getUniversityDetails(int id) throws SQLException {
         List<University> universityList = universityDao.fetchAll();
-        University university = new University();
-        for (int i = 0; i < universityList.size(); i++) {
-            if (universityList.get(i).getUserId() == id) {
-                university.setUniversityName(universityList.get(i).getUniversityName());
+        University universityDetails = new University();
+        for (University university : universityList) {
+            if (university.getUserId() == id) {
+                universityDetails .setUniversityName(university.getUniversityName());
             }
         }
-        return university;
+        return universityDetails;
     }
 }
