@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_ALL_APPLICATION;
+
 public class ApplicationDao implements Dao<Application> {
 
     @Override
@@ -19,7 +21,7 @@ public class ApplicationDao implements Dao<Application> {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch("SELECT * FROM application;");
+            applicationlist=dbSession.fetch(FETCH_ALL_APPLICATION);
             dbSession.setAutoCommit(true);
             for (Map<String, Object> applist: applicationlist){
                 List<Map<String, Object>> student = dbSession.fetch("SELECT * FROM student WHERE " +

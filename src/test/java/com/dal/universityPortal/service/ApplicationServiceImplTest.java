@@ -1,6 +1,6 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.ReviewApplicationDao;
+import com.dal.universityPortal.database.ApplicationDao;
 import com.dal.universityPortal.database.UniversityDao;
 import com.dal.universityPortal.model.Application;
 import com.dal.universityPortal.model.University;
@@ -13,32 +13,34 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-public class UniversityProfileServiceImplTest {
+class ApplicationServiceImplTest {
+
     @Mock
-    UniversityDao universityDao;
+    ApplicationDao applicationDao;
 
     @InjectMocks
-    UniversityProfileServiceImpl universityProfileServiceImpl;
+    ApplicationServiceImpl applicationService;
 
     @Mock
-    University university = new University();
+    Application application = new Application();
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+
     @Test
-    void saveProfileTest() throws SQLException {
-        universityProfileServiceImpl.saveProfile(university);
-        Mockito.verify(universityDao).insert(university);
+    void saveApplication() throws SQLException {
+        applicationService.saveApplication(application);
+        Mockito.verify(applicationDao).insert(application);
     }
 
     @Test
-    void readProfileTest() throws SQLException {
-        universityProfileServiceImpl.readProfile(1);
-        Mockito.verify(universityDao).fetchAll();
-
+    void readApplication() throws SQLException {
+        applicationService.readApplication(1);
+        Mockito.verify(applicationDao).fetchAllByParam(1);
     }
 }
