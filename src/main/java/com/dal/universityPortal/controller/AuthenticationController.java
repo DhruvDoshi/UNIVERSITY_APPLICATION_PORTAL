@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static com.dal.universityPortal.constant.ErrorConstant.*;
+
 @Controller
 public class AuthenticationController {
     @Autowired
@@ -35,7 +37,7 @@ public class AuthenticationController {
             authenticationService.login(request.getSession(), credential);
         } catch (UnsupportedUser exception) {
             model.addAttribute("credential", credential);
-            model.addAttribute("errors", "The user is not supported.");
+            model.addAttribute("errors", USER_UNSUPPORTED_ERROR);
             return "login";
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -62,9 +64,9 @@ public class AuthenticationController {
             authenticationService.sendPasswordCode(resetCredential.getUsername());
             return "redirect:/reset_password";
         } catch (UnsupportedUser exception) {
-            model.addAttribute("error", "Not FOund");
+            model.addAttribute("error", USER_NOT_FOUND_ERROR);
         } catch (SQLException exception) {
-            model.addAttribute("error", "Unexpected Error");
+            model.addAttribute("error", UNEXPECTED_ERROR);
         }
 
         return "get_reset_code";
@@ -85,7 +87,7 @@ public class AuthenticationController {
         } catch (ValidationException exception) {
             model.addAttribute("validationErrors", exception.getErrors());
         } catch (SQLException exception) {
-            model.addAttribute("error",  "Something went wrong. Please try after sometime");
+            model.addAttribute("error",  UNEXPECTED_ERROR);
         }
         return "reset_password";
     }

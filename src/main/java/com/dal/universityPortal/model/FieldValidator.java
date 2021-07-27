@@ -24,5 +24,4 @@ public class FieldValidator<T> {
     public Validator<T> getValidator() {
         return validator;
     }
-
 }

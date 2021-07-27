@@ -17,7 +17,6 @@ public class User extends ValidatedModel{
     private UserType type;
     private UserStatus status;
     private Integer resetCode;
-    private Map<Object, Validator> fieldValueMapping= new HashMap<>();
 
     public User() {
         super(new ModelValidatorService());
@@ -116,8 +115,4 @@ public class User extends ValidatedModel{
         return fieldValidators;
     }
 
-    @Override
-    public boolean isValid() {
-        return this.validator.isValid(getFieldValidatorMapping());
-    }
 }

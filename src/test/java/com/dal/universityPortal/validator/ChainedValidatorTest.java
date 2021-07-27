@@ -17,7 +17,6 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class ChainedValidatorTest {
-    private static final String shortString = "a";
     private static final String shortStringWithUpperCase = "aA";
     private static final String minLengthValidatorError = "minLengthError";
     private static final String upperCasePresentValidatorError = "upperCaseError";

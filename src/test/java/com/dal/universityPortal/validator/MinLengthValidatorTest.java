@@ -1,4 +1,5 @@
 package com.dal.universityPortal.validator;
+import static com.dal.universityPortal.constant.ErrorConstant.MIN_LENGTH_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -10,7 +11,6 @@ public class MinLengthValidatorTest {
     String noString = "";
     Integer minLength = 3;
     MinLengthValidator validator = new MinLengthValidator(minLength);
-    String expectedErrorFormat = "The min length should be %s";
 
     @Test
     void stringWithoutMinLength_returnsFalse() {
@@ -29,7 +29,7 @@ public class MinLengthValidatorTest {
 
     @Test
     void getErrorMessage_returnsErrorMessage() {
-        assertEquals(String.format(expectedErrorFormat, minLength),
+        assertEquals(String.format(MIN_LENGTH_ERROR, minLength),
                 validator.getErrorMessage());
     }
 

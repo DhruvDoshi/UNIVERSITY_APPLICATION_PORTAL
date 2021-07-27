@@ -1,6 +1,5 @@
 package com.dal.universityPortal.database;
 
-import com.dal.universityPortal.model.University;
 import com.dal.universityPortal.model.User;
 import org.springframework.stereotype.Component;
 
