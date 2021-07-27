@@ -38,8 +38,8 @@ public class SearchUniversityDao implements Dao<Program> {
                 program.setName(String.valueOf(mapProgram.get("name")));
                 programDetails.add(program);
             }
+            return programDetails;
         }
-        return programDetails;
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.dal.universityPortal.validator;
 
 import java.util.Arrays;
 
+import static com.dal.universityPortal.constant.ErrorConstant.UPPERCASE_NOT_FOUND_ERROR;
+
 public class UpperCasePresent implements Validator<String> {
+
     @Override
     public boolean isValid(String string) {
         return string.chars().anyMatch(Character::isUpperCase);
@@ -10,6 +13,6 @@ public class UpperCasePresent implements Validator<String> {
 
     @Override
     public String getErrorMessage() {
-        return "Uppercase is not present in the string."; //TODO: Move to a constant
+        return UPPERCASE_NOT_FOUND_ERROR;
     }
 }

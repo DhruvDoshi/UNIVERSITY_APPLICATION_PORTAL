@@ -1,27 +1,19 @@
 package com.dal.universityPortal.model;
 
 import com.dal.universityPortal.service.ModelValidatorService;
-import com.dal.universityPortal.validator.Validator;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class ValidatedModel {
-    protected ModelValidatorService validator;
-    private List<FieldValidator> fieldValueMapping= new ArrayList<>();
+    private final ModelValidatorService validator;
 
     ValidatedModel(ModelValidatorService validator) {
         this.validator = validator;
     }
 
-    List<FieldValidator> getFieldValidatorMapping() {
-        return new ArrayList<>();
-    }
+    abstract List<FieldValidator> getFieldValidatorMapping();
 
     public boolean isValid() {
-        return validator.isValid(fieldValueMapping);
+        return validator.isValid(getFieldValidatorMapping());
     }
 
     public List<String> getErrorMessages() {

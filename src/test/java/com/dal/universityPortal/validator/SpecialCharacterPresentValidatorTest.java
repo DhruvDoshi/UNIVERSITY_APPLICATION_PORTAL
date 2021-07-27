@@ -1,11 +1,13 @@
 package com.dal.universityPortal.validator;
+import static com.dal.universityPortal.constant.ErrorConstant.SPECIAL_CHAR_NOT_FOUND_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpecialCharacterPresentValidatorTest {
+
     String stringWithSpecialChar = "a@";
     String stringWithNoSpecialChar = "aa";
-    String expectedErrorMessage = "Special character is not present.";
     SpecialCharacterPresentValidator validator = new SpecialCharacterPresentValidator();
 
     @Test
@@ -20,6 +22,6 @@ public class SpecialCharacterPresentValidatorTest {
 
     @Test
     void getErrorMessage_returnsErrorMessage() {
-        assertEquals(expectedErrorMessage, validator.getErrorMessage());
+        assertEquals(SPECIAL_CHAR_NOT_FOUND_ERROR, validator.getErrorMessage());
     }
 }

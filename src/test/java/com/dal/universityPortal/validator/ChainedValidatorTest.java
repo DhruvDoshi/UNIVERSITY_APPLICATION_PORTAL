@@ -7,17 +7,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.util.Arrays;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-
-import java.util.Arrays;
-import java.util.List;
-
 @ExtendWith(MockitoExtension.class)
 public class ChainedValidatorTest {
-    private static final String shortString = "a";
     private static final String shortStringWithUpperCase = "aA";
     private static final String minLengthValidatorError = "minLengthError";
     private static final String upperCasePresentValidatorError = "upperCaseError";
@@ -35,7 +31,6 @@ public class ChainedValidatorTest {
     @BeforeEach
     public void setUp()  {
         MockitoAnnotations.openMocks(this);
-
     }
 
     @Test

@@ -1,11 +1,8 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ProgramDao;
-import com.dal.universityPortal.database.UniversityDao;
 import com.dal.universityPortal.model.Program;
-import com.dal.universityPortal.model.University;
 import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
 public class ProgramServiceImpl implements ProgramService{
 
     ProgramDao programDao= new ProgramDao();
+
     @Override
     public Boolean saveProgram(Program program) throws SQLException {
         try {
