@@ -81,6 +81,8 @@ public class User extends ValidatedModel{
         return resetCode;
     }
 
+    public void setId(Integer id) {this.id = id; }
+
     public void setUsername(String username) {
         this.username = username;
     }

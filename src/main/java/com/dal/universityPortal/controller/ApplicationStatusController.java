@@ -32,7 +32,7 @@ public class ApplicationStatusController {
         University university = applicationStatusService.getUniversityDetails(program.getUniversityId());
         model.addAttribute("applicationStatus", application);
         model.addAttribute("program", program);
-        model.addAttribute("university",university);
+        model.addAttribute("university", university);
         return "application_status";
     }
 }

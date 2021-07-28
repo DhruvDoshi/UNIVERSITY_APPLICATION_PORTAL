@@ -43,7 +43,7 @@ public class ProgramServiceImplTest {
     @Test
     void readProgram() throws SQLException {
         programService.readProgram(program_id);
-        Mockito.verify(programDao).fetchAllByParam(program_id);
+        Mockito.verify(programDao).fetchAllByUniversityId(program_id);
     }
 
     @Test

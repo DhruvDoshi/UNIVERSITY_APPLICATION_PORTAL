@@ -31,8 +31,8 @@
         <tr th:each="university : ${listUniversities}">
             <td th:text="${university.getUsername()}"></td>
             <td th:text="${university.getEmail()}"></td>
-            <td><a th:href="@{/admin/allow_university/{id}(id=${university.userId})}" class="btn btn-info">Allow</a>
-                <a th:href="@{/admin/deny_university/{id}(id=${university.userId})}"class="btn btn-danger">Deny</a>
+            <td><a th:href="@{/admin/allow_university/{id}(id=${university.id})}" class="btn btn-info">Allow</a>
+                <a th:href="@{/admin/deny_university/{id}(id=${university.id})}"class="btn btn-danger">Deny</a>
             </td>
         </tr>
         </tbody>

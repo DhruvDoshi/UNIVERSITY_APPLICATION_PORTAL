@@ -1,6 +1,6 @@
 package com.dal.universityPortal.controller;
 
-import com.dal.universityPortal.model.Program;
+import com.dal.universityPortal.model.University;
 import com.dal.universityPortal.service.SearchUniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,15 +25,15 @@ public class SearchUniversityController {
 
     @GetMapping(SEARCH_UNIVERSITY)
     public String searchUniversity(Model model) {
-        Program program = new Program();
-        model.addAttribute("universityDetail", program);
+        University university = new University();
+        model.addAttribute("universityDetail", university);
         return "search_university";
     }
 
     @PostMapping(GET_UNIVERSITY_DETAILS)
-    public String getUniversityDetails(@ModelAttribute("universityDetail") Program program,
+    public String getUniversityDetails(@ModelAttribute("universityDetail") University university,
                                        Model model, RedirectAttributes redirectAttributes) throws SQLException {
-        Program universityDetails = searchUniversityService.getUniversityDetails(program);
+        University universityDetails = searchUniversityService.getUniversityDetails(university);
         model.addAttribute("universityDetail", universityDetails);
         model.addAttribute("programList", searchUniversityService.getProgramDetails(universityDetails.getUserId()));
         if (universityDetails.getUniversityName().length() > 0) {
