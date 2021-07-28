@@ -14,9 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 
-
 @ExtendWith(MockitoExtension.class)
 class StaffServiceImplTest {
+
     @Mock
     StaffDao staffDao;
 
@@ -34,5 +34,4 @@ class StaffServiceImplTest {
         staffService.addStaffUniversityMapping(user, 1);
         Mockito.verify(staffDao).mapUniversity(user, 1);
     }
-
 }

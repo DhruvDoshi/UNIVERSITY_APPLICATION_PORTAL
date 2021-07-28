@@ -1,29 +1,26 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.User;
+import com.dal.universityPortal.model.UserStatus;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import static com.dal.universityPortal.database.query.UserQuery.*;
-import static java.util.Objects.isNull;
 
 @Component
-public class UserDao implements Dao<User> {
-    @Override
-    public List<User> fetchAll() {
-        return null; //TODO: Implement
-    }
+public class UserDao implements InsertDao<User>,UpdateDao<User> {
 
     public User fetchOne(String username) throws SQLException {
         Map<String, Object> row;
         User user = null;
-        try(DBSession dbSession = new DBSession()) {
+        try (DBSession dbSession = new DBSession()) {
             List<Map<String, Object>> rows = dbSession.fetch(FETCH_USER_USING_USERNAME, Arrays.asList(username));
-            if(rows.size() > 0) {
+            if (rows.size() > 0) {
                 row = rows.get(0);
                 user = new User(row);
             }
@@ -47,9 +44,23 @@ public class UserDao implements Dao<User> {
         }
     }
 
-    @Override
-    public void delete(User user) throws SQLException {
+    public List<User> fetchAllPendingUsers() throws SQLException {
+        List<User> pendingUserList = new ArrayList<>();
+        try (DBSession dbSession = new DBSession()) {
+            List<Map<String, Object>> pendingUsers = dbSession.fetch(FETCH_PENDING_USERS_QUERY, Arrays.asList(
+                UserStatus.PENDING.toString()));
+            for (Map<String, Object> user : pendingUsers) {
+                User pendingUser = new User(user);
+                pendingUserList.add(pendingUser);
+            }
+        }
+        return pendingUserList;
+    }
 
+    public void setUserStatus(User user) throws SQLException {
+        try (DBSession dbSession = new DBSession()) {
+            dbSession.execute(UPDATE_USER_STATUS, Arrays.asList(user.getStatusString(), user.getId()));
+        }
     }
 
     public void setResetCode(User user, Integer resetCode) throws SQLException {

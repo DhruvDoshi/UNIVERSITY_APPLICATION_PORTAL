@@ -4,12 +4,16 @@ import com.dal.universityPortal.service.ModelValidatorService;
 import com.dal.universityPortal.validator.*;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import static com.dal.universityPortal.constant.UserConstant.*;
+import static com.dal.universityPortal.constant.UserConstant.PASSWORD_MIN_LENGTH;
+import static com.dal.universityPortal.constant.UserConstant.USERNAME_MIN_LENGTH;
 
 @Component
 public class User extends ValidatedModel{
+
     private Integer id;
     private String username;
     private String email;
@@ -17,7 +21,6 @@ public class User extends ValidatedModel{
     private UserType type;
     private UserStatus status;
     private Integer resetCode;
-    private Map<Object, Validator> fieldValueMapping= new HashMap<>();
 
     public User() {
         super(new ModelValidatorService());
@@ -78,6 +81,8 @@ public class User extends ValidatedModel{
         return resetCode;
     }
 
+    public void setId(Integer id) {this.id = id; }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -116,8 +121,4 @@ public class User extends ValidatedModel{
         return fieldValidators;
     }
 
-    @Override
-    public boolean isValid() {
-        return this.validator.isValid(getFieldValidatorMapping());
-    }
 }

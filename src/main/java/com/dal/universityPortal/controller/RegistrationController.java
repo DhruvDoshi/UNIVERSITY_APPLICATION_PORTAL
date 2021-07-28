@@ -12,27 +12,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.sql.SQLException;
 
+import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
+import static com.dal.universityPortal.constant.UrlConstant.LOGIN;
+import static com.dal.universityPortal.constant.UrlConstant.REGISTRATION;
+
+
 @Controller
 public class RegistrationController {
-    @Autowired
-    UserServiceImpl userService;
 
-    @GetMapping("/registration")
+    @Autowired
+    private UserServiceImpl userService;
+
+    @GetMapping(REGISTRATION)
     public String registrationPage(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping(REGISTRATION)
     public String saveRegistration(@ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
         try {
             userService.addUser(user);
-            return "redirect:/login";
+            return String.format("redirect:%s", LOGIN);
         } catch (ValidationException exception) {
             model.addAttribute("errors", exception.getErrors());
         } catch (SQLException exception) {
-            model.addAttribute("errors", "Something went wrong, Please try again.");
+            model.addAttribute("errors", UNEXPECTED_ERROR);
         }
         return "registration";
     }

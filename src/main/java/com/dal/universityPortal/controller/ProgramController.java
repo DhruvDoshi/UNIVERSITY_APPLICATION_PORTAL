@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.dal.universityPortal.constant.UrlConstant.*;
+
 @Controller
-@RequestMapping("/university")
+@RequestMapping(UNIVERSITY)
 public class ProgramController {
+
     @Autowired
     private ProgramService programService;
 
-    @GetMapping("/load_program/{id}")
+    @GetMapping(LOAD_PROGRAM + "/{id}")
     public String loadUniversityProgram(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Program program = new Program();
         program.setUniversityId(id);
@@ -26,16 +29,17 @@ public class ProgramController {
         return "program";
     }
 
-    @RequestMapping(value="/save_university_program/{id}",method= RequestMethod.POST)
+    @PostMapping(SAVE_UNIVERSITY_PROGRAM + "/{id}")
     public String saveUniversityProgram(@PathVariable(value = "id") int id,@ModelAttribute("program") Program program) throws SQLException {
         program.setUniversityId(id);
         programService.saveProgram(program);
-        return "redirect:/university/load_program/"+id;
+        return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_PROGRAM, id);
     }
 
-    @RequestMapping(value="/delete_program/{id}/{name}",method= RequestMethod.GET)
+    @GetMapping(DELETE_PROGRAM + "/{id}/{name}")
     public String deleteUniversityProgram(@PathVariable(value = "id") int id,@PathVariable(value = "name") String name) throws SQLException {
-        programService.deleteProgram(id,name);
-        return "redirect:/university/load_program/"+id;
+        Program program = new Program(name,id);
+        programService.deleteProgram(program);
+        return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_PROGRAM, id);
     }
 }

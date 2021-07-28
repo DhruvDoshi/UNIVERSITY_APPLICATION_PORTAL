@@ -1,6 +1,8 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.model.AdminPanel;
+import com.dal.universityPortal.model.User;
+import com.dal.universityPortal.model.UserStatus;
+import com.dal.universityPortal.model.UserType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,6 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminPanelServiceImplTest {
+
+    private static final String university1Name = "Dalhousie University";
+    private static final String university1Email = "admin@dal.ca";
+    private static final String university1password = "Dalhousie@123";
+    private static final Integer university1Id = 101;
+    private static final String university2Name = "Concordia University";
+    private static final String university2Email = "admin@con.ca";
+    private static final String university2password = "Concordia@123";
+    private static final Integer university2Id = 102;
+
     private AdminPanelServiceImpl adminPanelserviceImpl;
 
     @BeforeEach
@@ -20,32 +32,32 @@ public class AdminPanelServiceImplTest {
         adminPanelserviceImpl = Mockito.mock(AdminPanelServiceImpl.class);
     }
 
-    //TODO: Move this to constants.
     @Test
     void getPendingStatusUniversitiesTest() throws SQLException {
-        AdminPanel adminPanel1 = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
-        AdminPanel adminPanel2 = new AdminPanel(2, "Concordia University", "admin@con.ca", "UNIVERSITY", "PENDING");
-
-        ArrayList<AdminPanel> adminPanels = new ArrayList<>(Arrays.asList(adminPanel1, adminPanel2));
-        Mockito.doReturn(adminPanels).when(adminPanelserviceImpl).getPendingStatusUniversities();
-        assertEquals(2, adminPanels.size());
+        User user1 = new User(university1Name, university1Email, university1password, UserType.UNIVERSITY);
+        User user2 = new User(university2Name, university2Email, university2password, UserType.UNIVERSITY);
+        user1.setId(university1Id);
+        user2.setId(university2Id);
+        ArrayList<User> users = new ArrayList<>(Arrays.asList(user1, user2));
+        Mockito.doReturn(users).when(adminPanelserviceImpl).getPendingStatusUniversities();
+        assertEquals(2, users.size());
     }
 
-    //TODO: Move this to constants.
     @Test
     void allowUniversityByIdTest() throws SQLException {
-        AdminPanel adminPanel = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
-        adminPanel.setStatus("ACTIVE");
-        Mockito.doReturn(true).when(adminPanelserviceImpl).allowUniversityById(adminPanel);
-        assertTrue(adminPanelserviceImpl.allowUniversityById(adminPanel));
+        User user = new User(university1Name, university1Email, university1password, UserType.UNIVERSITY);
+        user.setId(university1Id);
+        user.setStatus(UserStatus.ACTIVE);
+        Mockito.doReturn(true).when(adminPanelserviceImpl).allowUniversityById(user);
+        assertTrue(adminPanelserviceImpl.allowUniversityById(user));
     }
 
-    //TODO: Move this to constants.
     @Test
     void denyUniversityByIdTest() throws SQLException {
-        AdminPanel adminPanel = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
-        adminPanel.setStatus("BLOCKED");
-        Mockito.doReturn(true).when(adminPanelserviceImpl).denyUniversityById(adminPanel);
-        assertTrue(adminPanelserviceImpl.denyUniversityById(adminPanel));
+        User user = new User(university1Name, university1Email, university1password, UserType.UNIVERSITY);
+        user.setId(university1Id);
+        user.setStatus(UserStatus.BLOCKED);
+        Mockito.doReturn(true).when(adminPanelserviceImpl).denyUniversityById(user);
+        assertTrue(adminPanelserviceImpl.denyUniversityById(user));
     }
 }

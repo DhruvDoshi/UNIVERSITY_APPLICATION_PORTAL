@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.SQLException;
 
+import static com.dal.universityPortal.constant.UrlConstant.APPLICATION_STATUS;
+import static com.dal.universityPortal.constant.UrlConstant.STUDENT;
+
 @Controller
-@RequestMapping("/student")
+@RequestMapping(STUDENT)
 public class ApplicationStatusController {
 
     @Autowired
     private ApplicationStatusService applicationStatusService;
 
-    @GetMapping("/application_status/{id}")
+    @GetMapping(APPLICATION_STATUS +"/{id}")
     public String showApplicationStatus(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Application application = new Application();
         application.setApplication_id(id);
@@ -29,7 +32,7 @@ public class ApplicationStatusController {
         University university = applicationStatusService.getUniversityDetails(program.getUniversityId());
         model.addAttribute("applicationStatus", application);
         model.addAttribute("program", program);
-        model.addAttribute("university",university);
+        model.addAttribute("university", university);
         return "application_status";
     }
 }

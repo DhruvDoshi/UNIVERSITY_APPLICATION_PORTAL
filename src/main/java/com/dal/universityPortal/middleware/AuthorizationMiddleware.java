@@ -3,16 +3,12 @@ package com.dal.universityPortal.middleware;
 import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.service.AuthenticationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
 
 @Component
 public class AuthorizationMiddleware implements HandlerInterceptor {

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:p="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>University Portal</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -35,21 +36,21 @@
                     <div class="card-body text-center">
                         <h6 class="card-text">Successful</h6>
                         <hr>
-                        <p th:text="${successful}" class="card-text"></p>
+                        <p th:text="${dashboard.getSuccessfulApplication()}" class="card-text"></p>
                     </div>
                 </div>
                 <div class="card" style="background-color: #87d5fc;">
                     <div class="card-body text-center">
                         <h6 class="card-text">In-process</h6>
                         <hr>
-                        <p th:text="${in_process}" class="card-text"></p>
+                        <p th:text="${dashboard.getInProgressApplication()}" class="card-text"></p>
                     </div>
                 </div>
                 <div class="card" style="background-color: #fc8787;">
                     <div class="card-body text-center">
                         <h6 class="card-text">Rejected</h6>
                         <hr>
-                        <p th:text="${rejected}" class="card-text"></p>
+                        <p th:text="${dashboard.getRejectedApplication()}" class="card-text"></p>
                     </div>
                 </div>
             </div>
@@ -62,7 +63,7 @@
                     <div class="card-body text-center">
                         <h6 class="card-text">Total Amount</h6>
                         <hr>
-                        <p th:text="${total_payment}" class="card-text"></p>
+                        <p th:text="${dashboard.getTotalPayment()}" class="card-text"></p>
                     </div>
                 </div>
             </div>
@@ -77,12 +78,13 @@
             <th>Status</th>
         </tr>
         </thead>
-                <tbody>
-                <tr th:each="app : ${listApplication}">
-                    <td th:text="${app.application_id}"></td>
-                    <td><a th:text="${app.status}" th:href="@{/student/application_status/{id}(id=${app.application_id})}"></a></td>
-                </tr>
-                </tbody>
+        <tbody>
+        <tr th:each="app : ${listApplication}">
+            <td th:text="${app.application_id}"></td>
+            <td><a th:text="${app.status}" th:href="@{/student/application_status/{id}(id=${app.application_id})}"></a>
+            </td>
+        </tr>
+        </tbody>
     </table>
     <a href="#" style="margin-left: 87%;">More Application...</a>
     <br>
@@ -95,12 +97,12 @@
             <th>Amount</th>
         </tr>
         </thead>
-                <tbody>
-                <tr th:each="payment : ${listPayment}">
-                    <td th:text="${payment.application_id}"></td>
-                    <td th:text="${payment.amount}"> </td>
-                </tr>
-                </tbody>
+        <tbody>
+        <tr th:each="payment : ${listPayment}">
+            <td th:text="${payment.application_id}"></td>
+            <td th:text="${payment.amount}"></td>
+        </tr>
+        </tbody>
     </table>
     <a href="#" style="margin-left: 87%;">More Payments...</a>
 </div>

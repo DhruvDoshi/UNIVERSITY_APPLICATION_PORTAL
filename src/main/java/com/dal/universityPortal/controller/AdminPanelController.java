@@ -1,6 +1,6 @@
 package com.dal.universityPortal.controller;
 
-import com.dal.universityPortal.model.AdminPanel;
+import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.service.AdminPanelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,35 +10,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.SQLException;
+import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping(ADMIN)
 public class AdminPanelController {
 
     @Autowired
     private AdminPanelService adminPanelService;
 
-    @GetMapping("/dashboard")
+    @GetMapping(DASHBOARD)
     public String getUniversities(Model model) throws SQLException {
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
         return "admin_panel";
     }
 
-    @GetMapping("/allow_university/{id}")
+    @GetMapping(ALLOW_UNIVERSITY + "/{id}")
     public String allowUniversity(@PathVariable(value = "id") int id, Model model) throws SQLException {
-        AdminPanel adminPanel = new AdminPanel();
-        adminPanel.setUserId(id);
-        this.adminPanelService.allowUniversityById(adminPanel);
+        User user = new User();
+        user.setId(id);
+        this.adminPanelService.allowUniversityById(user);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return "redirect:/admin/dashboard";
+        return String.format("redirect:%s%s", ADMIN, DASHBOARD);
     }
 
-    @GetMapping("/deny_university/{id}")
+    @GetMapping(DENY_UNIVERSITY + "/{id}")
     public String denyUniversity(@PathVariable (value = "id") int id, Model model) throws SQLException {
-        AdminPanel adminPanel = new AdminPanel();
-        adminPanel.setUserId(id);
-        this.adminPanelService.denyUniversityById(adminPanel);
+        User user = new User();
+        user.setId(id);
+        this.adminPanelService.denyUniversityById(user);
         model.addAttribute("listUniversities", adminPanelService.getPendingStatusUniversities());
-        return "redirect:/admin/dashboard";
+        return String.format("redirect:%s%s", ADMIN, DASHBOARD);
     }
 }

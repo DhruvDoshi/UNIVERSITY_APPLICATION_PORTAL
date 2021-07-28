@@ -1,7 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,83 +9,54 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ApplicationDao implements Dao<Application> {
+import static com.dal.universityPortal.constant.CommonConstant.INITIAL_APPLICATION_STATUS;
+import static com.dal.universityPortal.constant.CommonConstant.INITIAL_OUTCOME_TYPE;
+import static com.dal.universityPortal.database.query.ApplicationQuery.*;
+import static com.dal.universityPortal.database.query.DashboardQuery.APPLICATIONS_FROM_STUDENT_ID;
+import static com.dal.universityPortal.database.query.PaymentQuery.FOREIGN_KEY_CHECKS;
 
-    @Override
-    public List<Application> fetchAll() throws SQLException {
-        return null;
-    }
+@Service
+public class ApplicationDao implements InsertDao<Application> {
+
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
-        try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch("SELECT * FROM application;");
-            dbSession.setAutoCommit(true);
-            for (Map<String, Object> applist: applicationlist){
-                List<Map<String, Object>> student = dbSession.fetch("SELECT * FROM student WHERE " +
-                        "user_id = "+id);
-                List<Map<String, Object>> user = dbSession.fetch("SELECT * FROM user WHERE " +
-                        "id = "+id);
-                List<Map<String, Object>> education = dbSession.fetch("SELECT * FROM education WHERE " +
-                        "student_id = "+id);
-
-                // From Application Table
+        try (DBSession dbSession = new DBSession()) {
+            applicationlist = dbSession.fetch(String.format(FETCH_APPLICATION_BY_ID_QUERY, id));
+            for (Map<String, Object> applist : applicationlist) {
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
-                application.setProgram_id(Integer.parseInt(String.valueOf(applist.get("program_id"))));
-                application.setStudent_id(Integer.parseInt(String.valueOf(applist.get("student_id"))));
-                application.setSop(String.valueOf(applist.get("sop")));
-                application.setStatus(String.valueOf(applist.get("status")));
-                application.setProcessed_by(Integer.parseInt(String.valueOf(applist.get("processed_by"))));
-                application.setComment(String.valueOf(applist.get("comment")));
-
-                //From Student and User Table
-                application.setFirst_name(String.valueOf(student.get(0).get("first_name")));
-                application.setLast_name(String.valueOf(student.get(0).get("last_name")));
-                application.setAddress(String.valueOf(student.get(0).get("address")));
-                application.setMobile_number(String.valueOf(student.get(0).get("mobile_number")));
-                application.setEmail_id(String.valueOf(user.get(0).get("email")));
-
-                //From Education Table
-                application.setHighest_education(String.valueOf(education.get(0).get("name")));
-                application.setGrades(String.valueOf(education.get(0).get("outcome")));
-                application.setStart_date(String.valueOf(education.get(0).get("start_date")));
-                application.setEnd_date(String.valueOf(education.get(0).get("end_date")));
             }
         }
         return application;
     }
+
+    public List<Application> fetchApplication(int student_id) throws SQLException {
+        List<Map<String, Object>> applicationList;
+        List<Application> applications = new ArrayList<>();
+        try (DBSession dbSession = new DBSession()) {
+            applicationList = dbSession.fetch(APPLICATIONS_FROM_STUDENT_ID, Arrays.asList(student_id));
+            for (Map<String, Object> mapApplication : applicationList) {
+                Application application = new Application();
+                application.setApplication_id(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
+                application.setStatus(String.valueOf(mapApplication.get("status")));
+                applications.add(application);
+            }
+        }
+        return applications;
+    }
+
+
     @Override
     public void insert(Application application) throws SQLException {
-        int program_id=1;
-        int student_id=1;
-        String status ="Under Review";
-        int processed_by = 2;
-        String comment="Bad";
-        String outcome_type="90%";
-        String query1;
-        String query2;
+        int program_id=application.getProgram_id();
+        int student_id=application.getStudent_id();
         try(DBSession dbSession = new DBSession()){
-            dbSession.execute("SET FOREIGN_KEY_CHECKS=OFF;");
-            query1 = "INSERT INTO application (program_id, student_id, sop, status, processed_by, comment) VALUE ("+
-                    program_id+","+student_id+",\""+application.getSop()+"\",\""+status+"\","+processed_by+",\""+comment+"\");";
-            System.out.println(query1);
-            dbSession.execute(query1);
-            query2 = "INSERT INTO education (student_id, name, outcome, outcome_type, start_date, end_date) VALUE ("+
-                    student_id+",\""+application.getHighest_education()+"\",\""+application.getGrades()+"\",\""+outcome_type+"\",\""+
-                    application.getStart_date()+"\",\""+application.getEnd_date()+"\");";
-            System.out.println(query2);
-            dbSession.execute(query2);
+            dbSession.execute(FOREIGN_KEY_CHECKS);
+            dbSession.execute(INSERT_APPLICATION, Arrays.asList(program_id,student_id,application.getSop(),
+                    INITIAL_APPLICATION_STATUS,0,""));
+            dbSession.execute(INSERT_EDUCATION,Arrays.asList(student_id,application.getHighest_education(),
+                    application.getGrades(), INITIAL_OUTCOME_TYPE,application.getStart_date(),application.getEnd_date()));
         }
-
-    }
-
-    @Override
-    public void update(Application application) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Application application) throws SQLException {
 
     }
 }

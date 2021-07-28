@@ -1,27 +1,33 @@
-
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.SearchUniversityDao;
+import com.dal.universityPortal.database.ProgramDao;
+import com.dal.universityPortal.database.UniversityDao;
 import com.dal.universityPortal.model.Program;
+import com.dal.universityPortal.model.University;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.util.List;
 
 @Service
 public class SearchUniversityServiceImpl implements SearchUniversityService {
 
-    SearchUniversityDao searchUniversityDao = new SearchUniversityDao();
+    @Autowired
+    private UniversityDao universityDao;
+
+    @Autowired
+    private ProgramDao programDao;
 
     @Override
-    public Program getUniversityDetails(Program program) throws SQLException {
-        Program universityDetail = new Program();
-        List<Program> universityDetails = searchUniversityDao.fetchAll();
-        for (int i = 0; i < universityDetails.size(); i++){
-            if(universityDetails.get(i).getUniversityName().equals(program.getUniversityName())) {
-                universityDetail.setUserId(universityDetails.get(i).getUserId());
-                universityDetail.setUniversityName(universityDetails.get(i).getUniversityName());
-                universityDetail.setUniversityDescription(universityDetails.get(i).getUniversityDescription());
-                break;
+    public University getUniversityDetails(University university) throws SQLException {
+        University universityDetail = new University();
+        List<University> universityDetails = universityDao.fetchAll();
+        for (University detail : universityDetails) {
+            if (detail.getUniversityName().equals(university.getUniversityName())) {
+                universityDetail.setUserId(detail.getUserId());
+                universityDetail.setUniversityName(detail.getUniversityName());
+                universityDetail.setUniversityDescription(detail.getUniversityDescription());
             } else {
                 universityDetail.setUniversityName("");
             }
@@ -31,6 +37,6 @@ public class SearchUniversityServiceImpl implements SearchUniversityService {
 
     @Override
     public List<Program> getProgramDetails(int id) throws SQLException {
-        return searchUniversityDao.fetchAllByParams(id);
+        return programDao.fetchAllByUniversityId(id);
     }
 }

@@ -1,29 +1,33 @@
 package com.dal.universityPortal.model;
 
 public class Payment {
-    private Integer application_id;
+    private Integer applicationId;
     private Integer amount;
     private String name;
     private String cardNumber;
     private String expiryDate;
     private String CVV;
+    private Integer studentId;
 
-    public Payment(){}
-    public Payment (Integer application_id, Integer amount, String name, String cardNumber, String expiryDate, String CVV){
-        this.application_id = application_id;
+    public Payment() {
+    }
+
+    public Payment(Integer applicationId, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer studentId) {
+        this.applicationId = applicationId;
         this.amount = amount;
         this.name = name;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.CVV = CVV;
+        this.studentId = studentId;
     }
 
     public Integer getApplication_id() {
-        return application_id;
+        return applicationId;
     }
 
-    public void setApplication_id(Integer application_id) {
-        this.application_id = application_id;
+    public void setApplication_id(Integer applicationId) {
+        this.applicationId = applicationId;
     }
 
     public Integer getAmount() {
@@ -67,5 +71,13 @@ public class Payment {
     }
 
     public void setStatus(String status) {
+    }
+
+    public Integer getStudent_id() {
+        return studentId;
+    }
+
+    public void setStudent_id(Integer studentId) {
+        this.studentId = studentId;
     }
 }
