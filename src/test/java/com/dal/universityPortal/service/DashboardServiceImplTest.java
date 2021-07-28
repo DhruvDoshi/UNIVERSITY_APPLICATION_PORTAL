@@ -1,22 +1,31 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.model.Application;
+import com.dal.universityPortal.model.Dashboard;
 import com.dal.universityPortal.model.Payment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DashboardServiceImplTest {
+
     private DashboardServiceImpl dashboardServiceImpl;
+
+    @Autowired
+    private DashboardService dashboardService;
+
     @BeforeEach
-    public void setup() {dashboardServiceImpl = Mockito.mock(DashboardServiceImpl.class);    }
+    public void setup() {
+        dashboardServiceImpl = Mockito.mock(DashboardServiceImpl.class);
+    }
 
     @Test
     void readListApplicationTest() throws SQLException {
@@ -27,7 +36,7 @@ public class DashboardServiceImplTest {
         applications = dashboardServiceImpl.readListApplication(student_id);
         applications1 = dashboardServiceImpl.readListApplication(1);
 
-        assertEquals(applications,applications1);
+        assertEquals(applications, applications1);
     }
 
     @Test

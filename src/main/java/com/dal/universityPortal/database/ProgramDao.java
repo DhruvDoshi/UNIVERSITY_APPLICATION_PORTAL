@@ -3,6 +3,8 @@ package com.dal.universityPortal.database;
 import com.dal.universityPortal.database.query.PaymentQuery;
 import com.dal.universityPortal.database.query.ProgramQuery;
 import com.dal.universityPortal.model.Program;
+import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +13,9 @@ import java.util.Map;
 
 import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_ALL_PROGRAMS;
 
-public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
+@Component
+public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, DeleteDao<Program> {
+
 
     @Override
     public List<Program> fetchAll() throws SQLException {

@@ -25,7 +25,7 @@ public class CardValidator implements Validator<String> {
         List<String> cardNumberList = new ArrayList<>();
         cardNumberList.add(cardNumber);
         Pattern pattern = Pattern.compile(CARD_VALIDATION_STRING);
-        for (String ignored : cardNumberList){
+        for (String ignored : cardNumberList) {
             cardNumber = cardNumber.replace("-", "");
             Matcher match = pattern.matcher(cardNumber);
             if (match.matches()) {
@@ -47,7 +47,6 @@ public class CardValidator implements Validator<String> {
                     sum += j;
                 }
                 if (sum % 10 == 0) {
-                    System.out.println("done");
                     return true;
                 }
             }

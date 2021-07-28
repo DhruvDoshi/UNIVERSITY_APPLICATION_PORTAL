@@ -4,10 +4,10 @@ import com.dal.universityPortal.model.Email;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
-
 import java.io.FileNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EmailServiceImplTest {
 

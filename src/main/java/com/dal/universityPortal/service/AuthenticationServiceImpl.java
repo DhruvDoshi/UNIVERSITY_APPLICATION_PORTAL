@@ -1,7 +1,6 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.UserDao;
-import com.dal.universityPortal.email.Sendmail;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.*;
@@ -26,6 +25,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private EmailServiceImpl emailService;
 
     @Override
     public void login(HttpSession session, Credential credential) throws SQLException, UnsupportedUser {
@@ -57,10 +59,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             throw new UnsupportedUser();
         }
         Integer randomCode = new Random().nextInt(RESET_CODE_RANGE);
-        Sendmail mailClient = new Sendmail(user.getEmail(), RESET_PASSWORD_MAIL_SUBJECT, String.format(RESET_PASSWORD_MAIL_FORMAT, randomCode));
-
+        Email email = emailService.addDetails(user.getEmail(), RESET_PASSWORD_MAIL_SUBJECT, String.format(RESET_PASSWORD_MAIL_FORMAT, randomCode));
         try{
-            mailClient.sendMail();
+            emailService.sendMail(email);
         } catch (MessagingException exception) {
             logger.error(String.format("Email sending error: %s", exception));
         }
