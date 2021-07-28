@@ -1,7 +1,5 @@
 package com.dal.universityPortal.model;
 
-import com.dal.universityPortal.validator.EmailAddressValidator;
-
 public class Email {
     static String toAddress;
     static String subject;

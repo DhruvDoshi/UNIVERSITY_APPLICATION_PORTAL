@@ -6,6 +6,7 @@ import com.dal.universityPortal.model.Credential;
 import com.dal.universityPortal.model.ResetCredential;
 import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.model.UserType;
+
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 

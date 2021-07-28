@@ -3,12 +3,14 @@ package com.dal.universityPortal.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
+
 import java.util.List;
 
 import static com.dal.universityPortal.constant.ErrorConstant.*;
 import static com.dal.universityPortal.constant.UserConstant.PASSWORD_MIN_LENGTH;
 import static com.dal.universityPortal.constant.UserConstant.USERNAME_MIN_LENGTH;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserTest {
     private static final String email = "e@e.com";

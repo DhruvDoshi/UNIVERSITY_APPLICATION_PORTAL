@@ -1,7 +1,9 @@
 package com.dal.universityPortal.email;
 
 import org.junit.jupiter.api.Test;
+
 import javax.mail.MessagingException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
