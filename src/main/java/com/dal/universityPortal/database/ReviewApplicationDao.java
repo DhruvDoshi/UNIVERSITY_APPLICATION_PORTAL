@@ -1,5 +1,6 @@
 package com.dal.universityPortal.database;
 
+import com.dal.universityPortal.database.query.ApplicationQuery;
 import com.dal.universityPortal.model.Application;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,13 +10,12 @@ import java.util.Map;
 
 public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Application> {
 
-    //TODO: Rename according to the function execution. Use Constants. Ditto for other functions.
     @Override
     public List<Application> fetchAll() throws SQLException {
         List<Map<String, Object>> applicationList;
         List<Application> applications = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
-            applicationList = dbSession.fetch("SELECT * from application");
+            applicationList = dbSession.fetch(ApplicationQuery.FETCH_ALL_APPLICATION);
             for (Map<String, Object> mapApplication : applicationList) {
                 if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")) {
                     Application application = new Application();
@@ -32,16 +32,18 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try (DBSession dbSession = new DBSession()) {
-            applicationlist=dbSession.fetch("SELECT * FROM application where id=?",Arrays.asList(id));
+            applicationlist=dbSession.fetch(ApplicationQuery.FETCH_APPLICATION_BY_ID_QUERY,Arrays.asList(id));
 
             for (Map<String, Object> applist: applicationlist){
-                System.out.println(applist.get("student_id"));
-                List<Map<String, Object>> student = dbSession.fetch("SELECT * FROM student WHERE " +
-                        "user_id = "+applist.get("student_id"));
-                List<Map<String, Object>> user = dbSession.fetch("SELECT * FROM user WHERE " +
-                        "id = "+applist.get("student_id"));
-                List<Map<String, Object>> education = dbSession.fetch("SELECT * FROM education WHERE " +
-                        "student_id = "+applist.get("student_id"));
+                List<Map<String, Object>> student = dbSession.fetch(
+                        ApplicationQuery.FETCH_STUDENT_BY_ID_QUERY,
+                        Arrays.asList(applist.get("student_id")));
+                List<Map<String, Object>> user = dbSession.fetch(
+                        ApplicationQuery.FETCH_USER_BY_ID_QUERY,
+                        Arrays.asList(applist.get("student_id")));
+                List<Map<String, Object>> education = dbSession.fetch(
+                        ApplicationQuery.FETCH_EDUCATION_BY_STUDENT_ID,
+                        Arrays.asList(applist.get("student_id")));
 
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
                 application.setProgram_id(Integer.parseInt(String.valueOf(applist.get("program_id"))));
@@ -69,9 +71,9 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
     @Override
     public void update(Application application) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessed_by()+", comment = '"+application.getComment()+"' WHERE id = "+application.getApplication_id();
-            System.out.println(query);
-            dbSession.execute(query);
+            dbSession.execute(ApplicationQuery.UPDATE_APPLICATION_BY_APPLICATION_ID,
+                    Arrays.asList(application.getStatus(),application.getProcessed_by(),
+                            application.getComment(),application.getApplication_id()));
         }
     }
 }
