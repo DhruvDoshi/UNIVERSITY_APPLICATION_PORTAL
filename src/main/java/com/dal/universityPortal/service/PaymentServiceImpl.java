@@ -3,11 +3,14 @@ package com.dal.universityPortal.service;
 import com.dal.universityPortal.database.PaymentDao;
 import com.dal.universityPortal.model.Payment;
 import com.dal.universityPortal.validator.CardValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    PaymentDao paymentDAO = new PaymentDao();
+
+    @Autowired
+    private PaymentDao paymentDAO;
 
     @Override
     public void savePayment(Payment payment) {

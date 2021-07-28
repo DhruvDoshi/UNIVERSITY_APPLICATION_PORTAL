@@ -2,6 +2,8 @@ package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.database.query.ApplicationQuery;
 import com.dal.universityPortal.model.Application;
+import org.springframework.stereotype.Component;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_ALL_APPLICATION;
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_APPLICATION_BY_ID;
+
+@Component
 public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Application> {
 
     @Override

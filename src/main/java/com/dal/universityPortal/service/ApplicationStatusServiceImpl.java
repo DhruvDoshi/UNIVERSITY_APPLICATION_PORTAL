@@ -1,11 +1,12 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.ApplicationStatusDao;
+import com.dal.universityPortal.database.ProgramDao;
 import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.database.UniversityDao;
 import com.dal.universityPortal.model.Application;
 import com.dal.universityPortal.model.Program;
 import com.dal.universityPortal.model.University;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -14,9 +15,14 @@ import java.util.List;
 @Service
 public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
-    ApplicationStatusDao applicationStatusDao = new ApplicationStatusDao();
-    ReviewApplicationDao reviewApplicationDao = new ReviewApplicationDao();
-    UniversityDao universityDao = new UniversityDao();
+    @Autowired
+    private ProgramDao programDao;
+
+    @Autowired
+    private ReviewApplicationDao reviewApplicationDao;
+
+    @Autowired
+    private UniversityDao universityDao;
 
     @Override
     public Application getApplicationDetails(int id) throws SQLException {
@@ -27,7 +33,7 @@ public class ApplicationStatusServiceImpl implements ApplicationStatusService {
 
     @Override
     public Program getProgramDetails(int id) throws SQLException {
-      return applicationStatusDao.fetchAllByParam(id);
+        return programDao.fetchAllByApplicationId(id);
     }
 
     @Override

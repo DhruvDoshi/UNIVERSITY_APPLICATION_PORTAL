@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_ALL_PROGRAMS;
+import static com.dal.universityPortal.database.query.ProgramQuery.*;
 
 @Component
-public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, DeleteDao<Program> {
+public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
 
 
     @Override
@@ -32,7 +32,7 @@ public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, Delet
         return programs;
     }
 
-    public List<Program> fetchAllByParam(int id) throws SQLException {
+    public List<Program> fetchAllByUniversityId(int id) throws SQLException {
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
@@ -47,6 +47,21 @@ public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, Delet
         }
         return programs;
     }
+
+    public Program fetchAllByApplicationId(int id) throws SQLException {
+        List<Map<String, Object>> programList;
+        Program program = new Program();
+        try (DBSession dbSession = new DBSession()) {
+            programList = dbSession.fetch(FETCH_PROGRAMS_BY_APPLICATION_ID, Arrays.asList(id));
+            for (Map<String, Object> mapProgram : programList) {
+                program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
+                program.setUniversityId(Integer.parseInt(String.valueOf(mapProgram.get("university_id"))));
+                program.setName(String.valueOf(mapProgram.get("name")));
+            }
+        }
+        return program;
+    }
+
 
     @Override
     public void insert(Program program) throws SQLException {

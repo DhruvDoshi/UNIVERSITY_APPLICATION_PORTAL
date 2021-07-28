@@ -8,6 +8,7 @@ public class ApplicationQuery {
     public static final String UPDATE_APPLICATION_BY_APPLICATION_ID = "UPDATE application SET status = ?, " +
             "processed_by = ?, comment = ?  WHERE id = ?";
     public static String FETCH_ALL_APPLICATION = "SELECT * FROM application;";
+    public static String FETCH_APPLICATION_BY_ID = "SELECT * FROM application where id=?";
     public static String FETCH_STUDENT_BY_ID="SELECT * FROM student WHERE user_id = ";
     public static String FETCH_USER_BY_ID="SELECT * FROM user WHERE id = ";
     public static String FETCH_EDUCATION_BY_ID="SELECT * FROM education WHERE student_id = ";
