@@ -13,7 +13,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentDao paymentDAO;
 
     @Override
-    public void savePayment(Payment payment){
+    public void savePayment(Payment payment) {
         try {
             String status = "";
             CardValidator cardValidator = new CardValidator();
@@ -25,7 +25,6 @@ public class PaymentServiceImpl implements PaymentService {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 }

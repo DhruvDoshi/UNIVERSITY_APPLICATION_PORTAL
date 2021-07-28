@@ -7,6 +7,7 @@ import com.dal.universityPortal.model.UserStatus;
 import com.dal.universityPortal.model.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;

@@ -13,4 +13,10 @@ public class ErrorConstant {
     public static final String SPECIAL_CHAR_NOT_FOUND_ERROR = "Special character is not present";
     public static final String MIN_LENGTH_ERROR = "The min length should be %s";
 
+    public static final String INVALID_MAIL_ID="Invalid mail id is given!!!";
+    public static final String APPLICATION_LOCK_ERROR="Please lock the application to make the decision";
+    public static final String APPLICATION_LOCK="Application is locked by you";
+
+    private ErrorConstant() {}
+
 }

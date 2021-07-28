@@ -3,8 +3,13 @@ package com.dal.universityPortal.model;
 import com.dal.universityPortal.service.ModelValidatorService;
 import com.dal.universityPortal.validator.*;
 import org.springframework.stereotype.Component;
-import java.util.*;
-import static com.dal.universityPortal.constant.UserConstant.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static com.dal.universityPortal.constant.UserConstant.PASSWORD_MIN_LENGTH;
+import static com.dal.universityPortal.constant.UserConstant.USERNAME_MIN_LENGTH;
 
 @Component
 public class User extends ValidatedModel{

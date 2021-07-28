@@ -32,4 +32,6 @@ public class UrlConstant {
     public static final String GET_UNIVERSITY_DETAILS = "/get_university_details";
     public static final String SAVE_UNIVERSITY_PROFILE = "/save_university_profile";
     public static final String ADD_STAFF = "/add_staff";
+
+    private UrlConstant() {}
 }

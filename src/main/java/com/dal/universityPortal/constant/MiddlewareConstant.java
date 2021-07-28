@@ -8,4 +8,5 @@ public class MiddlewareConstant {
             "/logout", "/error/*", "/reset_password", "/reset_password/*");
     public static final String universityAuthorizedOnlyPaths = "/university/add_staff";
 
+    private MiddlewareConstant() {}
 }

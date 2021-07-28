@@ -1,8 +1,6 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.database.UniversityDao;
-import com.dal.universityPortal.model.Application;
 import com.dal.universityPortal.model.University;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

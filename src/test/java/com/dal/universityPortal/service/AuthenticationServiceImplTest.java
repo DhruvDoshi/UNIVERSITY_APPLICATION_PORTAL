@@ -1,7 +1,6 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.UserDao;
-import com.dal.universityPortal.email.Sendmail;
 import com.dal.universityPortal.exceptions.UnsupportedUser;
 import com.dal.universityPortal.exceptions.ValidationException;
 import com.dal.universityPortal.model.*;
@@ -11,8 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+
 import static com.dal.universityPortal.model.UserType.STUDENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,8 +34,6 @@ class AuthenticationServiceImplTest {
     @Mock
     HttpSession httpSession;
 
-    @InjectMocks
-    Sendmail sendmail;
 
     @InjectMocks
     AuthenticationServiceImpl authenticationService;
@@ -102,7 +101,6 @@ class AuthenticationServiceImplTest {
         Mockito.verify(httpSession).getAttribute("user");
     }
 
-    //TODO: write test for sendPasswordCode
 
     @Test
     void sendPasswordCodeThrowsExceptionWhenWrongUsername() throws SQLException, UnsupportedUser {

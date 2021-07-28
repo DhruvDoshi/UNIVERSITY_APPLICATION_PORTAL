@@ -1,5 +1,7 @@
 package com.dal.universityPortal.database;
 
+import com.dal.universityPortal.database.query.PaymentQuery;
+import com.dal.universityPortal.database.query.ProgramQuery;
 import com.dal.universityPortal.model.Program;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import static com.dal.universityPortal.database.query.ProgramQuery.*;
 
 @Component
 public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
+
 
     @Override
     public List<Program> fetchAll() throws SQLException {
@@ -33,7 +36,7 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
-            programList = dbSession.fetch(FETCH_PROGRAMS_BY_UNIVERSITY_ID, Arrays.asList(id));
+            programList = dbSession.fetch(ProgramQuery.FETCH_PROGRAMS_BY_UNIVERSITY_ID, Arrays.asList(id));
             for (Map<String, Object> mapProgram : programList) {
                 Program program = new Program();
                 program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
@@ -63,9 +66,9 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
     @Override
     public void insert(Program program) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            dbSession.execute(SET_FOREIGN_CHECKS_OFF);
+            dbSession.execute(PaymentQuery.FOREIGN_KEY_CHECKS);
             dbSession.setAutoCommit(false);
-            dbSession.execute(INSERT_INTO_PROGRAM, Arrays.asList(program.getName(),
+            dbSession.execute(ProgramQuery.INSERT_INTO_PROGRAM, Arrays.asList(program.getName(),
                     program.getUniversityId()));
             dbSession.setAutoCommit(true);
         }
@@ -74,8 +77,7 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
     @Override
     public void delete(Program program1) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "DELETE FROM program WHERE university_id="+program1.getUniversityId()+" AND name="+"'"+program1.getName()+"'";
-            dbSession.execute(query);
+            dbSession.execute(ProgramQuery.DELETE_PROGRAM,Arrays.asList(program1.getUniversityId()+" AND name="+"'"+program1.getName()+"'"));
         }
     }
 }

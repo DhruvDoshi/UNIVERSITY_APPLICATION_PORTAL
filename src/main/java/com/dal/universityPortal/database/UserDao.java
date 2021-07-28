@@ -3,6 +3,7 @@ package com.dal.universityPortal.database;
 import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.model.UserStatus;
 import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -44,9 +44,7 @@ public class UniversityDao implements SelectDao<University>,InsertDao<University
     @Override
     public void update(University university) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            System.out.println(university.getUniversityName());
             String query = "UPDATE university SET university_name = '"+university.getUniversityName()+"', university_description = '"+university.getUniversityDescription()+"' WHERE user_id = "+university.getUserId();
-            System.out.println(query);
             dbSession.execute(query);
         }
     }
