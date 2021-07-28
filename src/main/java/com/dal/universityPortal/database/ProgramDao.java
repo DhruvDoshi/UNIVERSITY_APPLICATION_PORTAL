@@ -32,7 +32,6 @@ public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, Delet
         return programs;
     }
 
-    //TODO: Rename to fetchAllByUniversityId
     public List<Program> fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();

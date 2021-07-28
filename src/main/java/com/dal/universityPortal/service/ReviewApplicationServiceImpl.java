@@ -1,7 +1,10 @@
 package com.dal.universityPortal.service;
 
+import com.dal.universityPortal.database.AdminDao;
 import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.model.Application;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -11,6 +14,9 @@ import java.util.List;
 public class ReviewApplicationServiceImpl implements ReviewApplicationService {
 
     ReviewApplicationDao reviewApplicationDao = new ReviewApplicationDao();
+
+    Logger logger = LogManager.getLogger(AdminDao.class);
+
 
     @Override
     public List<Application> readList() throws SQLException {
@@ -26,8 +32,8 @@ public class ReviewApplicationServiceImpl implements ReviewApplicationService {
     public Boolean saveReviewApplication(Application application) {
         try {
             reviewApplicationDao.update(application);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            logger.error(e);
         }
         return true;
     }

@@ -21,7 +21,6 @@ public class AdminPanelServiceImplTest {
         adminPanelserviceImpl = Mockito.mock(AdminPanelServiceImpl.class);
     }
 
-    //TODO: Move this to constants.
     @Test
     void getPendingStatusUniversitiesTest() throws SQLException {
         AdminPanel adminPanel1 = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
@@ -31,7 +30,6 @@ public class AdminPanelServiceImplTest {
         assertEquals(2, adminPanels.size());
     }
 
-    //TODO: Move this to constants.
     @Test
     void allowUniversityByIdTest() throws SQLException {
         AdminPanel adminPanel = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");
@@ -40,7 +38,6 @@ public class AdminPanelServiceImplTest {
         assertTrue(adminPanelserviceImpl.allowUniversityById(adminPanel));
     }
 
-    //TODO: Move this to constants.
     @Test
     void denyUniversityByIdTest() throws SQLException {
         AdminPanel adminPanel = new AdminPanel(1, "Dalhousie University", "admin@dal.ca", "UNIVERSITY", "PENDING");

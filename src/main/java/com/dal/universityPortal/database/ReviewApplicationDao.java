@@ -28,7 +28,6 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
         }
         return applications;
     }
-    //TODO: Make the huge chunk execution to a different function
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();

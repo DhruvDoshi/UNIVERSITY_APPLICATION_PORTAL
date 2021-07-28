@@ -80,7 +80,6 @@ public class ReviewApplicationController {
             return String.format("redirect:%s%s", UNIVERSITY, LOAD_LIST_APPLICATIONS);
         }
         else{
-            System.out.println("New application");
             redirectAttributes.addFlashAttribute("error1", ErrorConstant.APPLICATION_LOCK_ERROR);
             return String.format("redirect:%s%s/%s", UNIVERSITY, LOAD_APPLICATION_PAGE, id);
         }

@@ -12,7 +12,6 @@ import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_PROGRAM
 
 public class ApplicationStatusDao {
 
-    //TODO: fetchAllById - Rename and move to Program. Delete this file - Jaspreet
     public Program fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> programList;
         Program program = new Program();

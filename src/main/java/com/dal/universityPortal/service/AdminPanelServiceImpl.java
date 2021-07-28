@@ -20,24 +20,16 @@ public class AdminPanelServiceImpl implements AdminPanelService{
     }
 
     @Override
-    public boolean allowUniversityById(AdminPanel adminPanel) throws SQLException {
-        try {
-            adminPanel.setStatus(UserStatus.ACTIVE.toString());
-            adminDao.update(adminPanel);
-        } catch (Exception exception) {
-            System.out.println(exception);
-        }
+    public boolean allowUniversityById(AdminPanel adminPanel) {
+        adminPanel.setStatus(UserStatus.ACTIVE.toString());
+        adminDao.update(adminPanel);
         return true;
     }
 
     @Override
-    public boolean denyUniversityById(AdminPanel adminPanel) throws SQLException {
-        try {
-            adminPanel.setStatus(UserStatus.BLOCKED.toString());
-            adminDao.update(adminPanel);
-        } catch (Exception exception) {
-            System.out.println(exception);
-        }
+    public boolean denyUniversityById(AdminPanel adminPanel) {
+        adminPanel.setStatus(UserStatus.BLOCKED.toString());
+        adminDao.update(adminPanel);
         return true;
     }
 }

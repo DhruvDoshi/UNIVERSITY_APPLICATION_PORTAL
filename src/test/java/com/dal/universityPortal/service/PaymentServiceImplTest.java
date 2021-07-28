@@ -14,40 +14,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceImplTest {
-    @InjectMocks
-    private PaymentServiceImpl paymentServiceImpl;
-
-    @Mock
-    private PaymentDao paymentDao;
-
-    private Payment payment = new Payment(34,100,"Dhruv","5425233430109903","07/25", "132", 26);
-    private Payment payment1 = new Payment(35,100,"Dhruv","5425233430109903","07/25", "132", 26);
 
     @BeforeEach
     public void setUp()  {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void savePaymentPassTest() throws SQLException {
-        paymentServiceImpl.savePayment(payment);
-        Mockito.verify(paymentDao).update(payment);
-        Mockito.verify(paymentDao).insert(payment);
-    }
 
     @Test
-    void savePaymentFailTest() throws SQLException {
-        paymentServiceImpl.savePayment(payment1);
-        Mockito.verify(paymentDao).update(payment1);
-        Mockito.verify(paymentDao).update(payment1);
-    }
-
-    @Test
-    void paymentCheck() throws SQLException {
-        Payment payment = new Payment(1,100,"Dhruv","5425233430109903","07/25", "132", 7);
+    void paymentCheck() {
         Payment payment1 = new Payment();
         payment1.setApplication_id(1);
         payment1.setAmount(100);

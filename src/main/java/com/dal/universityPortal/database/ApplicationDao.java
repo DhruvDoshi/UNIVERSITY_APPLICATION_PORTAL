@@ -45,7 +45,6 @@ public class ApplicationDao implements InsertDao<Application> {
     }
 
 
-    //TODO : FIX ME: ARUN/FORAM
     @Override
     public void insert(Application application) throws SQLException {
         int program_id=application.getProgram_id();

@@ -3,6 +3,9 @@ package com.dal.universityPortal.database;
 import com.dal.universityPortal.model.AdminPanel;
 import com.dal.universityPortal.model.UserStatus;
 import com.dal.universityPortal.model.UserType;
+import com.dal.universityPortal.service.ProgramServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminDao implements SelectDao<AdminPanel>,UpdateDao<AdminPanel> {
+
+    Logger logger = LogManager.getLogger(AdminDao.class);
 
     @Override
     public List<AdminPanel> fetchAll() throws SQLException {
@@ -36,8 +41,8 @@ public class AdminDao implements SelectDao<AdminPanel>,UpdateDao<AdminPanel> {
     public void update(AdminPanel adminPanel) {
         try (DBSession dbSession = new DBSession()) {
             dbSession.execute("UPDATE user SET status = ? WHERE id = ?", Arrays.asList(adminPanel.getStatus(), adminPanel.getUserId()));
-        } catch (Exception exception) {
-            System.out.println(exception);
+        } catch (SQLException exception) {
+            logger.error(exception);
         }
     }
 

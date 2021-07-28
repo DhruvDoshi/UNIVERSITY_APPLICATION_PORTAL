@@ -2,6 +2,8 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ProgramDao;
 import com.dal.universityPortal.model.Program;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -9,15 +11,16 @@ import java.util.List;
 
 @Service
 public class ProgramServiceImpl implements ProgramService{
+    Logger logger = LogManager.getLogger(ProgramServiceImpl.class);
 
     ProgramDao programDao= new ProgramDao();
 
     @Override
-    public Boolean saveProgram(Program program) throws SQLException {
+    public Boolean saveProgram(Program program) {
         try {
             programDao.insert(program);
-        } catch (Exception exception) {
-            System.out.println(exception);
+        } catch (SQLException exception) {
+            logger.error(exception);
         }
         return true;
     }
