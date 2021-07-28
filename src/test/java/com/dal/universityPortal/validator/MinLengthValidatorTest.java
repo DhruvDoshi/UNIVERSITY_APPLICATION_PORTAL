@@ -1,9 +1,8 @@
 package com.dal.universityPortal.validator;
-import static com.dal.universityPortal.constant.ErrorConstant.MIN_LENGTH_ERROR;
-import static org.junit.jupiter.api.Assertions.*;
-
 
 import org.junit.jupiter.api.Test;
+
+import static com.dal.universityPortal.constant.ErrorConstant.MIN_LENGTH_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MinLengthValidatorTest {

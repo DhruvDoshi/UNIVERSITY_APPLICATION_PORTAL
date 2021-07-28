@@ -1,9 +1,7 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ApplicationDao;
-import com.dal.universityPortal.database.UniversityDao;
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.University;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,8 +10,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationServiceImplTest {
 

@@ -1,6 +1,5 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.model.Payment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

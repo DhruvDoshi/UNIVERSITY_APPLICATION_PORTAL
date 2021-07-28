@@ -1,27 +1,28 @@
 package com.dal.universityPortal.database;
 
+import com.dal.universityPortal.config.Configuration;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class DBSession implements AutoCloseable {
 
     private Connection connection;
 
+    private Configuration configuration;
+
     public DBSession() throws SQLException {
-        connection = DriverManager.getConnection(getConnectionString());
+        configuration = new Configuration();
+        connection = DriverManager.getConnection(configuration.getDBConnection());
         connection.setAutoCommit(true);
     }
 
     public void setAutoCommit(Boolean autoCommit) throws SQLException {
         connection.setAutoCommit(autoCommit);
-    }
-
-    //TODO: Move this to constants.
-    private String getConnectionString() {
-        return "jdbc:mysql://openvpn.aasif.dev:3306/asdproject?user=root&password=Dal@1029";
     }
 
     @Override
