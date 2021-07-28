@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class AdminPanelServiceImpl implements AdminPanelService{
 
-    Logger logger = LogManager.getLogger(AuthenticationServiceImpl.class);
+    Logger logger = LogManager.getLogger(AdminPanelServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
@@ -25,7 +25,7 @@ public class AdminPanelServiceImpl implements AdminPanelService{
     }
 
     @Override
-    public boolean allowUniversityById(User user) throws SQLException {
+    public boolean allowUniversityById(User user) {
         try {
             user.setStatus(UserStatus.ACTIVE);
             userDao.setUserStatus(user);
@@ -36,7 +36,7 @@ public class AdminPanelServiceImpl implements AdminPanelService{
     }
 
     @Override
-    public boolean denyUniversityById(User user) throws SQLException {
+    public boolean denyUniversityById(User user) {
         try {
             user.setStatus(UserStatus.BLOCKED);
             userDao.setUserStatus(user);
