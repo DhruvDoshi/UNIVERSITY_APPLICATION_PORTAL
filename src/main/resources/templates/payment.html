@@ -13,8 +13,8 @@
         <hr>
         <h1>Payment</h1>
         <br>
-        <form action="#" th:action="@{/student/save_payment/{id}(id=${payment.applicationId})}" th:object="${payment}" method="POST">
-            <input disabled type="text" th:field="*{applicationId}" value="" placeholder="Application ID" class="mb-4 col-4">
+        <form action="#" th:action="@{/student/save_payment/{id}(id=${payment.application_id})}" th:object="${payment}" method="POST">
+            <input disabled type="text" th:field="*{application_id}" value="" placeholder="Application ID" class="mb-4 col-4">
             <br>
             <input disabled type="number" th:field="*{amount}" value="" placeholder="Amount" class="mb-4 col-4" maxlength="16">
             <br>

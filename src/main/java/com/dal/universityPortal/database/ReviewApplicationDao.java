@@ -19,7 +19,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
             for (Map<String, Object> mapApplication : applicationList) {
                 if(mapApplication.get("status").equals("In-process") || mapApplication.get("status").equals("New")) {
                     Application application = new Application();
-                    application.setApplicationId(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
+                    application.setAppId(Integer.parseInt(String.valueOf(mapApplication.get("id"))));
                     application.setStatus(String.valueOf(mapApplication.get("status")));
                     applications.add(application);
                 }
@@ -44,7 +44,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
                         "student_id = "+applist.get("student_id"));
 
                 // From Application Table
-                application.setApplicationId(Integer.parseInt(String.valueOf(applist.get("id"))));
+                application.setAppId(Integer.parseInt(String.valueOf(applist.get("id"))));
                 application.setProgramId(Integer.parseInt(String.valueOf(applist.get("program_id"))));
                 application.setStudentId(Integer.parseInt(String.valueOf(applist.get("student_id"))));
                 application.setSop(String.valueOf(applist.get("sop")));
@@ -72,7 +72,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
     @Override
     public void update(Application application) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessedBy()+", comment = '"+application.getComment()+"' WHERE id = "+application.getApplicationId();
+            String query = "UPDATE application SET status = '"+application.getStatus()+"', processed_by = "+application.getProcessedBy()+", comment = '"+application.getComment()+"' WHERE id = "+application.getAppId();
             System.out.println(query);
             dbSession.execute(query);
         }

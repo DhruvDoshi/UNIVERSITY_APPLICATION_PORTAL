@@ -45,7 +45,7 @@ public class ReviewApplicationController {
     @GetMapping(LOCK_APPLICATION + "/{id}")
     public String lockApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes, HttpServletRequest request) throws SQLException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplicationId(application1.getApplicationId());
+        application.setAppId(application1.getAppId());
         application.setStatus("In-process");
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         application.setProcessedBy(currentUser.getId());
@@ -63,7 +63,7 @@ public class ReviewApplicationController {
     @GetMapping(REJECT_APPLICATION + "/{id}")
     public String rejectApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException, MessagingException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplicationId(application1.getApplicationId());
+        application.setAppId(application1.getAppId());
         application.setStatus("Reject");
         application.setProcessedBy(application1.getProcessedBy());
         if(!application1.getStatus().equals("New")){
@@ -82,7 +82,7 @@ public class ReviewApplicationController {
     @PostMapping(SAVE_REVIEW_APPLICATION + "/{id}")
     public String saveReviewApplication(@PathVariable(value = "id") int id,@ModelAttribute("application") Application application, RedirectAttributes redirectAttributes) throws SQLException, MessagingException {
         Application application1= reviewApplicationService.oneApplication(id);
-        application.setApplicationId(application1.getApplicationId());
+        application.setAppId(application1.getAppId());
         application.setStatus("Accept");
         application.setProcessedBy(application1.getProcessedBy());
         if(!application1.getStatus().equals("New")){

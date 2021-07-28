@@ -2,7 +2,7 @@ package com.dal.universityPortal.model;
 
 public class Application {
 
-    private int applicationId;
+    private int appId;
     private int programId;
     private int studentId;
     private String status;
@@ -24,8 +24,8 @@ public class Application {
     public Application(){
     }
 
-    public Application(int applicationId, int programId, int studentId, String status, int processedBy, String comment, String firstName, String lastName, String address, String mobileNumber, String emailId, String highestEducation, String grades, String startDate, String endDate, String sop) {
-        this.applicationId = applicationId;
+    public Application(int appId, int programId, int studentId, String status, int processedBy, String comment, String firstName, String lastName, String address, String mobileNumber, String emailId, String highestEducation, String grades, String startDate, String endDate, String sop) {
+        this.appId = appId;
         this.programId = programId;
         this.studentId = studentId;
         this.status = status;
@@ -43,9 +43,9 @@ public class Application {
         this.sop = sop;
     }
 
-    public int getApplicationId() { return applicationId; }
+    public int getAppId() { return appId; }
 
-    public void setApplicationId(int applicationId) { this.applicationId = applicationId; }
+    public void setAppId(int appId) { this.appId = appId; }
 
     public String getFirstName() {
         return firstName;

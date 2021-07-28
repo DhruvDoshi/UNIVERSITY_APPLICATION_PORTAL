@@ -18,7 +18,7 @@ public class ApplicationDao implements InsertDao<Application> {
         try (DBSession dbSession = new DBSession()) {
             applicationlist = dbSession.fetch(String.format(FETCH_APPLICATION_BY_ID_QUERY, id));
             for (Map<String, Object> applist : applicationlist) {
-                application.setApplicationId(Integer.parseInt(String.valueOf(applist.get("id"))));
+                application.setAppId(Integer.parseInt(String.valueOf(applist.get("id"))));
             }
         }
         return application;

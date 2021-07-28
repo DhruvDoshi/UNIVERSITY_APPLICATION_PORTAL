@@ -38,6 +38,6 @@ public class ApplicationController {
         application.setStudentId(currentUser.getId());
         applicationService.saveApplication(application);
         application=applicationService.readApplication(currentUser.getId());
-        return String.format("redirect:%s%s/%s", STUDENT, LOAD_PAYMENT, application.getApplicationId());
+        return String.format("redirect:%s%s/%s", STUDENT, LOAD_PAYMENT, application.getAppId());
     }
 }
