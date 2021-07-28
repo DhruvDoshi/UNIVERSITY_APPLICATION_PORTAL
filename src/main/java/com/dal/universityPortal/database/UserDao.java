@@ -2,10 +2,12 @@ package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.User;
 import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import static com.dal.universityPortal.database.query.UserQuery.*;
 
 @Component

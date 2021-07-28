@@ -13,4 +13,6 @@ public class ErrorConstant {
     public static final String SPECIAL_CHAR_NOT_FOUND_ERROR = "Special character is not present";
     public static final String MIN_LENGTH_ERROR = "The min length should be %s";
 
+    private ErrorConstant() {}
+
 }

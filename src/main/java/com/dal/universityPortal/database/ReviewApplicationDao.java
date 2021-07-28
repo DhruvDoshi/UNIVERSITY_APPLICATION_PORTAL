@@ -1,6 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;

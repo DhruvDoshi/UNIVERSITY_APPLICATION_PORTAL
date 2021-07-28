@@ -1,6 +1,7 @@
 package com.dal.universityPortal.model;
 
 import com.dal.universityPortal.service.ModelValidatorService;
+
 import java.util.List;
 
 public abstract class ValidatedModel {

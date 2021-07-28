@@ -1,6 +1,7 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.model.Application;
+
 import java.sql.SQLException;
 
 public interface ApplicationService {

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.sql.SQLException;
+
 import static com.dal.universityPortal.constant.ErrorConstant.UNIVERSITY_NOT_FOUND_ERROR;
 import static com.dal.universityPortal.constant.UrlConstant.*;
 

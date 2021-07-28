@@ -2,7 +2,6 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
