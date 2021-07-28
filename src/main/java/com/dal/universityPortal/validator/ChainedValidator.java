@@ -14,8 +14,8 @@ public class ChainedValidator<T> implements Validator<T> {
     }
 
     public boolean isValid(T t) {
-        for (Validator<T> validator: validators) {
-            if (!validator.isValid(t)) {
+        for(Validator<T> validator: validators) {
+            if(!validator.isValid(t)) {
                 errorMessages.add(validator.getErrorMessage());
             }
         }

@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.sql.SQLException;
+import static com.dal.universityPortal.constant.UrlConstant.APPLICATION_STATUS;
+import static com.dal.universityPortal.constant.UrlConstant.STUDENT;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping(STUDENT)
 public class ApplicationStatusController {
 
     @Autowired
     private ApplicationStatusService applicationStatusService;
 
-    @GetMapping("/application_status/{id}")
+    @GetMapping(APPLICATION_STATUS +"/{id}")
     public String showApplicationStatus(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Application application = new Application();
         application.setApplicationId(id);

@@ -6,14 +6,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_APPLICATION_BY_ID_QUERY;
+
 public class ApplicationDao implements InsertDao<Application> {
 
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch("SELECT * FROM application WHERE " +
-                    "student_id = "+id);
+            applicationlist=dbSession.fetch(String.format(FETCH_APPLICATION_BY_ID_QUERY, id));
             for (Map<String, Object> applist: applicationlist){
                 application.setApplicationId(Integer.parseInt(String.valueOf(applist.get("id"))));
             }
@@ -21,6 +22,8 @@ public class ApplicationDao implements InsertDao<Application> {
         return application;
     }
 
+
+    //TODO : FIX ME: ARUN/FORAM
     @Override
     public void insert(Application application) throws SQLException {
         int program_id=application.getProgramId();

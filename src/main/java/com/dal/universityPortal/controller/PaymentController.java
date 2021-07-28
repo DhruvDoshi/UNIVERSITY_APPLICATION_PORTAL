@@ -10,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.dal.universityPortal.constant.UrlConstant.*;
+
 @Controller
-@RequestMapping("/student")
+@RequestMapping(STUDENT)
 public class PaymentController {
     @Autowired
     private PaymentService paymentService;
@@ -25,7 +26,7 @@ public class PaymentController {
     AuthenticationService authenticationService;
 
 
-    @GetMapping("/load_payment/{id}")
+    @GetMapping(LOAD_PAYMENT + "/{id}")
     public String loadPayment(@PathVariable (value = "id") int id,Model model) throws SQLException {
         Payment payment = new Payment();
         payment.setApplication_id(id);
@@ -35,7 +36,7 @@ public class PaymentController {
         return "payment";
     }
 
-    @PostMapping("/save_payment/{id}")
+    @PostMapping(SAVE_PAYMENT + "/{id}")
     public String savePayment(@PathVariable (value = "id") int id, @ModelAttribute("payment") Payment payment,HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         payment.setStudent_id(currentUser.getId());
@@ -43,6 +44,6 @@ public class PaymentController {
         payment.setAmount(programList.get(0).getAmount());
         payment.setApplication_id(id);
         paymentService.savePayment(payment);
-        return "redirect:/student/dashboard";
+        return String.format("redirect:%s%s", STUDENT, DASHBOARD);
     }
 }

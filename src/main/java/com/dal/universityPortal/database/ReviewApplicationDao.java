@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Application> {
 
+    //TODO: Rename according to the function execution. Use Constants. Ditto for other functions.
     @Override
     public List<Application> fetchAll() throws SQLException {
         List<Map<String, Object>> applicationList;
@@ -26,7 +27,7 @@ public class ReviewApplicationDao implements SelectDao<Application>,UpdateDao<Ap
         }
         return applications;
     }
-
+    //TODO: Make the huge chunk execution to a different function
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
