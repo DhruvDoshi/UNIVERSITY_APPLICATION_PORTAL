@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-
 import static com.dal.universityPortal.constant.ErrorConstant.*;
+import static com.dal.universityPortal.constant.UrlConstant.*;
 
 @Controller
 public class AuthenticationController {
@@ -25,13 +25,13 @@ public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
 
-    @GetMapping("/login")
+    @GetMapping(LOGIN)
     public String loginPage(Model model) {
         model.addAttribute("credential", new Credential());
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN)
     public String saveRegistration(@ModelAttribute Credential credential, Model model, HttpServletRequest request) {
         try {
             authenticationService.login(request.getSession(), credential);
@@ -46,23 +46,23 @@ public class AuthenticationController {
         return "redirect:"+authenticationService.getRedirectLink(currentUser.getTypeEnum());
     }
 
-    @GetMapping("/logout")
+    @GetMapping(LOGOUT)
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         authenticationService.logout(request.getSession());
         response.sendRedirect("/login");
     }
 
-    @GetMapping("/reset_password/send_code")
+    @GetMapping(RESET_PASSWORD_SEND_CODE)
     public String sendUniqueCodePage(Model model) {
         model.addAttribute("credential", new ResetCredential());
         return "get_reset_code";
     }
 
-    @PostMapping("/reset_password/send_code")
+    @PostMapping(RESET_PASSWORD_SEND_CODE)
     public String sendUniqueCode(@ModelAttribute ResetCredential resetCredential, Model model) {
         try {
             authenticationService.sendPasswordCode(resetCredential.getUsername());
-            return "redirect:/reset_password";
+            return String.format("redirect:%s", RESET_PASSWORD);
         } catch (UnsupportedUser exception) {
             model.addAttribute("error", USER_NOT_FOUND_ERROR);
         } catch (SQLException exception) {
@@ -71,18 +71,18 @@ public class AuthenticationController {
         return "get_reset_code";
     }
 
-    @GetMapping("/reset_password")
+    @GetMapping(RESET_PASSWORD)
     public String resetPasswordPage(Model model) {
         model.addAttribute("credentials", new ResetCredential());
         return "reset_password";
     }
 
-    @PostMapping("/reset_password")
+    @PostMapping(RESET_PASSWORD)
     public String resetPassword(@ModelAttribute ResetCredential resetCredential, Model model) {
         model.addAttribute("credentials", resetCredential);
         try {
             authenticationService.resetPassword(resetCredential);
-            return "redirect:/login";
+            return String.format("redirect:%s", LOGIN);
         } catch (ValidationException exception) {
             model.addAttribute("validationErrors", exception.getErrors());
         } catch (SQLException exception) {

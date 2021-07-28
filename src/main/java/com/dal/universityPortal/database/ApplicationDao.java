@@ -8,15 +8,14 @@ import java.util.Map;
 
 import static com.dal.universityPortal.database.query.ApplicationQuery.*;
 import static com.dal.universityPortal.database.query.PaymentQuery.FOREIGN_KEY_CHECKS;
-
+import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_APPLICATION_BY_ID_QUERY;
 public class ApplicationDao implements InsertDao<Application>{
 
     public Application fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> applicationlist;
         Application application = new Application();
         try(DBSession dbSession = new DBSession()){
-            applicationlist=dbSession.fetch(FETCH_ALL_APPLICATION);
-            dbSession.setAutoCommit(true);
+            applicationlist=dbSession.fetch(String.format(FETCH_APPLICATION_BY_ID_QUERY, id));
             for (Map<String, Object> applist: applicationlist){
                 // From Application Table
                 application.setApplication_id(Integer.parseInt(String.valueOf(applist.get("id"))));
@@ -25,6 +24,8 @@ public class ApplicationDao implements InsertDao<Application>{
         return application;
     }
 
+
+    //TODO : FIX ME: ARUN/FORAM
     @Override
     public void insert(Application application) throws SQLException {
         int program_id=application.getProgram_id();

@@ -9,12 +9,7 @@ import java.util.Map;
 import static com.dal.universityPortal.database.query.UserQuery.*;
 
 @Component
-public class UserDao implements InsertDao<User>,UpdateDao<User>, SelectDao<User> {
-
-    @Override
-    public List<User> fetchAll() {
-        return null; //TODO: Implement
-    }
+public class UserDao implements InsertDao<User>,UpdateDao<User> {
 
     public User fetchOne(String username) throws SQLException {
         Map<String, Object> row;

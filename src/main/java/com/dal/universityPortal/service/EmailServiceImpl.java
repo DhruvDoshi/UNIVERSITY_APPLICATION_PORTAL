@@ -8,7 +8,6 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 import com.dal.universityPortal.constant.EmailConstant;
 
@@ -18,12 +17,12 @@ public class EmailServiceImpl implements EmailService{
     @Override
     public Properties getMailproperties() {
         Properties properties = System.getProperties();
-        properties.put("mail.smtp.ssl.trust", EmailConstant.host);
+        properties.put("mail.smtp.ssl.trust", EmailConstant.HOST);
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", EmailConstant.host);
-        properties.put("mail.smtp.user", EmailConstant.user);
-        properties.put("mail.smtp.password", EmailConstant.password);
-        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.host", EmailConstant.HOST);
+        properties.put("mail.smtp.user", EmailConstant.USER);
+        properties.put("mail.smtp.password", EmailConstant.PASSWORD);
+        properties.put("mail.smtp.port", EmailConstant.PORT1);
         properties.put("mail.smtp.auth", "true");
         return properties;
     }
@@ -63,38 +62,38 @@ public class EmailServiceImpl implements EmailService{
         Authenticator authenticator  = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(EmailConstant.user, EmailConstant.password);
+                return new PasswordAuthentication(EmailConstant.USER, EmailConstant.PASSWORD);
             }
         };
         Session session = Session.getDefaultInstance(properties,authenticator);
         MimeMessage message=new MimeMessage(session);
-        message.setFrom(new InternetAddress(EmailConstant.user));
+        message.setFrom(new InternetAddress(EmailConstant.USER));
         message.addRecipient(Message.RecipientType.TO,new InternetAddress(email.getToAddress()));
-        message.setSubject(email.getSubject());
-        message.setText(email.getMessageBody());
+        message.setSubject(Email.getSubject());
+        message.setText(Email.getMessageBody());
         Transport transport = session.getTransport("smtp");
-        transport.connect(EmailConstant.host,587,EmailConstant.user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
+        transport.connect(EmailConstant.HOST,587,EmailConstant.USER,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
         return true;
     }
 
     @Override
-    public boolean sendMailWithAttachment(Email email) throws FileNotFoundException, MessagingException {
+    public boolean sendMailWithAttachment(Email email) throws MessagingException {
         Properties props = getMailproperties();
         Authenticator authenticator  = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(EmailConstant.user, EmailConstant.password);
+                return new PasswordAuthentication(EmailConstant.USER, EmailConstant.PASSWORD);
             }
         };
         Session session = Session.getDefaultInstance(props,authenticator);
         MimeMessage mimeMessage = new MimeMessage(session);
-        mimeMessage.setFrom(new InternetAddress(EmailConstant.user));
+        mimeMessage.setFrom(new InternetAddress(EmailConstant.USER));
         mimeMessage.addRecipient(Message.RecipientType.TO,new InternetAddress(email.getToAddress()));
-        mimeMessage.setSubject(email.getSubject());
+        mimeMessage.setSubject(Email.getSubject());
         BodyPart messageBodyPart1 = new MimeBodyPart();
-        messageBodyPart1.setText(email.getMessageBody());
+        messageBodyPart1.setText(Email.getMessageBody());
         MimeBodyPart messageBodyPart2 = new MimeBodyPart();
         DataSource dataSource =new FileDataSource(email.getFileName());
         messageBodyPart2.setDataHandler(new DataHandler(dataSource));
@@ -103,8 +102,8 @@ public class EmailServiceImpl implements EmailService{
         multipart.addBodyPart(messageBodyPart1);
         multipart.addBodyPart(messageBodyPart2);
         mimeMessage.setContent(multipart);
-        Transport transport = session.getTransport("smtp");
-        transport.connect(EmailConstant.host,587,EmailConstant.user,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
+        Transport transport = session.getTransport(EmailConstant.PROTOCOL);
+        transport.connect(EmailConstant.HOST,EmailConstant.PORT,EmailConstant.USER,"");//If Sender has 2 factor verification then App password is needed else keep an empty string
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
         transport.close();
         return true;

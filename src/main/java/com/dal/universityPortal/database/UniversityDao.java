@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.database.query.UniversityQuery.FETCH_ALL_UNIVERSITIES;
+import static com.dal.universityPortal.database.query.UniversityQuery.INSERT_UNIVERSITY;
+
 @Component
 public class UniversityDao implements SelectDao<University>,InsertDao<University>,UpdateDao<University> {
 
@@ -17,7 +20,7 @@ public class UniversityDao implements SelectDao<University>,InsertDao<University
         List<Map<String, Object>> uniList;
         List<University> universityList = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
-            uniList = dbSession.fetch("SELECT * from university");
+            uniList = dbSession.fetch(FETCH_ALL_UNIVERSITIES);
             dbSession.setAutoCommit(true);
             for (Map<String, Object> mapUni : uniList) {
                 University university = new University();
@@ -33,7 +36,7 @@ public class UniversityDao implements SelectDao<University>,InsertDao<University
     @Override
     public void insert(University university) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            dbSession.execute("INSERT INTO university (user_id,university_name,university_description) VALUES (?,?,?)", Arrays.asList(university.getUserId(), university.getUniversityName(),
+            dbSession.execute(INSERT_UNIVERSITY, Arrays.asList(university.getUserId(), university.getUniversityName(),
                     university.getUniversityDescription()));
         }
     }

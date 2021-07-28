@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class SearchUniversityDao implements SelectDao<Program> {
 
+    //TODO: Jaspreet: Check for code duplication
     @Override
     public List<Program> fetchAll() throws SQLException {
         List<Map<String, Object>> universityDetail;
@@ -27,6 +28,7 @@ public class SearchUniversityDao implements SelectDao<Program> {
         return universityDetails;
     }
 
+    //TODO: Jaspreet: Ditto as above
     public List<Program> fetchAllByParams(int id) throws SQLException {
         List<Map<String, Object>> programDetail;
         List<Program> programDetails = new ArrayList<>();

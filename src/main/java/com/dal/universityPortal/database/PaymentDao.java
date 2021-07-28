@@ -29,6 +29,7 @@ public class PaymentDao implements InsertDao<Payment>,UpdateDao<Payment>{
         }
     }
 
+
     @Override
     public void insert(Payment payment) throws SQLException {
         try (DBSession dbSession = new DBSession()){
