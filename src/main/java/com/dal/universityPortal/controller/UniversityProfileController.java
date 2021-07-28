@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
+
+import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
 
 @Controller
 @RequestMapping("/university")
@@ -48,10 +49,10 @@ public class UniversityProfileController {
     @RequestMapping (value="/save_university_profile/{id}",method= RequestMethod.POST)
     public String saveUniversityProfile(@PathVariable (value = "id") int id,@ModelAttribute("university") University university,Model model) throws SQLException {
         university.setUserId(id);
-        University universityCheck =universityProfileService.readProfile(id);
-        if(universityCheck.getUniversityName()==null){
+        University universityCheck = universityProfileService.readProfile(id);
+        if (universityCheck.getUniversityName() == null) {
             universityProfileService.saveProfile(university);
-        }else{
+        } else{
             universityProfileService.updateProfile(university);
         }
 
@@ -59,14 +60,14 @@ public class UniversityProfileController {
     }
 
     @GetMapping("/add_staff")
-    public String addStaffPage(Model model, HttpServletRequest request) {
+    public String addStaffPage(Model model) {
         User staff = new User();
         model.addAttribute("staff", staff);
         return "add_staff";
     }
 
     @PostMapping("/add_staff")
-    public String addStaff(@ModelAttribute User staff, Model model, HttpServletRequest request) throws ValidationException, SQLException {
+    public String addStaff(@ModelAttribute User staff, Model model, HttpServletRequest request) {
         User currentUniversity = authenticationService.getCurrentUser(request.getSession());
         model.addAttribute("staff", staff);
         staff.setTypeEnum(UserType.STAFF);
@@ -77,7 +78,7 @@ public class UniversityProfileController {
         } catch (ValidationException exception) {
             model.addAttribute("errors", exception.getErrors());
         } catch (SQLException exception) {
-            model.addAttribute("errors", "Something went wrong, Please try again.");
+            model.addAttribute("errors", UNEXPECTED_ERROR);
         }
         return "add_staff";
     }

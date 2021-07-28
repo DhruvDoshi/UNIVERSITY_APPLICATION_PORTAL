@@ -1,6 +1,7 @@
 package com.dal.universityPortal.model;
 
 public class University {
+
     private int userId;
     private String universityName;
     private String universityDescription;

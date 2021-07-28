@@ -6,12 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ApplicationStatusDao implements Dao<Program> {
-
-    @Override
-    public List<Program> fetchAll() throws SQLException {
-        return null;
-    }
+public class ApplicationStatusDao {
 
     public Program fetchAllByParam(int id) throws SQLException {
         List<Map<String, Object>> programList;
@@ -25,20 +20,5 @@ public class ApplicationStatusDao implements Dao<Program> {
             }
         }
         return program;
-    }
-
-    @Override
-    public void insert(Program program) throws SQLException {
-
-    }
-
-    @Override
-    public void update(Program program) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Program program) throws SQLException {
-
     }
 }

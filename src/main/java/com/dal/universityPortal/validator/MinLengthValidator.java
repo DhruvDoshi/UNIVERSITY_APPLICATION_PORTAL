@@ -1,5 +1,7 @@
 package com.dal.universityPortal.validator;
 
+import static com.dal.universityPortal.constant.ErrorConstant.MIN_LENGTH_ERROR;
+
 public class MinLengthValidator implements Validator<String> {
 
     Integer minLength;
@@ -15,6 +17,6 @@ public class MinLengthValidator implements Validator<String> {
 
     @Override
     public String getErrorMessage() {
-        return "The min length should be "+ minLength; //TODO: Move to constants
+        return String.format(MIN_LENGTH_ERROR, minLength);
     }
 }

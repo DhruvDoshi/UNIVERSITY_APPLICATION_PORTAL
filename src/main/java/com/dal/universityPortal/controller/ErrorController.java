@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/error")
 public class ErrorController {
 
-    @GetMapping("/not_found")
-    public String notFound() {
-        return "not_found";
-    }
-
     @GetMapping("/unauthorized")
     public String unauthorized() {
         return "unauthorized";

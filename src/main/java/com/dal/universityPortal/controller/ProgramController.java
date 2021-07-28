@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.SQLException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/university")
 public class ProgramController {
+
     @Autowired
     private ProgramService programService;
 
@@ -26,16 +26,17 @@ public class ProgramController {
         return "program";
     }
 
-    @RequestMapping(value="/save_university_program/{id}",method= RequestMethod.POST)
+    @PostMapping(value="/save_university_program/{id}")
     public String saveUniversityProgram(@PathVariable(value = "id") int id,@ModelAttribute("program") Program program) throws SQLException {
         program.setUniversityId(id);
         programService.saveProgram(program);
         return "redirect:/university/load_program/"+id;
     }
 
-    @RequestMapping(value="/delete_program/{id}/{name}",method= RequestMethod.GET)
+    @PostMapping(value="/delete_program/{id}/{name}")
     public String deleteUniversityProgram(@PathVariable(value = "id") int id,@PathVariable(value = "name") String name) throws SQLException {
-        programService.deleteProgram(id,name);
+        Program program = new Program(name,id);
+        programService.deleteProgram(program);
         return "redirect:/university/load_program/"+id;
     }
 }

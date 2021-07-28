@@ -3,6 +3,7 @@ package com.dal.universityPortal.model;
 import com.dal.universityPortal.validator.Validator;
 
 public class FieldValidator<T> {
+
     private String field;
     private T value;
     private Validator<T> validator;
@@ -24,5 +25,4 @@ public class FieldValidator<T> {
     public Validator<T> getValidator() {
         return validator;
     }
-
 }

@@ -12,14 +12,11 @@
     <div class="text-center" style="margin-top: 10%;">
         <hr>
         <h1>Payment</h1>
-        <!--        <p style="text-align: left; margin-left: 33%;">To: University Name</p>-->
-        <!--        <p style="text-align: left; margin-left: 33%;">Amount</p>-->
-        <!--        <p style="text-align: left; margin-left: 33%;">Email: </p>-->
         <br>
-        <form action="#" th:action="@{/save_payment}" th:object="${payment}" method="POST">
-            <input type="text" th:field="*{application_id}" value="" placeholder="Application ID" class="mb-4 col-4">
+        <form action="#" th:action="@{/student/save_payment/{id}(id=${payment.application_id})}" th:object="${payment}" method="POST">
+            <input disabled type="text" th:field="*{application_id}" value="" placeholder="Application ID" class="mb-4 col-4">
             <br>
-            <input type="number" th:field="*{amount}" value="" placeholder="Amount" class="mb-4 col-4" maxlength="16">
+            <input disabled type="number" th:field="*{amount}" value="" placeholder="Amount" class="mb-4 col-4" maxlength="16">
             <br>
             <input type="text" th:field="*{name}" placeholder="Name" class="mb-4 col-4">
             <br>
