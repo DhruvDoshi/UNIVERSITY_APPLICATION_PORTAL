@@ -24,7 +24,7 @@ public class ApplicationController {
     AuthenticationService authenticationService;
 
     @GetMapping(LOAD_APPLICATION + "/{id}")
-    public String loadApplication(@PathVariable (value = "id") int id, Model model) throws SQLException {
+    public String loadApplication(@PathVariable (value = "id") int id, Model model){
         Application application = new Application();
         application.setProgramId(id);
         model.addAttribute("app", application);
@@ -38,6 +38,6 @@ public class ApplicationController {
         application.setStudentId(currentUser.getId());
         applicationService.saveApplication(application);
         application=applicationService.readApplication(currentUser.getId());
-        return String.format("redirect:%s%s/%s", STUDENT, LOAD_PAYMENT, application.getApplication_id());
+        return String.format("redirect:%s%s/%s", STUDENT, LOAD_PAYMENT, application.getApplicationId());
     }
 }
