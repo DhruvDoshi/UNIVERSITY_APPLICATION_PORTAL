@@ -9,15 +9,17 @@ public class Payment {
     private String CVV;
     private Integer studentId;
 
-    public Payment(){}
-    public Payment (Integer applicationId, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer studentId){
+    public Payment() {
+    }
+
+    public Payment(Integer applicationId, Integer amount, String name, String cardNumber, String expiryDate, String CVV, Integer studentId) {
         this.applicationId = applicationId;
         this.amount = amount;
         this.name = name;
         this.cardNumber = cardNumber;
         this.expiryDate = expiryDate;
         this.CVV = CVV;
-        this.studentId=studentId;
+        this.studentId = studentId;
     }
 
     public Integer getApplication_id() {

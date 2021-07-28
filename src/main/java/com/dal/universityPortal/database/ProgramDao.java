@@ -1,6 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Program;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import java.util.Map;
 
 import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_ALL_PROGRAMS;
 
-public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
+@Component
+public class ProgramDao implements SelectDao<Program>, InsertDao<Program>, DeleteDao<Program> {
+
 
     @Override
     public List<Program> fetchAll() throws SQLException {
@@ -58,7 +61,7 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
     @Override
     public void delete(Program program1) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            String query = "DELETE FROM program WHERE university_id="+program1.getUniversityId()+" AND name="+"'"+program1.getName()+"'";
+            String query = "DELETE FROM program WHERE university_id=" + program1.getUniversityId() + " AND name=" + "'" + program1.getName() + "'";
             dbSession.execute(query);
         }
     }

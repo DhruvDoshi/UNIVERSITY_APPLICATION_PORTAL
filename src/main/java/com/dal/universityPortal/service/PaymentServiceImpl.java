@@ -6,10 +6,11 @@ import com.dal.universityPortal.validator.CardValidator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
     PaymentDao paymentDAO = new PaymentDao();
+
     @Override
-    public void savePayment(Payment payment){
+    public void savePayment(Payment payment) {
         try {
             String status = "";
             CardValidator cardValidator = new CardValidator();
@@ -21,7 +22,6 @@ public class PaymentServiceImpl implements PaymentService{
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 }

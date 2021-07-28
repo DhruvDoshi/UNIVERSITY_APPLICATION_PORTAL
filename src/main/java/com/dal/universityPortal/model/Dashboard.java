@@ -8,13 +8,14 @@ public class Dashboard {
     private int rejectedApplication;
     private int totalPayment;
 
-    public Dashboard(){}
+    public Dashboard() {
+    }
 
     public Dashboard(int userId, int successfulApplication, int inProgressApplication, int rejectedApplication, int totalPayment) {
         this.userId = userId;
         this.successfulApplication = successfulApplication;
         this.inProgressApplication = inProgressApplication;
-        this.rejectedApplication =rejectedApplication;
+        this.rejectedApplication = rejectedApplication;
         this.totalPayment = totalPayment;
     }
 
@@ -42,13 +43,15 @@ public class Dashboard {
         this.userId = userId;
     }
 
-    public void incrementSucessfulApplications () {
-        successfulApplication++ ;
+    public void incrementSuccessfulApplications() {
+        successfulApplication++;
     }
-    public void  incrementInProcessApplications () {
+
+    public void incrementInProcessApplications() {
         inProgressApplication++;
     }
-    public void incrementRejectedApplications () {
+
+    public void incrementRejectedApplications() {
         rejectedApplication++;
     }
 
