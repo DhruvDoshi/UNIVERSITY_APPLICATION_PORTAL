@@ -1,12 +1,15 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
+import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_APPLICATION_BY_ID_QUERY;
 
+@Component
 public class ApplicationDao implements InsertDao<Application> {
 
     public Application fetchAllByParam(int id) throws SQLException {
