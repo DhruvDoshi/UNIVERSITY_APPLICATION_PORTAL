@@ -9,10 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.dal.universityPortal.constant.CommonConstant.INITIAL_APPLICATION_STATUS;
+import static com.dal.universityPortal.constant.CommonConstant.INITIAL_OUTCOME_TYPE;
 import static com.dal.universityPortal.database.query.ApplicationQuery.*;
-import static com.dal.universityPortal.database.query.PaymentQuery.FOREIGN_KEY_CHECKS;
-import static com.dal.universityPortal.database.query.ApplicationQuery.FETCH_APPLICATION_BY_ID_QUERY;
 import static com.dal.universityPortal.database.query.DashboardQuery.APPLICATIONS_FROM_STUDENT_ID;
+import static com.dal.universityPortal.database.query.PaymentQuery.FOREIGN_KEY_CHECKS;
 
 @Service
 public class ApplicationDao implements InsertDao<Application> {
@@ -49,16 +50,12 @@ public class ApplicationDao implements InsertDao<Application> {
     public void insert(Application application) throws SQLException {
         int program_id=application.getProgram_id();
         int student_id=application.getStudent_id();
-        String status ="Pending";
-        int processed_by = 0;
-        String comment="";
-        String outcome_type="Grade";
         try(DBSession dbSession = new DBSession()){
             dbSession.execute(FOREIGN_KEY_CHECKS);
             dbSession.execute(INSERT_APPLICATION, Arrays.asList(program_id,student_id,application.getSop(),
-                    status,processed_by,comment));
+                    INITIAL_APPLICATION_STATUS,0,""));
             dbSession.execute(INSERT_EDUCATION,Arrays.asList(student_id,application.getHighest_education(),
-                    application.getGrades(),outcome_type,application.getStart_date(),application.getEnd_date()));
+                    application.getGrades(), INITIAL_OUTCOME_TYPE,application.getStart_date(),application.getEnd_date()));
         }
 
     }

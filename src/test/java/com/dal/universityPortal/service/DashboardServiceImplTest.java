@@ -1,7 +1,6 @@
 package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Dashboard;
 import com.dal.universityPortal.model.Payment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,11 +8,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DashboardServiceImplTest {
 

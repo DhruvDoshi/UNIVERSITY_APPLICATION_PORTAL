@@ -3,7 +3,6 @@ package com.dal.universityPortal.database;
 import com.dal.universityPortal.model.AdminPanel;
 import com.dal.universityPortal.model.UserStatus;
 import com.dal.universityPortal.model.UserType;
-import com.dal.universityPortal.service.ProgramServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
