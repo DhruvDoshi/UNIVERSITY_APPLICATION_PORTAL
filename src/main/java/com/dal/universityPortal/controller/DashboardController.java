@@ -34,15 +34,15 @@ public class DashboardController {
     public String loadDashboard(Model model, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         int studentId = currentUser.getId();
-        List<Application> applicationList=dashboardService.readListApplication(studentId);
-        model.addAttribute("listApplication",applicationList);
+        List<Application> applicationList = dashboardService.readListApplication(studentId);
+        model.addAttribute("listApplication", applicationList);
         Dashboard dashboard = dashboardService.populateAttributes(applicationList);
-        List<Payment> paymentList=dashboardService.readListPayment(studentId);
-        for (Payment payment : paymentList){
+        List<Payment> paymentList = dashboardService.readListPayment(studentId);
+        for (Payment payment : paymentList) {
             dashboard.appPayment(payment.getAmount());
         }
         model.addAttribute("dashboard", dashboard);
-        model.addAttribute("listPayment",paymentList);
+        model.addAttribute("listPayment", paymentList);
         return "dashboard";
     }
 }

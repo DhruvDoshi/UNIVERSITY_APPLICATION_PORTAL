@@ -10,6 +10,8 @@ import java.util.List;
 public interface DashboardService {
 
     List<Application> readListApplication(int studentId) throws SQLException;
+
     List<Payment> readListPayment(int studentId) throws SQLException;
+
     Dashboard populateAttributes(List<Application> applicationList);
 }

@@ -6,5 +6,5 @@ import java.sql.SQLException;
 
 public interface PaymentService {
 
-    void savePayment (Payment payment) throws SQLException;
+    void savePayment(Payment payment) throws SQLException;
 }

@@ -28,7 +28,7 @@ public class PaymentController {
 
 
     @GetMapping(LOAD_PAYMENT + "/{id}")
-    public String loadPayment(@PathVariable (value = "id") int id,Model model) throws SQLException {
+    public String loadPayment(@PathVariable(value = "id") int id, Model model) throws SQLException {
         Payment payment = new Payment();
         payment.setApplication_id(id);
         List<Program> programList = new ProgramDao().fetchAll();
@@ -38,7 +38,7 @@ public class PaymentController {
     }
 
     @PostMapping(SAVE_PAYMENT + "/{id}")
-    public String savePayment(@PathVariable (value = "id") int id, @ModelAttribute("payment") Payment payment,HttpServletRequest request) throws SQLException {
+    public String savePayment(@PathVariable(value = "id") int id, @ModelAttribute("payment") Payment payment, HttpServletRequest request) throws SQLException {
         User currentUser = authenticationService.getCurrentUser(request.getSession());
         payment.setStudent_id(currentUser.getId());
         List<Program> programList = new ProgramDao().fetchAll();
