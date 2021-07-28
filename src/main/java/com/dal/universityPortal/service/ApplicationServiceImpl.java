@@ -2,13 +2,15 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ApplicationDao;
 import com.dal.universityPortal.model.Application;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
-    ApplicationDao applicationDao = new ApplicationDao();
+    @Autowired
+    private ApplicationDao applicationDao;
 
     @Override
     public Boolean saveApplication(Application application) throws SQLException {

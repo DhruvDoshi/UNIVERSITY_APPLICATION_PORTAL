@@ -1,11 +1,7 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Application;
-import com.dal.universityPortal.model.Program;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

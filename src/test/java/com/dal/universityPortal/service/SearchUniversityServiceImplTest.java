@@ -11,6 +11,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchUniversityServiceImplTest {
 
+    private static final String program1Name = "MACS";
+    private static final Integer program1Id = 1;
+    private static final String program2Name = "MCS";
+    private static final Integer program2Id = 2;
+    private static final Integer userId = 3;
+    private static final Integer university1Id = 10;
+    private static final String universityName = "Dalhousie University";
+    private static final String universityDescription = "University in Halifax";
+
     private SearchUniversityServiceImpl searchUniversityServiceImpl;
 
     @BeforeEach
@@ -20,11 +29,11 @@ public class SearchUniversityServiceImplTest {
 
     @Test
     void getUniversityDetailsTest() throws SQLException {
-        Program program = new Program(1, "MACS", 10);
+        Program program = new Program(program1Id, program1Name, university1Id);
         Program universityDetail = new Program();
-        universityDetail.setUserId(2);
-        universityDetail.setUniversityName("Dalhousie University");
-        universityDetail.setUniversityDescription("University in Halifax");
+        universityDetail.setUserId(userId);
+        universityDetail.setUniversityName(universityName);
+        universityDetail.setUniversityDescription(universityDescription);
         Program universityDetails = universityDetail;
         Mockito.doReturn(universityDetails).when(searchUniversityServiceImpl).getUniversityDetails(program);
         assertEquals(universityDetails, universityDetail);
@@ -32,8 +41,8 @@ public class SearchUniversityServiceImplTest {
 
     @Test
     void getProgramDetailsTest() throws SQLException {
-        Program program1 = new Program(1, "MACS", 10);
-        Program program2 = new Program(2, "MCS", 10);
+        Program program1 = new Program(program1Id, program1Name, university1Id);
+        Program program2 = new Program(program2Id, program2Name, university1Id);
         ArrayList<Program> programs = new ArrayList<>(Arrays.asList(program1, program2));
         Mockito.doReturn(programs).when(searchUniversityServiceImpl).getProgramDetails(program1.getUniversityId());
         assertEquals(2, programs.size());

@@ -2,6 +2,7 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ProgramDao;
 import com.dal.universityPortal.model.Program;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 @Service
 public class ProgramServiceImpl implements ProgramService{
 
-    ProgramDao programDao= new ProgramDao();
+    @Autowired
+    private ProgramDao programDao;
 
     @Override
     public Boolean saveProgram(Program program) throws SQLException {
@@ -23,7 +25,7 @@ public class ProgramServiceImpl implements ProgramService{
 
     @Override
     public List<Program> readProgram(int id) throws SQLException {
-        return programDao.fetchAllByParam(id);
+        return programDao.fetchAllByUniversityId(id);
     }
 
     @Override

@@ -12,9 +12,14 @@ import java.sql.SQLException;
 public interface AuthenticationService {
 
     void login(HttpSession session, Credential credential) throws SQLException, UnsupportedUser;
+
     void logout(HttpSession session);
+
     User getCurrentUser(HttpSession session);
+
     void sendPasswordCode(String username) throws SQLException, UnsupportedUser;
+
     void resetPassword(ResetCredential resetCredential) throws SQLException, ValidationException;
+
     String getRedirectLink(UserType type);
 }

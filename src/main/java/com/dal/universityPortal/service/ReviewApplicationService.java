@@ -7,6 +7,8 @@ import java.util.List;
 public interface ReviewApplicationService {
 
     List<Application> readList() throws SQLException;
+
     Application oneApplication(int id) throws SQLException;
+
     Boolean saveReviewApplication(Application application) throws SQLException;
 }

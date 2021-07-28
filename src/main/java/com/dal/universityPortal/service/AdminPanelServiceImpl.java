@@ -1,8 +1,11 @@
 package com.dal.universityPortal.service;
 
-import com.dal.universityPortal.database.AdminDao;
-import com.dal.universityPortal.model.AdminPanel;
+import com.dal.universityPortal.database.UserDao;
+import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.model.UserStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.List;
@@ -10,32 +13,35 @@ import java.util.List;
 @Service
 public class AdminPanelServiceImpl implements AdminPanelService{
 
-    AdminDao adminDao = new AdminDao();
+    Logger logger = LogManager.getLogger(AuthenticationServiceImpl.class);
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
-    public List<AdminPanel> getPendingStatusUniversities() throws SQLException {
-        List<AdminPanel> listUniversities = adminDao.fetchAll();
+    public List<User> getPendingStatusUniversities() throws SQLException {
+        List<User> listUniversities = userDao.fetchAllPendingUsers();
         return listUniversities;
     }
 
     @Override
-    public boolean allowUniversityById(AdminPanel adminPanel) throws SQLException {
+    public boolean allowUniversityById(User user) throws SQLException {
         try {
-            adminPanel.setStatus(UserStatus.ACTIVE.toString());
-            adminDao.update(adminPanel);
+            user.setStatus(UserStatus.ACTIVE);
+            userDao.setUserStatus(user);
         } catch (Exception exception) {
-            System.out.println(exception);
+            logger.error(String.format("Error changing status of university: %s", exception));
         }
         return true;
     }
 
     @Override
-    public boolean denyUniversityById(AdminPanel adminPanel) throws SQLException {
+    public boolean denyUniversityById(User user) throws SQLException {
         try {
-            adminPanel.setStatus(UserStatus.BLOCKED.toString());
-            adminDao.update(adminPanel);
+            user.setStatus(UserStatus.BLOCKED);
+            userDao.setUserStatus(user);
         } catch (Exception exception) {
-            System.out.println(exception);
+            logger.error(String.format("Error changing status of university: %s", exception));
         }
         return true;
     }

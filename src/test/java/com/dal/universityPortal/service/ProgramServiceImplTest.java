@@ -11,8 +11,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 public class ProgramServiceImplTest {
     private static final int program_id = 1;
@@ -45,7 +43,7 @@ public class ProgramServiceImplTest {
     @Test
     void readProgram() throws SQLException {
         programService.readProgram(program_id);
-        Mockito.verify(programDao).fetchAllByParam(program_id);
+        Mockito.verify(programDao).fetchAllByUniversityId(program_id);
     }
 
     @Test

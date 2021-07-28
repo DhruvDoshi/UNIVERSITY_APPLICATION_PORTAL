@@ -1,14 +1,17 @@
 package com.dal.universityPortal.database;
 
 import com.dal.universityPortal.model.Program;
+import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.dal.universityPortal.database.query.ProgramQuery.FETCH_ALL_PROGRAMS;
+import static com.dal.universityPortal.database.query.ProgramQuery.*;
 
+@Component
 public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteDao<Program> {
 
     @Override
@@ -26,12 +29,11 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
         return programs;
     }
 
-    //TODO: Rename to fetchAllByUniversityId
-    public List<Program> fetchAllByParam(int id) throws SQLException {
+    public List<Program> fetchAllByUniversityId(int id) throws SQLException {
         List<Map<String, Object>> programList;
         List<Program> programs = new ArrayList<>();
         try (DBSession dbSession = new DBSession()) {
-            programList = dbSession.fetch("SELECT * from program where university_id = ?", Arrays.asList(id));
+            programList = dbSession.fetch(FETCH_PROGRAMS_BY_UNIVERSITY_ID, Arrays.asList(id));
             for (Map<String, Object> mapProgram : programList) {
                 Program program = new Program();
                 program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
@@ -43,12 +45,27 @@ public class ProgramDao implements SelectDao<Program>,InsertDao<Program>,DeleteD
         return programs;
     }
 
+    public Program fetchAllByApplicationId(int id) throws SQLException {
+        List<Map<String, Object>> programList;
+        Program program = new Program();
+        try (DBSession dbSession = new DBSession()) {
+            programList = dbSession.fetch(FETCH_PROGRAMS_BY_APPLICATION_ID, Arrays.asList(id));
+            for (Map<String, Object> mapProgram : programList) {
+                program.setId(Integer.parseInt(String.valueOf(mapProgram.get("id"))));
+                program.setUniversityId(Integer.parseInt(String.valueOf(mapProgram.get("university_id"))));
+                program.setName(String.valueOf(mapProgram.get("name")));
+            }
+        }
+        return program;
+    }
+
+
     @Override
     public void insert(Program program) throws SQLException {
         try (DBSession dbSession = new DBSession()) {
-            dbSession.execute("SET FOREIGN_KEY_CHECKS=OFF;");
+            dbSession.execute(SET_FOREIGN_CHECKS_OFF);
             dbSession.setAutoCommit(false);
-            dbSession.execute("INSERT INTO program (name,university_id) VALUES (?,?)", Arrays.asList(program.getName(),
+            dbSession.execute(INSERT_INTO_PROGRAM, Arrays.asList(program.getName(),
                     program.getUniversityId()));
             dbSession.setAutoCommit(true);
         }

@@ -2,6 +2,7 @@ package com.dal.universityPortal.service;
 
 import com.dal.universityPortal.database.ReviewApplicationDao;
 import com.dal.universityPortal.model.Application;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 @Service
 public class ReviewApplicationServiceImpl implements ReviewApplicationService {
 
-    ReviewApplicationDao reviewApplicationDao = new ReviewApplicationDao();
+    @Autowired
+    private ReviewApplicationDao reviewApplicationDao;
 
     @Override
     public List<Application> readList() throws SQLException {
