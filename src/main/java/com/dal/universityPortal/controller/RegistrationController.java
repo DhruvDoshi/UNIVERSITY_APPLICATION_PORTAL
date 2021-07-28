@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import java.sql.SQLException;
+
 import static com.dal.universityPortal.constant.ErrorConstant.UNEXPECTED_ERROR;
 import static com.dal.universityPortal.constant.UrlConstant.LOGIN;
 import static com.dal.universityPortal.constant.UrlConstant.REGISTRATION;
@@ -19,7 +21,7 @@ import static com.dal.universityPortal.constant.UrlConstant.REGISTRATION;
 public class RegistrationController {
 
     @Autowired
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
     @GetMapping(REGISTRATION)
     public String registrationPage(Model model) {

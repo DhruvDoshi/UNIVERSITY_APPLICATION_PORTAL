@@ -11,8 +11,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 public class ProgramServiceImplTest {
     private static final int program_id = 1;

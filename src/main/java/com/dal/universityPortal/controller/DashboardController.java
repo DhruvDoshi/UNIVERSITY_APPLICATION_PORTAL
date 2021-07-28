@@ -1,14 +1,17 @@
 package com.dal.universityPortal.controller;
 
-import com.dal.universityPortal.model.*;
+import com.dal.universityPortal.model.Application;
+import com.dal.universityPortal.model.Dashboard;
+import com.dal.universityPortal.model.Payment;
+import com.dal.universityPortal.model.User;
 import com.dal.universityPortal.service.AuthenticationService;
 import com.dal.universityPortal.service.DashboardService;
-import com.dal.universityPortal.service.ReviewApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,9 +26,6 @@ public class DashboardController {
 
     @Autowired
     private DashboardService dashboardService;
-
-    @Autowired
-    private ReviewApplicationService reviewApplicationService;
 
     @Autowired
     private AuthenticationService authenticationService;
